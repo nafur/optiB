@@ -31,7 +31,18 @@ keinen Weg doppelt laufen und es gilt $g = \sum\limits_{e \in E} \delta(e)$.
 
 \subsection{}
 \begin{enumerate}
+\item Sei $V_{odd} \subseteq V$ die Menge der Knoten mit ungeradem Grad.
+\item Sei $E_{odd}$ eine Menge von Kanten mit $(v_1, v_2) \in E_{odd}$ für alle $v_1, v_2 \in V_{odd}$ und $\delta^*(v_1, v_2)$ die Länge des kürzesten Pfades zwischen $v_1$ und $v_2$.
+\item Berechne ein (optimales, perfektes) Matching $M$ auf $G_{odd} = (V_{odd}, E_{odd})$.
+\item Für jedes $m = (u_m, v_m) \in M$: Füge neuen Knoten $r_m$ in $V_{odd}$ und Kanten $(u_m, r_m), (r_m, v_m)$ in $E_{odd}$ mit $\delta(u_m, r_m) = \delta^*(u_m, v_m)$, $\delta(r_m, v_m) = 0$.
+\item Berechne Eulertour auf dem so ergänzten Graphen.
+\item Ersetze vorher ergänzte Kanten und Knoten durch den kürzesten Pfad zwischen den beiden Knoten.
+\item Gebe den so erzeugten Kreis zurück.
 \end{enumerate}
 
+Beweis der Korrektheit:
+
+In der optimalen Tour müssen alle Kanten mindestens einmal enthalten sein.
+Sei $V_{odd}$ die Menge der Knoten mit ungeradem Grad.  
 
 \end{document}
