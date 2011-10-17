@@ -1,0 +1,65 @@
+
+\setcounter{lecture}{1}
+\setcounter{section}{2}
+
+\lec 2011-10-13
+
+
+\begin{defn}[connected]
+A graph is called \new{connected} (zusammenhängend) if there exists a [s,t]-Path between all pairs of vertices $s,t \in V$.
+\end{defn}
+
+\begin{defn}[forrest, tree, spanning, forest problem, minimum spanning tree]
+A \new{forest} (Wald) is a graph that does not contain a cycle (Kreis). A connected forest is called a \new{tree} (Baum). A tree in a graph (as subgraph) is called \new{spanning} (aufspannend), if it contains all vertices.
+
+Given a graph $G=(V,E)$ with edge weights $c_e \in \mathbb{R}$ for all $e \in E$, the task to find a forest $W \subset E$ such that $c(W):=\sum\limits_{e\in W} $ is maximal, is called the \new{Maximum Forest Problem} (Problem des maximalen Waldes). 
+The task to find a tree $T\subset E$ which spans $G$ and which weight $c(T)$ is minimal, is called the \new{Minimum Spanning Tree} (MST) problem (minimaler Spannbaum).
+\end{defn}
+
+\begin{lem}
+A tree $G=(V,E)$ with at leat 2 vertices has at least 2 vertices of degree 1.
+\end{lem}
+\begin{proof}
+Let $v$ be arbitrary. Since $G$ is connected, $deg(v) \geq 1$. Assume $deg(v)=1$. So $\delta(v)=\{vw\}$. If $deg(w)=1$, we found two vertices with $degree$ 1. If $deg(w)>1$, there exist a neighbour of $w$, different from $v:u$. Now, again $u$ has $degree$ 1 or higher. If we repeat this procedure we either find a vertix of degree 1 or find again \new{new} vertices. Hence, after at most $n-1$ vertices we end up at a vertex of degree 1. 
+Now, if $deg(v) \geq 2$, we do the same and find a vertex of degree 1, say $w$. Then repeat the above, staring from $w$ to find a second vertex of degree 1.
+\end{proof}
+
+\begin{cor}
+A tree $G=(V,E)$ with maximum degree $\Delta$ has at least $\Delta$ vertices of degree 1.
+\end{cor}
+
+\begin{lem}
+	\begin{enumerate}
+	\item For every graph $G=(V,E)$ it holds that 2$|E|=\sum\limits_{u \in V} deg(u)$
+	\item for every tree $G=(v,E)$ it holds that $|E|=|V|-1$.
+	\end{enumerate}
+	\end{lem}
+
+\begin{proof}
+
+
+
+	\begin{enumerate}
+		\item trivial
+		\item Proof by induction. Clearly, if $|V|=1$ or $|V|=2$ it holds. Assumption: true for $n \geq 2.$
+		Let $G$ be a tree with $n+1$ vertices. By Lemma 2.3, there exists a vertex $v \in G$ with $deg(v)=1. G-v=G[V\setminus \{v\}$ is a tree again with $n$ vertices and thus $|E(G-v)|=V(G-v)|-1$. Since G differs by one vertex and one edge from $G-v$, the claim holds got $G$ as well.
+	\end{enumerate}
+\end{proof}
+
+
+\begin{lem}
+If $G=(V,E)$ whith $|V| \geq 2$ has $|E|< |V|-1, G$ is not connected.
+\end{lem}
+
+\section*{Algorithm MST}
+$min_{x \in X} = -max_{x \in X} -c(x)$ \sout{maximal forest}\\
+X spanning trees\\
+$min_{x \in X} + (n-1)D= -max_{x \in X} -c(x) (n-1)D =max_{x\in X} \sum \underbrace{D-C_{ij}x_{ij}}_{\geq 0 if D \geq max_{ij \in E} c_{ij}}$
+
+\begin{thm}
+Kruskal's Algorithm returns the optimal solution.
+\end{thm}
+\begin{proof}
+Let $T$ be Kruskal's tree and assume there exists a tree $T'$ with $c(T') < c(T)$. Then there exist an edge $e' \in T'\setminus T$. Then $T \cup \{e'\} $ contains a cycle $\{e_1, e_2, \hdots, e_k, e'\}$. Let $ c_f=max_{i=1, \hdots k}c_{l_i} $. 
+At the moment Kruskal chooses edge $f$, edge $e'$ cannot be added yet and therefore $c(e')\geq c(f)$. Now exchange $e'$ by $f$ in $T'$. Hence the number of differences beetween $T'$ and $T$ is reduced by one, $C(T'_{new})\leq c(T') < c(T)$. Repeating the procedure results in $c(T) \leq \hdots < c(T)$, a contradiction.
+\end{proof}

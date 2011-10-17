@@ -1,0 +1,53 @@
+\documentclass[a4paper,twoside,10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{cmbright}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[normalem]{ulem}
+
+\begin{document}
+
+\let\oldenum\enumerate
+\let\endoldenum\endenumerate
+\renewenvironment{enumerate}{
+\begin{oldenum}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{oldenum}}
+
+\definecolor{highlight}{cmyk}{0.8,0,0.38,0.34}
+\newcommand{\new}[1]{\emph{\textcolor{highlight}{#1}}}
+
+\newtheoremstyle{style}
+   {}
+   {}
+   {}
+   {}
+   {\normalfont\bfseries}
+   {:}
+   {\newline} 
+   {}
+
+\theoremstyle{style}
+
+\newtheorem{thm}[subsection]{Theorem}
+\newtheorem{defn}[subsection]{Definition}
+\newtheorem{lem}[subsection]{Lemma}
+\newtheorem{cor}[subsection]{Corollary}
+
+\newcounter{lecture}
+\newtheorem{lec}[lecture]{Lecture}
+
+\renewcommand{\labelenumi}{(\alph{enumi})} %erste Ebene (a)
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\N}[0]{\mathbb{N}}
+
+\include{vl02/vl02}
+
+\end{document}
