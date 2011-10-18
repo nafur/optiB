@@ -3,10 +3,13 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex}
+
 % Kopfzeile
 \lhead{Optimierung B}
 \chead{Übung 1}
-\rhead{Gereon Kremer 288911}
+\rhead{Niklas Fischer 298418 \\ Gereon Kremer 288911}
 
 % Fußzeile
 \lfoot{}
@@ -43,6 +46,59 @@ keinen Weg doppelt laufen und es gilt $g = \sum\limits_{e \in E} \delta(e)$.
 Beweis der Korrektheit:
 
 In der optimalen Tour müssen alle Kanten mindestens einmal enthalten sein.
-Sei $V_{odd}$ die Menge der Knoten mit ungeradem Grad.  
+Sei $V_{odd}$ die Menge der Knoten mit ungeradem Grad.
+Ist $V_{odd} = \emptyset$, so existiert eine Eulertour, die automatisch
+optimal ist, da jede Kante nur einmal enthalten ist. Der Algorithmus liefert
+in diesem Fall genau eine solche Tour zurück.
+
+Falls $V_{odd} \neq \emptyset$ so ist $| V_{odd} |$ gerade. Da der erzeugte
+Graph $(V_{odd}, E_{odd})$ vollständig ist, existiert stets ein optimales,
+perfektes Matching. Es bleibt zu zeigen, dass die mithilfe des Matchings
+konstruierte Eulertour optimal ist.
+
+Da jeder Knoten in einem Kreis zu gerade vielen Kanten des Kreises
+inzident ist, müssen bei jedem Knoten in $V_{odd}$ ungerade viele Kanten, also
+insbesondere mindestens eine Kante, doppelt verwendet werden, um eine Eulertour
+zu erhalten.
+
+Wir betrachten nun die von den doppelt verwendeten Kanten induzierten Pfade.
+Von jedem Knoten in $V_{odd}$ startet ein solcher Pfad $p$. Würde $p$ in
+einem Knoten aus $V \setminus V_{odd}$ enden, so hätte dieser Knoten
+dann ungeraden Grad, was der Anforderung widerspricht, am Ende eine
+Eulertour im erweiterten Graphen zu berechnen. Daher muss der Pfad fortgeführt werden und ein einem
+Knoten aus $V_{odd}$ enden. 
+
+Es müssen also Pfade zwischen je zwei Knoten aus $V_{odd}$ existieren, deren
+Kanten doppelt verwendet werden. Offensichtlich müssen diese Pfade möglichst
+kurz gehalten werden. Dies wird durch die Berechnung eines optimalen
+Matchings erreicht.
+
+\section{Aufgabe 4}
+
+Beweis:
+
+Gegeben sei ein Graph $G = (V, E)$ mit $\deg(v) \geq \delta \; \forall v \in V$.
+Laut Vorlesung ist $G$ ein einfacher Graph, er enthält also keine Schlingen
+oder parallele Kanten.
+
+Beginne an beliebigen Knoten $v_0 \in V$. Es existieren dann mindestens
+$\delta$ Kanten von $v_0$ aus, insbesondere also eine Kante $e_0 = \{v_0,
+v_1\}$.
+
+Da $G$ einfach und $\deg(v_i) \geq \delta$ existiert von jedem Knoten $v_i$
+aus mindestens eine Kante, die nicht zu einem Knoten in $\{
+v_{\max(i-\delta+1, 0)}, ..., v_i\}$ führt. Führt diese Kante zu einem
+bereits besuchten Knoten, so ist direkt ein Kreis der gewünschten Länge
+gefunden.
+
+Da $G$ endlich muss aber nach endlich vielen Schritten ein letzter Knoten $v_k$
+gefunden werden und dessen Kanten allesamt zu bereits besuchten Knoten führen.
+Da insbesondere auch $\deg(v_k) \geq \delta$, muss mindestens eine Kante zu
+einem Knoten in $\{ v_0, ..., v_{k-\delta}\}$ führen und einen Kreis der
+Länge mindestens $\delta + 1$ schließen.
+
+Ist der letzte Knoten $v_k$ mit einer Kante $e_k = \{v_k, v_j\}$ mit $j \in
+\{0, ..., k-\delta-1\}$, so ist der Pfad $v_j e_j ... e_{i-1} v_i e_i v_j$ ein Kreis der Länge $L > \delta$, insbesondere
+also $L \geq \delta + 1$.
 
 \end{document}
