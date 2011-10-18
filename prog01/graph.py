@@ -60,6 +60,15 @@ def writelgf(graph, filename):
 			if y in graph[x]:
 				f.write(str(x+1) + " " + str(y+1) + " " + str(graph[x][y]) + "\n")
 
+def readterminals(filename):
+	nodes = []
+	f = file(filename)
+	lines = f.readlines()
+	f.close()
+	for l in lines:
+		nodes.append(int(l))
+	return nodes
+
 # generate all edges sorted by weigth
 def edgeAscGenerator(graph):
 	a = []
