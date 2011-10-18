@@ -1,0 +1,94 @@
+\begin{lec}[2011-10-17]\end{lec}
+
+\begin{defn+}
+The \new{running time of algorithms} (Laufzeit) of an algorithm is measured by the number of operations needed in worst case of a function of the input size. We use the $O(\cdot)$ notation (Big-O-notation) ot focus on the most important factor of the running time, ignoring constants and smaller factors.
+\end{defn+}
+
+\begin{xmp+}
+	If the running time is $3n \cdot \log n + 26n$, the algorithm runs in $O(n \cdot \log n)$. If the running time is $3n \cdot \log n + 25 n^2$, the algorirthm runs in $O(n^2)$.
+\end{xmp+}
+
+For graph Problems, the running is expressed in the number of vertices $n=|V|$ and the number of edges $m=|E|$. Sometimes $m$ is approximated by $n^2$.
+
+\begin{xmp+}[Kruskal's Algorithm]
+	First, the edged are sorted according to nondecreasing weights. This can be done in $O(m\cdot \log m)$. Next, we repeatedly select an edge or reject its selection until $n-1$ edges are selected. Since the last selected edge might be after $m$ steps, this routine is performed at most $O(m)$ times.
+	
+	Checking whether the end nodes of $\{u,v\}$ are already in the same tree can be done in constant time, if we label the vertices of the trees selected so far: $r(u) = \# trees\: containing\: u$. If $r(u) \neq r(v)$, the trees are connected by $\{u,v\}$ to a new tree. 
+	
+	Without going into details, the resetting of labels in one of the old trees, can be done $O(\log n)$ on average. Since this update has to be done at most $n-1$ times, it takes $O(n\cdot \log n)$. 
+	
+	Overall, Kruskal runs in \[ O(n \log m + m + n \cdot \log n) = O(m \cdot \log m) = O(m \cdot \log n^2) = O(m \cdot \log n) \]
+\end{xmp+}
+
+\begin{defn+}[Shortest paths in acyclic digraphs]
+A directed graph (digraph) $D=(V,A)$  is called \new{acyclic} (azyklisch) if it does not contain any \new{directed cycles}, i.e. a \new{chain} (Kette) $(v_0,a_1,v_1,a_2,v_2, … a_k,v_k)$, $k \geq 0$, with $a_i(v_{i-1},v_i) \in A$ and $v_k = v_0$. In particular, D does not contain \new{antiparallel} arcs: if $(u,v)\in A$, $(v,u)\not \in A$. With $\delta_D^+(v)$ we denote the arcs leaving vertex v: 
+\[ \delta_D^+(v) = \{(u,w) \in A: u = v\}\]
+similarly:
+\[\delta_D^-(v) = \{(u,w) \in A: w = v\}\]
+are the arcs entering v.
+
+The \new{outdegree} of $v$ is $\deg^+_D(v) = | \delta^+(v) |$ (assuming simple digraph)
+
+The \new{indegree} of $v$ is $\deg^-_D(v) = | \delta^-(v)|$
+\end{defn+}
+
+\setcounter{section}{3}
+\setcounter{subsection}{0}
+
+\begin{defn}
+	The \new{shortest path} problem in a acyclic digraph is, given an acyclic digraph $D=(V,A)$, a length function $C: A\rightarrow \R$ and two vertices $s,t\in V$, find a $[s,t]$-path of minimal length.
+\end{defn}
+
+\begin{qstn}
+Does there exist a $[s,t]$-path at all?
+\end{qstn}
+\begin{thm}
+A digraph $D = (V, A)$ is acyclic, if and only if there exists a permutaion $\sigma : V \rightarrow \{ 1, .., n \}$ of the vertices such that $\deg^-_{D [v_1, …,  v_n]} (v_i) = 0$ for all $i = 1, …, n$ with $v_i = \sigma^{-1}(i)$.
+\end{thm}
+\begin{proof}
+By induction:
+
+For digraph with $| V |=1$, the statement is true. Assume the statement is true for all digraphs with $|V| \leq n$ and consider $D = (V, A)$ acyclic with $n+1$ vertices. 
+If there does not exist a vertex with $\deg_D^-(v) = 0$, a directed cycle can be detected by following incoming arcs backwards until a vertex is repeated, a contradiction regarding the acyclic property of $D$.
+
+Hence, let $v$ be a vertex with $\deg^-_D(v)=0$. Set $v_1 = v$. The digraph $D - v_1$ has $n$ vertices and is acyclic, and thus has a permutation $(v_2, …, v_{n+1})$ with
+\[ \deg^-_{D[v_i, …, v_{n+1}]}(v_i) = 0 \qquad \forall i = 2, …, n+1 \]
+Now, $(v_1, …, v_{n+1})$ is a permutation fulfilling the condition.
+
+In reverse, if there exists a permutation $(v1, …, v_{n+1})$, $\deg^-_D(v_1) = 0$ and there cannot exist a directed cycle containing $v_1$. By induction, neither cycles containing $v_i, i = 2, …, n+1$ exist.
+\end{proof}
+
+\begin{thm}
+A $[s,t]$-path exists in a acyclic Digraph $D = (V, A)$ if and only if in all permutations $\sigma: V \rightarrow \{ 1, …, n\}$ with $\deg^-_{D[v_i, …, v_n]}(v_i) = 0$ for all $i = 1, …, n$, it holds that $\sigma(s) < \sigma(t)$.
+\end{thm}
+\begin{proof}
+Assume there exists a permutation $\sigma$ with $\sigma(s) > \sigma(t)$. Since outgoing arcs only go to higher ordered vertices, there does not exist a path from $s$ to $t$ in $D$.
+
+In reverse, if there does not exist a path from $s$ to $t$, we order all vertices with paths to $t$ first, followed by $t$ and $s$ afterwards. 
+\end{proof}
+
+\begin{qstn}
+How do we find the shortest $[s, t]$-path if it exists?
+\end{qstn}
+To simplify notation, let $V = \{1, …, n\}, s=1, t=n$ and $(i, j) \in A \Rightarrow i < j$.
+Let $D(i)$ be the distance from $i$ to $n$ and $NEXT(i)$ be the next vertex on the shortest path from $i$ to $n$.
+
+\subsubsection*{Bellmann's Algorithm}
+\begin{enumerate}
+\item $D(i) = \{ \infty: i<n and NEXT(i) = NIL, 0: i = n \}$
+\item FOR $i = n-1$ DOWNTO $1$ DO
+\item \qquad $D(i) = \min\limits_{j=i+1, …, n} \{ D(j) + c(i, j) \}$ with $c(i, j) = \infty$ if $(i, j) \not\in A$
+\item \qquad $NEXT(i) = argmin_{j=i+1, …, n} \{ D(j) + c(i, j) \}$
+\end{enumerate}
+
+\begin{thm}
+Bellmann's Algorithm is correct and runs in $O(m + n)$ time.
+\end{thm}
+\begin{proof}
+Every path from $1$ to $n$ passes through vertices of increasing ID. Assume there exists a path $(a_1, …, a_k)$ with $\sum_{i=1}^k c(a_i) < D(1)$.
+Let $a_1 = (1, j_1)$. Since $D(1) \leq c(a_1) + D(j_1)$, it should hold that
+\[ \sum\limits_{i=2}^2 c(a_i) < D(j_1) \]
+But $D(j_1) \leq c(a_2) + D(j_2)$ with $a_2 = (j_1, j_2)$, etc.
+
+In the end, $c(a_k) < D(j_{k-1})$ but $D(j_{k-1}) \leq c(a_k) + D(n) = c(a_k)$, contradiction.
+\end{proof}

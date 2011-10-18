@@ -11,15 +11,6 @@
 
 \begin{document}
 
-\let\oldenum\enumerate
-\let\endoldenum\endenumerate
-\renewenvironment{enumerate}{
-\begin{oldenum}
-  \setlength{\itemsep}{1pt}
-  \setlength{\parskip}{0pt}
-  \setlength{\parsep}{0pt}
-}{\end{oldenum}}
-
 \definecolor{highlight}{cmyk}{0.8,0,0.38,0.34}
 \newcommand{\new}[1]{\emph{\textcolor{highlight}{#1}}}
 
@@ -36,18 +27,42 @@
 \theoremstyle{style}
 
 \newtheorem{thm}[subsection]{Theorem}
+\newtheorem{sat}[subsection]{Satz}
 \newtheorem{defn}[subsection]{Definition}
+\newtheorem{defn+}[subsubsection]{Definition}
 \newtheorem{lem}[subsection]{Lemma}
 \newtheorem{cor}[subsection]{Corollary}
+\newtheorem{bsp}[subsection]{Beispiel}
+\newtheorem{xmp}[subsection]{Example}
+\newtheorem{xmp+}[subsubsection]{Example}
+\newtheorem{bem}[subsection]{Bemerkung}
+\newtheorem{bem+}[subsubsection]{Bemerkung} %für nicht im krieg skript vorhandene Bemerkungen
+\newcounter{question}
+\newtheorem{qstn}[question]{Question}
 
 \newcounter{lecture}
 \newtheorem{lec}[lecture]{Lecture}
+\newtheorem{vl}[lecture]{Vorlesung}
 
 \renewcommand{\labelenumi}{(\alph{enumi})} %erste Ebene (a)
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\Q}[0]{\mathbb{Q}}
 \newcommand{\R}[0]{\mathbb{R}}
 \newcommand{\C}[0]{\mathbb{C}}
-\newcommand{\N}[0]{\mathbb{N}}
+
+\renewcommand{\Re}[0]{\operatorname{Re}}
+\renewcommand{\Im}[0]{\operatorname{Im}}
+\newcommand{\sgn}[0]{\operatorname{Sgn}}
+%\newcommand{\deg}[0]{\operatorname{deg}}
+%\newcommand{\det}[0]{\operatorname{det}}
+
+\renewcommand{\thesubsubsection}[0]{\thesubsection(+\arabic{subsubsection})}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25em}
 
 \include{vl02/vl02}
+\include{vl03/vl03}
 
 \end{document}
