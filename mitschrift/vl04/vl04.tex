@@ -67,7 +67,6 @@ after $m+1$ changes is either a downgoing arc if $m+1$ is odd or an upgoing
 arc if $m+1$ is even. We restrict ourselves to $m+1$ odd ($m+1$ even is
 similar).
 
-%TODO: ref ist kaputt
 To compute the minimum length path in (\ref{item:bellman:b}) we use an
 additional induction on $i= n, n-1, ..., j+1$. Since every path ending at
 $n$ ends with an upgoing arc, there do not exist such $[1,n]$-paths.
@@ -76,5 +75,37 @@ Hence, $D(n, m+1) = D(n, m)$.
 Now assume that $D(k, m+1)$ is correctly computed for $i \leq k \leq n$. The
 shortest path from $1$ to $i-1$ with exactly $m+1$ changes ends with a
 downgoing arc $(j, i-1)$, $j > i-1$.
+
+$D(j, m+1)$ is already computed correctly. If $PREV(j) > j$, no change of
+direction is required in $j$ and $D(i-1, m+1) = D(j, m+1) + c(j,i-1)$
+If $PREV(j) < j$, the last avec of the $[1,j]$-Path is upgoing, and thus $D(i-1,m+1)=D(j,m)+c(j,i)$. The last change of direction at $j$ is thus, in worst case, the $(m+1)$-st change. Hence, $D(i-1,m+1)$ fulfills the statement. 
 \end{itemize}
 \end{proof}
+
+\begin{rem}
+In fact, the algorithm finds the minimum length of a chain (kette) with at most $n-2$ changes of direction. In case of negative weighted cycles these might be in a chain several times. 
+
+In case no negative weighted cycles exist, the min. length chains are indeed paths. Hence, the algoithm only works correctly if \emph{all} cycles are non-negative weighted.
+\end{rem}
+
+\begin{rem}
+If a further executing of the subroutine $(m=n-1)$ results in at least one change of a value $D(i)$, then the digraph contains negative weighted cycles.
+\end{rem}
+
+\begin{rem}
+A more efficient implementation is given by E'sopo-Pape-Variant.
+\end{rem}
+
+\subsection*{Dijkstra's Algorithm for non-negative weights}
+
+\begin{thm}
+Dijkstra returns the shortest paths from $1$ to $i, i=\hdots n$, provided all weights $\geq 0$.
+\end{thm}
+
+\begin{proof}
+Each step, one vetex is moved from $T$ to $S$. At the end of a step, $D(j)$ is the shortest path from $1$ to $j$ via vertices in $S$. 
+
+If $S=V (T= \emptyset), D(i)$ is thus the shortiest $[1,i]$-path
+\end{proof}
+
+v
