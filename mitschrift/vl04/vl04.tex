@@ -1,0 +1,48 @@
+\begin{lec}[2011-10-20]\end{lec}
+
+\begin{thm} % 3.4
+Bellman's Algorithm is correct and runs in $O(m + n) = O(n)$.
+\end{thm}
+\begin{proof}
+of runtime:
+
+\[ D(i) = \min\limits_{(i,j) \in A} D(j) + D(i, j) \]
+
+$\Rightarrow$ Every arc is considered once, and thus overall $O(m)$
+computations are needed. Initialization costs $O(n)$.
+\end{proof}
+
+\begin{bem+}
+The running time does not contain the time to find the permutation.
+\end{bem+}
+
+Observation 1: We not only found the shortest path from $1$ to $n$, but
+also from $i$ to $n$, $i = 2, ..., n$.
+
+Observation 2: We can use a similar procedure for the shortest path from
+$1$ to $i$, $i = 2, ..., n$. (with $PREV(i)$ for previous instead of
+$NEXT(i)$).
+
+\begin{qstn}
+Can we find a shortest path from $1$ to $i$ in a digraph that is
+not acyclic, i.e. it contains cycles?
+\end{qstn}
+
+\begin{thm} % 4.1
+The Moore-Bellman-Algorithm returns the shortest paths from $1$ to $i = 1,
+..., n$ provided $D$ does not contain negative-weighted directed cycles.
+\end{thm}
+\begin{proof}
+We call an arc $(i, j) \in A$ an \emph{upgoing} arc (Aufwärtsbogen) if $i < j$ and a
+\emph{downgoing} arc (Abwärtsbogen) if $i > j$.
+
+A shortest path from $1$ to $i$ contains at most $n-1$ arcs. If an upgoing
+arc is followed by a downgoing arc (or vice versa), we have a \emph{change
+of direction} (Richtungswechsel). With at most $n-1$ arcs, at most $n-2$
+changes of direction are possible.
+
+Let $D(i, m)$ be the value of $D(i)$ at the end of the $m$-th iteration.
+We will show (and this is enough):
+\[ D(i, m) = min \{ c(W): \textrm{$W$ is the directed $[1,i]$-path with at most $m$
+changes of directions} \} \]
+\end{proof}
