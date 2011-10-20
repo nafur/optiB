@@ -11,8 +11,16 @@ using std::ostream;
 #include "edge.h"
 
 struct graph{
+	typedef map<vertex::vertex_id, vertex>::iterator vertex_it;
 	map<vertex::vertex_id, vertex> vertices;
-	map<vertex::vertex_id, map<vertex::vertex_id, edge>> edges;
+	
+	graph& add_vertex(vertex::vertex_id);
+	graph& rm_vertex(vertex::vertex_id);
+	vertex& get_vertex(vertex::vertex_id, vertex_it&);
+	vertex& get_vertex(vertex::vertex_id);
+	
+	graph& connect(vertex::vertex_id, vertex::vertex_id, const edge&);
+	graph& disconnect(vertex::vertex_id, vertex::vertex_id);	
 	
 	istream& readlgf(istream&);
 	ostream& writelgf(ostream&);
