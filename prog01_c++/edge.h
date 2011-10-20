@@ -1,5 +1,6 @@
 #pragma once
 
 struct edge{
-	unsigned int weight;
+	typedef unisgned_int weight_type;
+	weight_type weight;
 };
