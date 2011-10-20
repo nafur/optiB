@@ -3,3 +3,5 @@ lemon
 *.aux
 *.log
 *.png
+*.o
+*.exe
