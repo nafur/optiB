@@ -88,3 +88,7 @@ ostream& graph::writelgf(ostream& os){
 	
 	return os;
 }
+
+bool graph::has_vertex(vertex::vertex_id id) const{
+	return vertices.find(id) != vertices.end();
+}

@@ -20,4 +20,6 @@ struct graph{
 	
 	std::istream& readlgf(std::istream&);
 	std::ostream& writelgf(std::ostream&);
+	
+	bool has_vertex(vertex::vertex_id) const;
 };
