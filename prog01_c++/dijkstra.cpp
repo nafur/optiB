@@ -4,6 +4,11 @@
 #include <set>
 #include <limits>
 
+using std::map;
+using std::priority_queue;
+using std::set;
+using std::numeric_limits;
+
 struct vert
 {
 	vertex::vertex_id v;
