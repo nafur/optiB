@@ -1,6 +1,6 @@
 CXX=g++ -Wall -Werror -g -std=c++0x ${OPTIMIZE}
 
-OBJECTS=graph.o vertex.o edge.o
+OBJECTS=graph.o vertex.o edge.o dijkstra.o
 
 TEMPLATES=#
 

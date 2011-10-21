@@ -8,6 +8,8 @@ using std::pair;
 using std::string;
 using std::stringstream;
 using std::getline;
+using std::istream;
+using std::ostream;
 
 graph& graph::add_vertex(vertex::vertex_id id){
 	assert(vertices.insert(std::pair<vertex::vertex_id, vertex>(id,vertex(id))).second);
