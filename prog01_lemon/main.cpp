@@ -43,14 +43,13 @@ int main()
 
 		int uid = rand() % countNodes(g);
 		int vid = rand() % countNodes(g);
-		int vi=vid, ui=uid;
 		ListGraph::Node u, v;
-		for (ListGraph::NodeIt n(g); n != INVALID; ++n, --ui, --vi)
+		for (ListGraph::NodeIt n(g); n != INVALID; ++n, --uid, --vid)
 		{
-			if (ui == 0) u = n;
-			if (vi == 0) v = n;
+			if (uid == 0) u = n;
+			if (vid == 0) v = n;
 		}
-		cout << "Calculating distance between " << uid+1 << " and " << vid+1 << " using dijkstra..." << endl;
+		cout << "Calculating distance between " << g.id(u)+1 << " and " << g.id(v)+1 << " using dijkstra..." << endl;
 		START_TIMER(tmr_dist)
 		Dijkstra dij(g, weight);
 		dij.dijkstra(u);
