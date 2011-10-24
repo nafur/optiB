@@ -1,4 +1,4 @@
-CXX=g++ -Wall -Werror -g -std=c++0x -O2
+CXX=g++ -Wall -Werror -g -std=c++0x
 
 OBJECTS=dijkstra.o prim.o
 

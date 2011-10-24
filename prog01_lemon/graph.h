@@ -19,7 +19,7 @@ struct cmpEdge
 	
 	bool operator<(const cmpEdge& e) const
 	{
-		return this->w < e.w;
+		return this->w > e.w;
 	}
 };
 
@@ -39,6 +39,6 @@ struct cmpNode
 	
 	bool operator<(const cmpNode& n) const
 	{
-		return this->w < n.w;
+		return this->w > n.w;
 	}
 };
