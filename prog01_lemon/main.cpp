@@ -11,11 +11,9 @@ using namespace lemon;
 
 int main()
 {
-	cout << "Fooo" << endl;
-	
 	ListGraph g;
 	ListGraph::EdgeMap<int> weight(g);
-	graphReader(g, "Graph1.lgf").edgeMap("weight", weight).run();
+	graphReader(g, "data/Graph1.lgf").edgeMap("weight", weight).run();
 	
 /*
 	Dijkstra dij(g, weight);
