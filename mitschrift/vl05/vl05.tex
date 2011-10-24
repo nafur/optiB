@@ -1,0 +1,98 @@
+\begin{lec}[2011-10-24]\end{lec}
+
+Shortest pahts between all pairs of vertices
+
+Solution 1: Apply Moore-Bellman or Dijkstra to all vertices $i$ as starting vertex
+
+Solution 2: Apply Floyd's Algorithm
+
+Notation: 
+\begin{align*}
+w_{ij} &= \text{length of the shortest $[i,j]$-path, $i \neq j$} \\
+w_{ii} &= \text{length of the shortest directed cycle containing $i$} \\
+p_{ij} &= \text{predecessor of $j$ on the shortest $[i,j]$-path (cycle)} \\
+W &=(w_{ij}) \text{ is the \new{shortest path length matrix}}
+\end{align*}
+
+\setcounter{section}{5}
+\setcounter{subsection}{0}
+
+\begin{thm} %5.1
+The Floyd Algorithm works correctly if and only if $D = (V,A)$ does not contain any negative weighted cycles.
+
+$D$ contains a negative weighted cycle if and only if one of the diagonal elements $w_{ii}<0$.
+\end{thm}
+
+\begin{proof}
+\newcommand{\wii}[0]{w_{ii}}
+\newcommand{\wij}[0]{w_{ij}}
+
+Let $W^k$ be the matrix $W$ after iteration $k$, with $W^0$ being the initial matrix. By induction on $k = 0, …, n$ we show that $W^k$ is the matrix of shortest path lengths with vertices $1, …, k$ as \emph{possible} internal vertices, provided $D$ does not contain a negative cycle on these vertices.
+
+If $D$ has a negative cycle, then $\wii^k < 0$ for an $i \in \{ 1, …, n\}$
+
+For $k = 0$, the statement clearly true.
+
+Assume, it is correct for $k \geq 0$, and we have executed the $(k+1)$st iteration.
+
+It holds that $\wij^{k+1} = \min\{\wij^k, w_{i,k+1}^k + w_{k+1,j}^k\}$. Note that, provided no negative cycle exists, $w_{i,k+1}^{k+1}$ does not have any vertex $k+1$ as internal vertex, and thus $w_{i,k+1}^{k+1} = w_{i,k+1}^k$ (similarly, $w_{k+1,j}^{k+1} = w_{k+1,j}^k$).
+
+$w_{i,k+1}^k$ is the minimal length of a $[i,k+1]$-path with $\{1, …, k\}$ as allowed internal vertices. Similarly, $w_{k+1,j}^k$.
+
+Thus, $w_{i,k+1}^k+w_{k+1,j}^k$ is the minimal length of an $[i,j]$-path (not necessarily simple) containing $k+1$ (mandatory) and $\{ 1, …, k \}$ (voluntary). If the shortest path from $i$ to $j$ using $\{1, …, k+1\}$ does not contain $k+1$, it only contains $\{1, … , k\}$ (voluntary) and, hence, $\wij^k$ is the right value.
+
+What remains to show is that the connection of the $[i,k+1]$-path with the $[l+1,j]$-path is indeed a simple path.
+
+Let $K$ be this chain. After removal of cycles, the chain $K$ contains (of course) a simple $[i,j]$-path $\bar K$. Since such cycles may only contain vertices from $\{1, …, k+1\}$, one cycle must contain $k+1$.
+If this cycle is not negatively weighted, then path $\bar K$ is shorter and $\wij< w_{i,k+1}^k + w_{k+1,j}^k$.
+
+If this cycle is negatively weighted, $w_{k+1,k+1}^k<0$ (the cycle only contains internal vertices from $\{1, …, k\}$) and algorithm would have stopped earlier.
+\end{proof}
+
+\subsection*{Min-Max-Theorems for combinatorial Optimization Problems}
+
+From "Optimierung A": Duality of linear programs
+
+\[\max_{\text{s. t.}, Ax \leq b, x \geq 0} c^Tx = \min_{\text{s.t.}, A^T y \geq c, y \geq 0} b^T y\]
+
+For several combinatorial problems $\min\{c(x): x \in X\}$
+
+We can define a second set $Y$ and a function $b(y)$ with $\max\{b(y): y \in Y \} = \min \{ c(x): x \in X\}$ where Y and b(y) have a graph theoretical interpretation. 
+
+Existence of such a "Dual" Problem indicates often that the problem can be solved "efficiently". For the shortest path problem several max-min-theorems exist.
+
+\begin{defn}
+An \new{$(s,t)$-cut} (Schnitt) in a digraph $D=(V,A)$ with $s,t \in V$ is a subset $B \subset A$ of the arcs with the property that every $(s,t)$-path contains at least one arc of $B$.
+
+Stated  otherwise, for every cut $B$, there exists a vertex set $W \subset V$ such that
+\begin{itemize}
+	\item $s \in W$, $t \in V \setminus W$
+	\item $\delta^+(w) = \{(i,j) \in A: i \in W, j \in V \setminus W\} \subseteq B$
+\end{itemize}
+\end{defn}
+
+\begin{thm}
+	Let $D=(V,A)$ be a digraph, $c(a)=1 \, \forall a \in A, s,t \in V, s \neq t$. Then the minimum length of a $[s,t]$-path equals the maximum number of arc-disjoint $(s,t)$-cuts. 
+\end{thm}
+
+\begin{proof}
+	Folows from \ref{!!!} %TODO! 5.4
+\end{proof}
+
+\begin{thm} %5.4
+	Let $D=(V,A)$ be a digraph, $c(a) \in \Z_+ \, \forall a \in A \wedge s,t \in V \wedge s\neq t$. Then the $\min$ length of an $[s,t]$-path equals the maximum number $d$ of (not necessarily different) $(s,t)$-cuts $C_1, …, C_d$ such that every arc $a \in A$ is contained in at most $c(a)$ cuts.
+\end{thm}
+
+\begin{proof}
+	We define $(s, t)$-cuts $C_i = \delta^+(v_i)$ with $V_i=\{v \in V: \exists \text{$(s,v)$-path with $c(P)\leq i-1$}\}$
+	\begin{align*}
+		v_1 & = \{s\} \\
+		v_2 & = \{5,3,4\} \\
+		v_3 & = \{5,2,3,4\} \\
+		v_4 & = v_3 \cup \{ 6 \}
+	\end{align*}
+	
+	(for the example graph on the board)
+	
+	The shortest $[s,t]$-path $P$ consists of arcs $a_1, … a_k$ with arc $a_j$ contained in $(s,t)$-cuts $C_i$,  $i \in \{\sum_{l=1}^{j-1} c(a_l) + 1, …, \sum_{l=1}^j a(a_l)\}$: exactly $c(a)$ cuts.
+\end{proof}	

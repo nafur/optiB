@@ -28,6 +28,9 @@ Can we find a shortest path from $1$ to $i$ in a digraph that is
 not acyclic, i.e. it contains cycles?
 \end{qstn}
 
+\setcounter{section}{4}
+\setcounter{subsection}{0}
+
 \begin{thm} % 4.1
 The Moore-Bellman-Algorithm returns the shortest paths from $1$ to $i = 1,
 ..., n$ provided $D$ does not contain negative-weighted directed cycles.
@@ -99,7 +102,7 @@ A more efficient implementation is given by E'sopo-Pape-Variant.
 \subsection*{Dijkstra's Algorithm for non-negative weights}
 
 \begin{thm}
-Dijkstra returns the shortest paths from $1$ to $i, i=\hdots n$, provided all weights $\geq 0$.
+Dijkstra returns the shortest paths from $1$ to $i, i= 1 … n$, provided all weights $\geq 0$.
 \end{thm}
 
 \begin{proof}
@@ -107,5 +110,3 @@ Each step, one vetex is moved from $T$ to $S$. At the end of a step, $D(j)$ is t
 
 If $S=V (T= \emptyset), D(i)$ is thus the shortiest $[1,i]$-path
 \end{proof}
-
-v
