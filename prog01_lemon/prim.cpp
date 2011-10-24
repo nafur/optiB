@@ -21,31 +21,33 @@ void Prim::prim()
 	
 	while (vertices.size() < (unsigned int)countNodes(this->g))
 	{
-		cerr << "foo" << endl;
+		// add all edges from cur node
 		for (ListGraph::IncEdgeIt e(this->g, cur); e != INVALID; ++e)
 		{
 			ListGraph::Edge edge = e;
 			edges.push(cmpEdge(edge, this->weight[edge]));
 		}
 		
-		cerr << "searching best..." << endl;
+		// find best edge
 		ListGraph::Edge best;
 		ListGraph::Node next;
 		do
 		{
+			if (edges.size() == 0)
+			{
+				cerr << "edges.size() == 0. it seems the graph is not connected..." << endl;
+				exit(1);
+			}
 			best = edges.top().e;
-			cerr << "got best" << endl;
 			edges.pop();
 			next = this->g.u(best);
-			cett << "got next" << endl;
-			if (next == cur) next = this->g.v(best);
-		}
+			if (vertices.count(next)) next = this->g.v(best);
+		} // drop edge if it would close a cycle
 		while (vertices.count(next) > 0);
 		
-		cerr << "Interint to vertices..." << endl;
+		// add to mst
 		vertices.insert(next);
-		cerr << "Inserting to mst... " << this->g.id(best) << endl;
 		this->mst->insert(best);
-		cerr << "done..." << endl;
+		cur = next;
 	}
 }
