@@ -29,7 +29,8 @@ int main()
 		cout << "Calculation MST..." << endl;
 		START_TIMER(tmr_mst)
 		Prim p(g, weight);
-		p.prim();
+		int w = p.prim();
+		cout << "MST weight is " << w << endl;
 /*		cout << "MST contains the following edges" << endl;
 		for (set<ListGraph::Edge>::iterator it = p.mst->begin(); it != p.mst->end(); ++it)
 			cout << "\t" << g.id(g.u(*it)) << ", " << g.id(g.v(*it)) << endl;

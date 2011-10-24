@@ -25,5 +25,7 @@ struct Prim
 		}
 		
 		set<ListGraph::Edge>* mst;
-		void prim();
+		
+		// returns weight of mst
+		int prim();
 };
