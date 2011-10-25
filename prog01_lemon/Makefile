@@ -8,7 +8,7 @@ all: main.exe
 	${CXX} -o $@ $< ${OBJECTS}
 
 .PRECIOUS: %.o
-%.o: %.cpp %.h
+%.o: %.cpp %.h graph.h
 	${CXX} -o $@ -c $<
 	
 .PHONY: clean
