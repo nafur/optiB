@@ -1,4 +1,4 @@
-CXX=g++ -Wall -Werror -g -std=c++0x
+CXX=g++ -Wall -Werror -g -std=c++0x ${OPTIMIZE}
 
 OBJECTS=dijkstra.o prim.o
 
