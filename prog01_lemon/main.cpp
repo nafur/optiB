@@ -7,8 +7,10 @@
 #include "lemon/list_graph.h"
 #include "lemon/lgf_reader.h"
 
+#include "graph.h"
 #include "prim.h"
 #include "dijkstra.h"
+#include "steiner.h"
 
 #define START_TIMER(x) clock_t x = clock();
 #define STOP_TIMER(x) cout << (clock() - x) / (CLOCKS_PER_SEC / 1000) << " ms" << endl;
@@ -56,6 +58,15 @@ int main()
 		cout << "distance is " << (*dij.dist)[v] << endl;
 		STOP_TIMER(tmr_dist)
 		
+		cout << "Calculating steiner tree" << endl;
+		
+		set<ListGraph::Node> terminals;
+		readTerminals("Graph1_Terminals.txt", g, terminals);
+		
+		START_TIMER(tmr_steiner)
+		Steiner steiner(g, weight);
+		steiner.steiner(terminals);
+		STOP_TIMER(tmr_steiner)
 	}
 	
 	
