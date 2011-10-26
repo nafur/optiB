@@ -10,11 +10,11 @@ using namespace lemon;
 struct Prim
 {
 	private:
-		ListGraph& g;
-		ListGraph::EdgeMap<int>& weight;
+		const ListGraph& g;
+		const ListGraph::EdgeMap<int>& weight;
 		
 	public:
-		Prim(ListGraph& graph, ListGraph::EdgeMap<int>& weight):
+		Prim(const ListGraph& graph, const ListGraph::EdgeMap<int>& weight):
 			g(graph),
 			weight(weight),
 			mst(0)

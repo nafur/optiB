@@ -8,11 +8,11 @@ using namespace lemon;
 struct Dijkstra
 {
 	private:
-		ListGraph& g;
-		ListGraph::EdgeMap<int>& weight;
+		const ListGraph& g;
+		const ListGraph::EdgeMap<int>& weight;
 	
 	public:
-		Dijkstra(ListGraph& graph, ListGraph::EdgeMap<int>& weight):
+		Dijkstra(const ListGraph& graph, const ListGraph::EdgeMap<int>& weight):
 			g(graph), 
 			weight(weight), 
 			dist(0),
