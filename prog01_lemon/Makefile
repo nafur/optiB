@@ -14,3 +14,6 @@ all: main.exe
 .PHONY: clean
 clean:
 	rm -rf *.o *.exe
+
+run: all
+	./main.exe
