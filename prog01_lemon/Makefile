@@ -1,6 +1,6 @@
 CXX=g++ -Wall -Werror -g -std=c++0x ${OPTIMIZE}
 
-OBJECTS=dijkstra.o prim.o
+OBJECTS=graph.o debug.o dijkstra.o prim.o steiner.o
 
 all: main.exe
 	
@@ -14,3 +14,6 @@ all: main.exe
 .PHONY: clean
 clean:
 	rm -rf *.o *.exe
+
+run: all
+	./main.exe

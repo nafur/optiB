@@ -1,31 +1,30 @@
 #pragma once
 
-#include <set>
-
 #include "lemon/list_graph.h"
+
+#include <set>
 
 using namespace std;
 using namespace lemon;
 
-struct Prim
+struct Steiner
 {
 	private:
 		const ListGraph& g;
 		const ListGraph::EdgeMap<int>& weight;
 		
 	public:
-		Prim(const ListGraph& graph, const ListGraph::EdgeMap<int>& weight):
+		Steiner(const ListGraph& graph, const ListGraph::EdgeMap<int>& weight):
 			g(graph),
 			weight(weight),
-			mst(0)
+			s(0)
 			{}
-		~Prim()
+		~Steiner()
 		{
-			if (this->mst != 0) delete this->mst;
+			if (this->s != 0) delete this->s;
 		}
 		
-		set<ListGraph::Edge>* mst;
+		ListGraph* s;
 		
-		// returns weight of mst
-		int prim();
+		int steiner(const set<ListGraph::Node> terminals);
 };

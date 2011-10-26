@@ -7,7 +7,7 @@
 using namespace std;
 using namespace lemon;
 
-void Prim::prim()
+int Prim::prim()
 {
 	set<ListGraph::Node> vertices;
 	priority_queue<cmpEdge> edges;
@@ -18,6 +18,8 @@ void Prim::prim()
 	ListGraph::NodeIt n(this->g);
 	vertices.insert(n);
 	ListGraph::Node cur = n;
+	
+	int weight = 0;
 	
 	while (vertices.size() < (unsigned int)countNodes(this->g))
 	{
@@ -31,6 +33,7 @@ void Prim::prim()
 		// find best edge
 		ListGraph::Edge best;
 		ListGraph::Node next;
+		int curw = 0;
 		do
 		{
 			if (edges.size() == 0)
@@ -39,6 +42,7 @@ void Prim::prim()
 				exit(1);
 			}
 			best = edges.top().e;
+			curw = edges.top().w;
 			edges.pop();
 			next = this->g.u(best);
 			if (vertices.count(next)) next = this->g.v(best);
@@ -48,6 +52,8 @@ void Prim::prim()
 		// add to mst
 		vertices.insert(next);
 		this->mst->insert(best);
+		weight += curw;
 		cur = next;
 	}
+	return weight;
 }

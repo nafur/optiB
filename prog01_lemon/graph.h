@@ -1,4 +1,11 @@
+#pragma once
+
 #include "lemon/list_graph.h"
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <set>
 
 using namespace std;
 using namespace lemon;
@@ -8,7 +15,7 @@ struct cmpEdge
 	ListGraph::Edge e;
 	int w;
 	
-	cmpEdge(ListGraph::Edge& e, int w):
+	cmpEdge(const ListGraph::Edge& e, const int w):
 		e(e),
 		w(w)
 		{}
@@ -28,7 +35,7 @@ struct cmpNode
 	ListGraph::Node n;
 	int w;
 	
-	cmpNode(ListGraph::Node& n, int w):
+	cmpNode(const ListGraph::Node& n, const int w):
 		n(n),
 		w(w)
 		{}
@@ -42,3 +49,5 @@ struct cmpNode
 		return this->w > n.w;
 	}
 };
+
+void readTerminals(const string& filename, const ListGraph& g, set<ListGraph::Node>& terminals);
