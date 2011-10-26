@@ -1,6 +1,11 @@
+#pragma once
+
 #include "lemon/list_graph.h"
 
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <set>
 
 using namespace std;
 using namespace lemon;
@@ -44,3 +49,5 @@ struct cmpNode
 		return this->w > n.w;
 	}
 };
+
+void readTerminals(const string& filename, const ListGraph& g, set<ListGraph::Node>& terminals);
