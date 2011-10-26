@@ -1,7 +1,8 @@
 #include "steiner.h"
 
-#include "dijkstra.h"
 #include "debug.h"
+#include "dijkstra.h"
+#include "prim.h"
 
 #include <map>
 #include <iostream>
@@ -27,8 +28,6 @@ int Steiner::steiner(const set<ListGraph::Node> terminals)
 		dijk[*it]->dijkstra(*it);
 	}
 
-	dump(this->g, this->weight);	
-	
 	cerr << "intermediate" << endl;
 	
 	// build intermediate graph
@@ -43,7 +42,6 @@ int Steiner::steiner(const set<ListGraph::Node> terminals)
 		stog[n] = *it;
 		gtos[*it] = n;
 	}
-	dump(intermediate, iweight);
 	cerr << "inserting edges..." << endl;
 	for (ListGraph::NodeIt it1(intermediate); it1 != INVALID; ++it1)
 	{
@@ -51,14 +49,15 @@ int Steiner::steiner(const set<ListGraph::Node> terminals)
 		++it2;
 		for (; it2 != INVALID; ++it2)
 		{
-			cerr << "inserting edge " << intermediate.id(it1) << " and " << intermediate.id(it2) << endl;
-			ListGraph::Edge e;
-			cerr << "addEdge..." << endl;
-			intermediate.addEdge(it1, it2);
-			cerr << "setting weight" << endl;
+			ListGraph::Edge e = intermediate.addEdge(it1, it2);
 			iweight[e] = (*dijk[stog[it1]]->dist)[stog[it2]];
 		}
 	}
+	
+	dump(intermediate, iweight);
+	
+	Prim p(intermediate, iweight);
+	p.prim();
 	
 	
 	cerr << "cleanup" << endl;
@@ -66,6 +65,8 @@ int Steiner::steiner(const set<ListGraph::Node> terminals)
 	// clean up dijkstras
 	for (ListGraph::NodeIt n(this->g); n != INVALID; ++n)
 		delete dijk[n];
+		
+	exit(0);
 	
 	return 0;
 }
