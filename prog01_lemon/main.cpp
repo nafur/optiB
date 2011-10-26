@@ -13,13 +13,14 @@
 #include "steiner.h"
 
 #define START_TIMER(x) clock_t x = clock();
-#define STOP_TIMER(x) cout << (clock() - x) / (CLOCKS_PER_SEC / 1000) << " ms" << endl;
+#define STOP_TIMER(x) cout << (clock() - x) / (CLOCKS_PER_SEC / 1000) << " ms" << endl << endl;
 
 using namespace std;
 using namespace lemon;
 
 int main()
 {
+	const int termFiles[] = {1,1,1,4,3,1};
 	srand(time(NULL));
 	
 	for (int i=1; i<7; i++)
@@ -58,15 +59,24 @@ int main()
 		cout << "distance is " << (*dij.dist)[v] << endl;
 		STOP_TIMER(tmr_dist)
 		
-		cout << "Calculating steiner tree" << endl;
+		cout << "Calculating steiner trees" << endl;
 		
-		set<ListGraph::Node> terminals;
-		readTerminals("Graph1_Terminals.txt", g, terminals);
-		
-		START_TIMER(tmr_steiner)
-		Steiner steiner(g, weight);
-		steiner.steiner(terminals);
-		STOP_TIMER(tmr_steiner)
+		for (int term = 1; term < termFiles[i-1]+1; term++)
+		{
+			stringstream termfname;
+			termfname << "data/Graph" << i << "_Terminals";
+			if (termFiles[i-1] != 1) termfname << term;
+			termfname << ".txt";
+			cout << "loading " << termfname.str() << endl;
+			set<ListGraph::Node> terminals;
+			readTerminals(termfname.str(), g, terminals);
+			
+			START_TIMER(tmr_steiner)
+			Steiner steiner(g, weight);
+			int steinerw = steiner.steiner(terminals);
+			cout << "Weight: " << steinerw << endl;
+			STOP_TIMER(tmr_steiner)
+		}
 	}
 	
 	
