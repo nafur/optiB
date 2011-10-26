@@ -1,6 +1,6 @@
 CXX=g++ -Wall -Werror -g -std=c++0x
 
-OBJECTS=dijkstra.o prim.o
+OBJECTS=graph.o debug.o dijkstra.o prim.o steiner.o
 
 all: main.exe
 	
@@ -8,7 +8,7 @@ all: main.exe
 	${CXX} -o $@ $< ${OBJECTS}
 
 .PRECIOUS: %.o
-%.o: %.cpp %.h graph.h
+%.o: %.cpp %.h
 	${CXX} -o $@ -c $<
 	
 .PHONY: clean
