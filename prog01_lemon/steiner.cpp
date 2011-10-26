@@ -43,14 +43,20 @@ int Steiner::steiner(const set<ListGraph::Node> terminals)
 		stog[n] = *it;
 		gtos[*it] = n;
 	}
-	for (set<ListGraph::Node>::iterator it1 = terminals.begin(); it1 != terminals.end(); ++it1)
+	dump(intermediate, iweight);
+	cerr << "inserting edges..." << endl;
+	for (ListGraph::NodeIt it1(intermediate); it1 != INVALID; ++it1)
 	{
-		set<ListGraph::Node>::iterator it2 = it1;
-		it2++;
-		for (; it2 != terminals.end(); ++it2)
+		ListGraph::NodeIt it2 = it1;
+		++it2;
+		for (; it2 != INVALID; ++it2)
 		{
-			ListGraph::Edge e = intermediate.addEdge(*it1, *it2);
-			iweight[e] = (*dijk[*it1]->dist)[*it2];
+			cerr << "inserting edge " << intermediate.id(it1) << " and " << intermediate.id(it2) << endl;
+			ListGraph::Edge e;
+			cerr << "addEdge..." << endl;
+			intermediate.addEdge(it1, it2);
+			cerr << "setting weight" << endl;
+			iweight[e] = (*dijk[stog[it1]]->dist)[stog[it2]];
 		}
 	}
 	
