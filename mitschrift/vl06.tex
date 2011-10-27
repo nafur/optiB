@@ -17,20 +17,18 @@ Appreach 1: Greedy algorithm
 Idea: Items with small weight but high value are the most atrractive ones.
 
 Procedure:
-\begin{enumerate}
-	\item Sort the items such that $\frac{c_1}{a_1} \leq \frac{c_2}{a_2} \leq … \leq \frac{c_n}{a_n}$.
-	
-	Set $S = \emptyset$.
-	\item For $i = 1$ to $n$ do
-		if $( a(s) + a_i \leq b) $ then
-		
-			$S = S \cup \{ i \}$
-			
-		endif
-	
-	endfor
-	\item return $S$ and $c(S)$
-\end{enumerate}
+\begin{lstlisting}
+Sort the items such that $\frac{c_1}{a_1} \leq \frac{c_2}{a_2} \leq … \leq \frac{c_n}{a_n}$.
+
+Set $S = \emptyset$.
+For $i = 1$ to $n$ do
+	if $( a(s) + a_i \leq b) $ then
+		$S = S \cup \{ i \}$
+	endif
+
+endfor
+return $S$ and $c(S)$
+\end{lstlisting}
 
 \begin{thm}
 	The greedy algorithm does \emph{ not } guarantee an optimal solution.
