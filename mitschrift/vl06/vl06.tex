@@ -122,3 +122,28 @@ Approach 3: Dynamic Programming
 A dynamic program algorithm to solve a problem first solves similar, but
 smaller subproblems in order to use their solution to solve the original
 problem.
+
+The problem should conform to the \emph{optimality principle} of Bellman:
+Given an optimal solution for the original problem, a partial solution
+restricted to a subproblem is also optimal for the subproblem.
+
+Let $f_k(b)$ be the optimal solution value of the knapsack problem with
+total weight equal to $b$ and items from $\ouptoset{k}$.
+
+\begin{thm}
+$f_{k+1}(b) = max \{ f_k(b), f_k(b-a_{k+1} + c_{k+1} \}$.
+\end{thm}
+\begin{proof}
+An optimal solution of $f_{k+1}(b)$ either contains item $k+1$ or not.
+If $k+1$ is not contained, the problem is identical to $f_k(b)$.
+If $k+1$ is contained, other items in the solution should have total weight
+$b - a_{k+1}$.
+
+Hence, $f_k(b - a_{k+1})$ is an optimal solution for the remaining items $+
+c_{k+1}$ for the item $k+1$.
+\end{proof}
+
+\begin{cor}
+The knapsack problem can be solved in $O(nb)$ with value $max_{d=0, ..., b}
+f_n(d)$.
+\end{cor}
