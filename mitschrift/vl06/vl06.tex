@@ -73,3 +73,52 @@ The \new{linear relaxation} (Lineare Relaxierung) of an ILP is the linear progra
 $\max \sum_{i=1}^n c_i x_i$
 
 s. t. $\sum_{i=1}^n a_i x_i \leq b, 0 \leq x_i \leq 1 \qquad \forall i \in \{1, ..., n\}$
+
+\begin{thm}
+An optimal solution $\tilde{x}$ of the linear relaxation of the knapsack
+problem is:
+
+There exists a $k \in \{1, ..., n\}$ such that 
+\[
+\tilde{x}_i = \left \{ \begin{array}{ll}
+1 & \text{if } i \leq k \\ 
+0 & \text{if } i > k+1 \\
+(b-\sum^k_{i=1} a_j) / a_{k+1} & \text{if } i=k+1
+\end{array} \right.
+\]
+where $c_1/a_1 \geq c_2 / a_2 \geq ... \geq c_n / a_n$.
+\end{thm}
+
+\begin{proof}
+Let $x^*$ be an optimal solution with $c^T c^* > c^T \tilde{x}$.
+If $x^*_i < 1$ for $i \leq k$, there must exist a $j \geq k+1$ with $x^*_j >
+\tilde{x}_j$.
+
+We define $\bar{x}$ with $\varepsilon \leq x^*_j - \tilde{x}_j$ as
+\[
+\bar{x}_l = \left \{ \begin{array}{ll}
+x^*_k & \text{for } l \not\in \{i, j\} \\
+x^*_l - \varepsilon & \text{for } l=j \\
+x^*_l + \frac{a_j}{a_l} \cdot \varepsilon & \text{for } l=i
+\end{array} \right.
+\]
+Then $\bar{x}$ is feasible and
+\[
+c^T \bar{x} = \sum_{l=1}^n c_l \bar{x}_l =
+\sum_{l=1}^n c_l x^*_l + \underbrace{c_i \cdot \frac{a_j}{a_i} \varepsilon - c_j
+\varepsilon}_{\geq 0} \geq c^T x^* > c^T \tilde{x}
+\]
+
+Repetition yields $c^T \bar{x} > c^T \bar{x}$, a contradiction.
+\end{proof}
+
+Note:
+
+If $\tilde{x}$ is integer valued, then the solution is also optimal for the
+knapsack problem. In this case, also the greedy algorithm is optimal.
+
+Approach 3: Dynamic Programming
+
+A dynamic program algorithm to solve a problem first solves similar, but
+smaller subproblems in order to use their solution to solve the original
+problem.
