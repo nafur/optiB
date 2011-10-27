@@ -2,6 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{fancyhdr}
 \usepackage{amsmath}
+\usepackage[ngerman]{babel}
+\usepackage{amsthm}
 \usepackage{tikz}
 \pagestyle{fancy}
 
@@ -26,108 +28,95 @@
 \begin{document}
 
 \section{Aufgabe 1}
-\subsection{}
-Das ist im Allgemeinen falsch, wie das folgende Beispiel zeigt.
-
+Lemma: Gegeben ist ein Graph $G_c = (V, E)$ mit Kosten $c(E)$.
+Für Mengen $A, B$ mit transitiven, totalen und antisymmetrischen Ordnungsrelationen
+$<_A, <_B$ und eine Funktion $f:
+A \rightarrow B$ gilt die folgende Äquivalenz:
 \[
-\begin{tikzpicture}[auto, node distance=2cm, baseline=-10ex]
+	\text{$f$ erhält die Relationen auf $A, B$} \Leftrightarrow \text{ein
+	MST von $G_c$ ist auch MST von $G_{f(c)}$}
+\]
+
+\begin{proof}
+Richtung $\Rightarrow$:
+
+$f$ erhält die Ordnung auf den Kantengewichten. Insbesondere ist somit die
+kürzeste Kante aus $G_c$ identisch mit der kürzesten Kante aus $G_{f(c)}$. Wenn
+der Algorithmus von Kruskal daher $e \in E$ wählt, kann er auf dem
+geänderten Graphen sie selbe Kante $e$ wählen. Iterativ kann der Algorithmus
+so den selben MST aufbauen. Da der Algorithmus von Kruskal korrekt ist, ist
+der auf $G_{f(c)}$ berechnete Spannbaum identisch zum MST auf $G_c$ und
+minimal, also ein MST.
+
+Richtung $\Leftarrow$:
+
+Zu zeigen: erhält $f$ die Ordnung nicht, so existiert ein Graph $H_c$, für
+den ein MST existiert, der auf $H_{f(c)}$ kein MST ist.
+
+Sei also $f$ eine Funktion, die die Ordnung nicht erhält. Es existieren also
+zwei Elemente $a, b$, so dass $a <_A b$, aber $f(b) <_B f(a)$.
+Betrachte nun den folgenden Graphen:
+\[
+\begin{tikzpicture}[auto, node distance=2cm]
 	\node (v1) {$v_1$};
-	\node (v2) [below=1.5cm of v1] {$v_2$};
-	\node (v3) [below left of=v2] {$v_3$};
-	\node (v4) [below right of=v2] {$v_4$};
+	\node (v2) [right of=v1] {$v_2$};
+	\node (v3) [right of=v2] {$v_3$};
 	\path
-		(v1) edge [line width=1pt] node {3} (v2)
-		(v1) edge node {2} (v3)
-		(v1) edge node {2} (v4)
-		(v2) edge [line width=1pt] node {3} (v3)
-		(v2) edge [line width=1pt] node {3} (v4)
-		(v3) edge node {2} (v4)
-	;
-\end{tikzpicture}
-\xrightarrow{c \rightarrow c^2}
-\begin{tikzpicture}[auto, node distance=2cm, baseline=-10ex]
-	\node (v1) {$v_1$};
-	\node (v2) [below=1.5cm of v1] {$v_2$};
-	\node (v3) [below left of=v2] {$v_3$};
-	\node (v4) [below right of=v2] {$v_4$};
-	\path
-		(v1) edge [line width=1pt, dotted] node {9} (v2)
-		(v1) edge [line width=1pt, dotted] node {4} (v3)
-		(v1) edge [line width=1pt, dotted] node {4} (v4)
-		(v2) edge node {9} (v3)
-		(v2) edge node {9} (v4)
-		(v3) edge [line width=1pt, dotted] node {4} (v4)
+		(v1) edge node {$a$} (v2)
+		(v2) edge node {$a$} (v3)
+		(v1) edge [bend right] node [anchor=base, below] {$b$} (v3)
 	;
 \end{tikzpicture}
 \]
+Auf $H_c$ ist ein MST mit Gewicht $2 \cdot a$ durch die Kanten $\{ (v_1, v_2), (v_2, v_3) \}$ gegeben.
+Auf $H_{f(c)}$ ist dieser Spannbaum mit Gewicht $2 \cdot f(a)$ jedoch kein MST, da der durch die Kanten $\{ (v_1,
+v_2), (v_1, v_3) \}$ gegebene Baum mit Gewicht $f(a) + f(b) <_Y 2 \cdot
+f(a)$ bereits ein kleineres Gesamtgewicht hat.
+\end{proof}
+
+Die Aufgabe $(a)$ folgt als Korollar aus diesem Lemma.
 
 \subsection{}
-Auch dies ist mit dem selben Beispiel falsch.
 
+Die Funktion $f: x \mapsto x^2$ ist auf den positiven, reellen Zahlen streng monoton und
+erhält somit die Ordnungsrelation $<$. Die Aussage folgt somit aus obigem
+Lemma.
+
+\subsection{}
+
+Das folgende Beispiel mit $X = \{v_2\}$ widerlegt die Behauptung.
 \[
-\begin{tikzpicture}[auto, node distance=2cm, baseline=-10ex]
+\begin{tikzpicture}[auto, node distance=2cm]
 	\node (v1) {$v_1$};
-	\node (v2) [below=1.5cm of v1] {$v_2$};
-	\node (v3) [below left of=v2] {$v_3$};
-	\node (v4) [below right of=v2] {$v_4$};
+	\node (v2) [right of=v1] {$v_2$};
+	\node (v3) [right of=v2] {$v_3$};
 	\path
-		(v1) edge [line width=1pt] node {3} (v2)
-		(v1) edge node {2} (v3)
-		(v1) edge node {2} (v4)
-		(v2) edge [line width=1pt] node {3} (v3)
-		(v2) edge [line width=1pt] node {3} (v4)
-		(v3) edge node {2} (v4)
-	;
-\end{tikzpicture}
-\xrightarrow{X = \{v_2\}}
-\begin{tikzpicture}[auto, node distance=2cm, baseline=-10ex]
-	\node (v1) {$v_1$};
-	\node (v2) [below=1.5cm of v1] {$v_2$};
-	\node (v3) [below left of=v2] {$v_3$};
-	\node (v4) [below right of=v2] {$v_4$};
-	\path
-		(v1) edge [line width=1pt, dotted] node {6} (v2)
-		(v1) edge [line width=1pt, dotted] node {2} (v3)
-		(v1) edge [line width=1pt, dotted] node {2} (v4)
-		(v2) edge node {6} (v3)
-		(v2) edge node {6} (v4)
-		(v3) edge [line width=1pt, dotted] node {2} (v4)
+		(v1) edge node {$2$} (v2)
+		(v2) edge node {$2$} (v3)
+		(v1) edge [bend right] node [anchor=base, below] {$3$} (v3)
 	;
 \end{tikzpicture}
 \]
+Der MST $\{ (v_1, v_2), (v_2, v_3)\}$ ist auf dem geänderten Graphen kein
+MST.
 
 \subsection{}
-Und auch diese Aussage ist falsch.
-
+Das folgende Beispiel mit $X = \{v_1, v_2\}$ widerlegt die Behauptung.
 \[
-\begin{tikzpicture}[auto, node distance=2cm, baseline=0ex]
+\begin{tikzpicture}[auto, node distance=2cm]
 	\node (v1) {$v_1$};
-	\node (v2) [above right of=v1] {$v_2$};
-	\node (v3) [below right of=v1] {$v_3$};
-	\node (v4) [below right of=v2] {$v_4$};
+	\node (v2) [right of=v1] {$v_2$};
+	\node (v3) [right of=v2] {$v_3$};
 	\path
-		(v1) edge [line width=1pt] node {1} (v2)
-		(v1) edge node {1} (v3)
-		(v2) edge [line width=1pt] node {1} (v3)
-		(v2) edge [line width=1pt] node {1} (v4)
-		(v3) edge node {1} (v4)
-	;
-\end{tikzpicture}
-\xrightarrow{X = \{v_2, v_3\}}
-\begin{tikzpicture}[auto, node distance=2cm, baseline=0ex]
-	\node (v1) {$v_1$};
-	\node (v2) [above right of=v1] {$v_2$};
-	\node (v3) [below right of=v1] {$v_3$};
-	\node (v4) [below right of=v2] {$v_4$};
-	\path
-		(v1) edge [line width=1pt, dotted] node {1} (v2)
-		(v1) edge [line width=1pt, dotted] node {1} (v3)
-		(v2) edge node {2} (v3)
-		(v2) edge node {1} (v4)
-		(v3) edge [line width=1pt, dotted] node {1} (v4)
+		(v1) edge node {$1$} (v2)
+		(v2) edge node {$2$} (v3)
+		(v1) edge [bend right] node [anchor=base, below] {$2$} (v3)
 	;
 \end{tikzpicture}
 \]
+Der MST $\{ (v_1, v_2), (v_2, v_3)\}$ ist auf dem geänderten Graphen kein
+MST.
+
 
 \section{Aufgabe 2}
 
