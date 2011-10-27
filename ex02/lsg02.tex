@@ -156,4 +156,29 @@ $x_8 \xrightarrow{4} x_4$	& $0$ & $2$ & $3$ & $5$ & $3$ & $3$ & $2$ & $1$ \\
 
 \section{Aufgabe 4}
 
+\subsection{}
+Der Algorithmus berechnet kürzeste Wege bezüglich $c'$, da Dijktras
+Algorithmus mit den Gewichten $c'$ ausgeführt wird.
+
+Behauptung: Hat ein Weg von $s$ nach $t$ über $c$ eine Gesamtlänge von $w$,
+so hat er über $c'$ ebenfalls die Gesamtlänge von $w'$.
+
+Beweis: Die Gesamtlänge über $c$ berechnet sich durch $w = c(s, v_1) +
+c(v_1, v_2) + ... + c(v_n, t)$. Über $c'$ ergibt sich $w' = c(s, v_1) +
+d(v_1, t) - d(s, t) + c(v_1, v_2) + d(v_2, t) - d(v_1, t) + ... + c(v_n, s)
++ d(s, t) - d(v_n, t)$. Da sich die Summanden $d(v_i, t)$ (ähnlich einer
+Teleskopsumme) auslöschen, verbleibt $w' = c(s, v_1) - d(s, t) + c(v_1, v_2)
++ ... + c(v_n, s) + d(s, t) = c(s, v_1) + c(v_1, v_2) + ... + c(v_n, t) = w$.
+
+Die Gesamtlänge der Pfade bleibt also identisch, Dijkstra liefert also über
+$c'$ als kürzesten Pfad einen Pfad, der so lang ist wie der kürzeste über
+$c$. Der Algorithmus berechnet daher auch bezüglich $c$ kürzeste Wege.
+
+Der angepasste Algorithmus bevorzugt durch die veränderten Gewichte Kanten,
+die in Richtung des Ziels $t$ führen. Dies entspricht im wesentlichen der
+Idee von $A^*$, dadurch soll der kürzeste Weg schneller gefunden und somit
+weniger Aktualisierungen der Entfernungen durchgeführt werden.
+
+\subsection{}
+
 \end{document}
