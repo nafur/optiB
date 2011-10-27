@@ -6,7 +6,7 @@
 \subsubsection*{Knapsack problem} 
 
 \begin{defn} %6.1
-	The \new{Knapsack problem} is defined by a set of items $N = \{ 1, ... , n \}$ weights $a_i \in \N$, value $c_i \in \N$, and a bound $b\in \N$. We search for a subset $S\subset \N$ such that 
+	The \new{Knapsack problem} is defined by a set of items $N = \{ 1, … , n \}$ weights $a_i \in \N$, value $c_i \in \N$, and a bound $b\in \N$. We search for a subset $S\subset \N$ such that 
 	\[
 		a(S) = \sum_{i \in S} a_i \leq b \; \text{and} \; c(S) = \sum_{i\in S} c_i \; \text{maximum}
 	\]
@@ -18,7 +18,7 @@ Idea: Items with small weight but high value are the most atrractive ones.
 
 Procedure:
 \begin{enumerate}
-	\item Sort the items such that $\frac{c_1}{a_1} \leq \frac{c_2}{a_2} \leq ... \leq \frac{c_n}{a_n}$.
+	\item Sort the items such that $\frac{c_1}{a_1} \leq \frac{c_2}{a_2} \leq … \leq \frac{c_n}{a_n}$.
 	
 	Set $S = \emptyset$.
 	\item For $i = 1$ to $n$ do
@@ -40,11 +40,11 @@ Procedure:
 	Let $b=10$, $n = 6$
 	
 	\begin{align*}
-		\begin{matrix}
-			i   & 2 & 3 & 4 & 5 & 6 \\
-			a_i & 9 & 2 & 2 & 2 & 2 \\
-			c_i &19 & 4 & 4 & 4 & 4
-		\end{matrix}
+		\begin{tabular}{l|ccccc}
+			$i$ & 2 & 3 & 4 & 5 & 6 \\ \hline
+			$a_i$ & 9 & 2 & 2 & 2 & 2 \\
+			$c_i$ &19 & 4 & 4 & 4 & 4
+		\end{tabular}
 	\end{align*}
 	
 	Greedy: $S=\{1\}$, $c(s)=20$
@@ -72,13 +72,13 @@ The \new{linear relaxation} (Lineare Relaxierung) of an ILP is the linear progra
 
 $\max \sum_{i=1}^n c_i x_i$
 
-s. t. $\sum_{i=1}^n a_i x_i \leq b, 0 \leq x_i \leq 1 \qquad \forall i \in \{1, ..., n\}$
+s. t. $\sum_{i=1}^n a_i x_i \leq b, 0 \leq x_i \leq 1 \qquad \forall i \in \{1, …, n\}$
 
 \begin{thm}
 An optimal solution $\tilde{x}$ of the linear relaxation of the knapsack
 problem is:
 
-There exists a $k \in \{1, ..., n\}$ such that 
+There exists a $k \in \{1, …, n\}$ such that 
 \[
 \tilde{x}_i = \left \{ \begin{array}{ll}
 1 & \text{if } i \leq k \\ 
@@ -86,7 +86,7 @@ There exists a $k \in \{1, ..., n\}$ such that
 (b-\sum^k_{i=1} a_j) / a_{k+1} & \text{if } i=k+1
 \end{array} \right.
 \]
-where $c_1/a_1 \geq c_2 / a_2 \geq ... \geq c_n / a_n$.
+where $c_1/a_1 \geq c_2 / a_2 \geq … \geq c_n / a_n$.
 \end{thm}
 
 \begin{proof}
