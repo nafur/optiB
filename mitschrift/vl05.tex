@@ -1,21 +1,25 @@
 \begin{lec}[2011-10-24]\end{lec}
 
-Shortest pahts between all pairs of vertices
+\subsubsection*{Shortest paths between all pairs of vertices}
 
 Solution 1: Apply Moore-Bellman or Dijkstra to all vertices $i$ as starting vertex
 
 Solution 2: Apply Floyd's Algorithm
 
 Notation: 
-\begin{align*}
-w_{ij} &= \text{length of the shortest $[i,j]$-path, $i \neq j$} \\
-w_{ii} &= \text{length of the shortest directed cycle containing $i$} \\
-p_{ij} &= \text{predecessor of $j$ on the shortest $[i,j]$-path (cycle)} \\
-W &=(w_{ij}) \text{ is the \new{shortest path length matrix}}
-\end{align*}
 
-\setcounter{section}{5}
-\setcounter{subsection}{0}
+$w_{ij}$ is the length of the shortest $[i,j]$-path, $i \neq j$
+
+$w_{ii}$ is the length of the shortest directed cycle containing $i$
+
+$p_{ij}$ is the predecessor of $j$ on the shortest $[i,j]$-path (cycle)
+
+$W =(w_{ij}) $ is the \new{shortest path length matrix}{???}
+
+%\setcounter{section}{5}
+%\setcounter{subsection}{0}
+
+\stepcounter{section}
 
 \begin{thm} %5.1
 The Floyd Algorithm works correctly if and only if $D = (V,A)$ does not contain any negative weighted cycles.
@@ -62,7 +66,7 @@ We can define a second set $Y$ and a function $b(y)$ with $\max\{b(y): y \in Y \
 Existence of such a "Dual" Problem indicates often that the problem can be solved "efficiently". For the shortest path problem several max-min-theorems exist.
 
 \begin{defn}
-An \new{$(s,t)$-cut} (Schnitt) in a digraph $D=(V,A)$ with $s,t \in V$ is a subset $B \subset A$ of the arcs with the property that every $(s,t)$-path contains at least one arc of $B$.
+An \new{$(s,t)$-cut}{$(s,t)$-Schnitt} in a digraph $D=(V,A)$ with $s,t \in V$ is a subset $B \subset A$ of the arcs with the property that every $(s,t)$-path contains at least one arc of $B$.
 
 Stated  otherwise, for every cut $B$, there exists a vertex set $W \subset V$ such that
 \begin{itemize}

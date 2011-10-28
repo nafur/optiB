@@ -1,7 +1,7 @@
 \begin{lec}[2011-10-17]\end{lec}
 
 \begin{defn+}
-The \new{running time of algorithms} (Laufzeit) of an algorithm is measured by the number of operations needed in worst case of a function of the input size. We use the $O(\cdot)$ notation (Big-O-notation) ot focus on the most important factor of the running time, ignoring constants and smaller factors.
+The \new{running time of algorithms}{Laufzeit} of an algorithm is measured by the number of operations needed in worst case of a function of the input size. We use the $O(\cdot)$ notation (Big-O-notation) ot focus on the most important factor of the running time, ignoring constants and smaller factors.
 \end{defn+}
 
 \begin{xmp+}
@@ -21,22 +21,21 @@ For graph Problems, the running is expressed in the number of vertices $n=|V|$ a
 \end{xmp+}
 
 \begin{defn+}[Shortest paths in acyclic digraphs]
-A directed graph (digraph) $D=(V,A)$  is called \new{acyclic} (azyklisch) if it does not contain any \new{directed cycles}, i.e. a \new{chain} (Kette) $(v_0,a_1,v_1,a_2,v_2, … a_k,v_k)$, $k \geq 0$, with $a_i(v_{i-1},v_i) \in A$ and $v_k = v_0$. In particular, D does not contain \new{antiparallel} arcs: if $(u,v)\in A$, $(v,u)\not \in A$. With $\delta_D^+(v)$ we denote the arcs leaving vertex v: 
+A directed graph (digraph) $D=(V,A)$  is called \new{acyclic}{azyklisch} if it does not contain any \new{directed cycles}{}, i.e. a \new{chain}{Kette} $(v_0,a_1,v_1,a_2,v_2, … a_k,v_k)$, $k \geq 0$, with $a_i(v_{i-1},v_i) \in A$ and $v_k = v_0$. In particular, D does not contain \new{antiparallel}{} arcs: if $(u,v)\in A$, $(v,u)\not \in A$. With $\delta_D^+(v)$ we denote the arcs leaving vertex v: 
 \[ \delta_D^+(v) = \{(u,w) \in A: u = v\}\]
 similarly:
 \[\delta_D^-(v) = \{(u,w) \in A: w = v\}\]
 are the arcs entering v.
 
-The \new{outdegree} of $v$ is $\deg^+_D(v) = | \delta^+(v) |$ (assuming simple digraph)
+The \new{outdegree}{} of $v$ is $\deg^+_D(v) = | \delta^+(v) |$ (assuming simple digraph)
 
-The \new{indegree} of $v$ is $\deg^-_D(v) = | \delta^-(v)|$
+The \new{indegree}{} of $v$ is $\deg^-_D(v) = | \delta^-(v)|$
 \end{defn+}
 
-\setcounter{section}{3}
-\setcounter{subsection}{0}
+\stepcounter{section}
 
 \begin{defn}
-	The \new{shortest path} problem in a acyclic digraph is, given an acyclic digraph $D=(V,A)$, a length function $C: A\rightarrow \R$ and two vertices $s,t\in V$, find a $[s,t]$-path of minimal length.
+	The \new{shortest path}{} problem in a acyclic digraph is, given an acyclic digraph $D=(V,A)$, a length function $C: A\rightarrow \R$ and two vertices $s,t\in V$, find a $[s,t]$-path of minimal length.
 \end{defn}
 
 \begin{qstn}

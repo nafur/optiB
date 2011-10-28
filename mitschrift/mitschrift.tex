@@ -9,10 +9,29 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage[normalem]{ulem}
-\usepackage{listings}
+\usepackage{listings} %für code
+\usepackage{hyperref}
+\usepackage[acronym]{glossaries}
+\usepackage{fancyhdr}
+
+\makeglossaries
+
+% \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+% \renewcommand{\sectionmark}[1]{\markright{#1}{}}
+  
+\fancypagestyle{mystyle}{ %
+	\fancyhf{} % remove everything
+	\renewcommand{\headrulewidth}{0.25pt} % remove lines as well
+	\renewcommand{\footrulewidth}{0.25pt}
+	\fancyhead[LE,RO]{\thepage}
+	%\fancyhead[CE,CO]{\sectionname}
+	\fancyhead[RE,LO]{Lecture \thelec}
+}
+
+\pagestyle{mystyle}
 
 \definecolor{highlight}{cmyk}{0.8,0,0.38,0.34}
-\newcommand{\new}[1]{\emph{\textcolor{highlight}{#1}}}
+\newcommand{\new}[2]{\newacronym{#1}{#1}{#2}\emph{\textcolor{highlight}{\gls{#1}}} (#2)}
 
 \newtheoremstyle{style}
    {}
@@ -41,6 +60,8 @@
 \newtheorem{qstn}[question]{Question}
 \newcounter{remark}
 \newtheorem{rem}[remark]{Remark}
+\newcounter{approach}
+\newtheorem{appr}[approach]{Approach}
 
 \newcounter{lecture}
 \newtheorem{lec}[lecture]{Lecture}
@@ -75,10 +96,14 @@
 
 \begin{document}
 
-\include{vl02}
-\include{vl03}
-\include{vl04}
-\include{vl05}
-\include{vl06}
+\input{vl02}
+\input{vl03}
+\input{vl04}
+\input{vl05}
+\input{vl06}
+
+\newpage
+
+\printglossaries
 
 \end{document}

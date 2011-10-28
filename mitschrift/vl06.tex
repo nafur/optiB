@@ -1,18 +1,16 @@
 \begin{lec}[2011-10-26]\end{lec}
 
-\setcounter{section}{6}
-\setcounter{subsection}{0}
-
 \subsubsection*{Knapsack problem} 
+\stepcounter{section}
 
 \begin{defn} %6.1
-	The \new{Knapsack problem} is defined by a set of items $N = \{ 1, … , n \}$ weights $a_i \in \N$, value $c_i \in \N$, and a bound $b\in \N$. We search for a subset $S\subset \N$ such that 
+	The \new{Knapsack problem}{Knapsack Problem} is defined by a set of items $N = \{ 1, … , n \}$ weights $a_i \in \N$, value $c_i \in \N$, and a bound $b\in \N$. We search for a subset $S\subset \N$ such that 
 	\[
 		a(S) = \sum_{i \in S} a_i \leq b \; \text{and} \; c(S) = \sum_{i\in S} c_i \; \text{maximum}
 	\]
 \end{defn}
 
-Appreach 1: Greedy algorithm
+\appr{Greedy algorithm}
 
 Idea: Items with small weight but high value are the most atrractive ones.
 
@@ -66,7 +64,7 @@ $X = \{0,1\} \cap \{ x \in \R^n: \sum\limits_{i = 0}^n a_ix_i\leq b\}$
 
 Knapsack: $\max \sum{i = 0}^n c_i x_i$
 
-The \new{linear relaxation} (Lineare Relaxierung) of an ILP is the linear program optained by relaxing the integrality of the variables:
+The \new{linear relaxation}{Lineare Relaxierung} of an ILP is the linear program optained by relaxing the integrality of the variables:
 
 $\max \sum_{i=1}^n c_i x_i$
 
