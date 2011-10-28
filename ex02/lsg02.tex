@@ -155,11 +155,13 @@ so hat er über $c'$ ebenfalls die Gesamtlänge von $w'$.
 Beweis: Die Gesamtlänge über $c$ berechnet sich durch $w = c(s, v_1) +
 c(v_1, v_2) + ... + c(v_n, t)$. Über $c'$ ergibt sich $w' = c(s, v_1) +
 d(v_1, t) - d(s, t) + c(v_1, v_2) + d(v_2, t) - d(v_1, t) + ... + c(v_n, s)
-+ d(s, t) - d(v_n, t)$. Da sich die Summanden $d(v_i, t)$ (ähnlich einer
++ d(t, t) - d(v_n, t)$. Da sich die Summanden $d(v_i, t)$ (ähnlich einer
 Teleskopsumme) auslöschen, verbleibt $w' = c(s, v_1) - d(s, t) + c(v_1, v_2)
-+ ... + c(v_n, s) + d(s, t) = c(s, v_1) + c(v_1, v_2) + ... + c(v_n, t) = w$.
++ ... + c(v_n, s) + d(t, t) = c(s, v_1) + c(v_1, v_2) + ... + c(v_n, t) -
+d(s, t) = w$.
 
-Die Gesamtlänge der Pfade bleibt also identisch, Dijkstra liefert also über
+Die Gesamtlänge der Pfade ändert sich also nur um die konstante Länge $d(s,
+t)$, Dijkstra liefert also (analog zum Lemma aus Aufgabe 1) über
 $c'$ als kürzesten Pfad einen Pfad, der so lang ist wie der kürzeste über
 $c$. Der Algorithmus berechnet daher auch bezüglich $c$ kürzeste Wege.
 
