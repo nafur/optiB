@@ -3,7 +3,7 @@
 #include <iostream>
 #include <set>
 
-#include "lemon/list_graph.h"
+#include <lemon/list_graph.h>
 
 using namespace std;
 using namespace lemon;

@@ -4,8 +4,8 @@
 #include <ctime>
 #include <cstdlib>
 
-#include "lemon/list_graph.h"
-#include "lemon/lgf_reader.h"
+#include <lemon/list_graph.h>
+#include <lemon/lgf_reader.h>
 
 #include "graph.h"
 #include "prim.h"
