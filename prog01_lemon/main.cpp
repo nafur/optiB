@@ -13,7 +13,7 @@
 #include "steiner.h"
 
 #define START_TIMER(x) clock_t x = clock();
-#define STOP_TIMER(x) cout << (clock() - x) / (CLOCKS_PER_SEC / 1000) << " ms" << endl << endl;
+#define STOP_TIMER(x) cout << "this took " << (clock() - x) / (CLOCKS_PER_SEC / 1000) << " ms" << endl << endl;
 
 using namespace std;
 using namespace lemon;
@@ -57,10 +57,10 @@ int main()
 		ListGraph::EdgeMap<int> weight(g);
 		graphReader(g, filename.str()).edgeMap("weight", weight).run();
 		
-		cout << "Calculating MST for graph" << i << endl;
+		cout << "Calculating MST for graph " << i << "...";
 		Prim p(g, weight);
 		int w = p.prim();
-		cout << "MST weight is " << w << endl;
+		cout << " overall weight is " << w << endl;
 /*		cout << "MST contains the following edges" << endl;
 		for (set<ListGraph::Edge>::iterator it = p.mst->begin(); it != p.mst->end(); ++it)
 			cout << "\t" << g.id(g.u(*it)) << ", " << g.id(g.v(*it)) << endl;
@@ -77,7 +77,7 @@ int main()
 		ListGraph::EdgeMap<int> weight(g);
 		graphReader(g, filename.str()).edgeMap("weight", weight).run();
 
-		cout << "Calculating steiner trees" << endl;
+		cout << "Calculating steiner trees for graph " << i << endl;
 		
 		for (int term = 1; term < termFiles[i-1]+1; term++)
 		{
@@ -91,7 +91,7 @@ int main()
 			START_TIMER(tmr_steiner)
 			Steiner steiner(g, weight);
 			int steinerw = steiner.steiner(terminals);
-			cout << "Weight: " << steinerw << endl;
+			cout << "Upper bound for terminals " << term << ": " << steinerw << endl;
 			STOP_TIMER(tmr_steiner)
 		}
 	}
