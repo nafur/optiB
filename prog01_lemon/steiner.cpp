@@ -3,6 +3,7 @@
 #include "debug.h"
 #include "dijkstra.h"
 #include "prim.h"
+#include "kruskal.h"
 
 #include <map>
 #include <iostream>
@@ -48,12 +49,14 @@ int Steiner::steiner(const set<ListGraph::Node> terminals)
 	}
 	
 	// compute mst
-	Prim p(intermediate, iweight);
-	p.prim();
+	Prim mst(intermediate, iweight);
+	mst.prim();
+//	Kruskal mst(intermediate, iweight);
+//	mst.kruskal();
 	
 	// build final graph
 	map<ListGraph::Node, ListGraph::Node> smapper;
-	for (set<ListGraph::Edge>::iterator it = p.mst->begin(); it != p.mst->end(); ++it)
+	for (set<ListGraph::Edge>::iterator it = mst.mst->begin(); it != mst.mst->end(); ++it)
 	{ // for each edge in the mst
 		// add end nodes to graph
 		ListGraph::Node u = imapper[intermediate.u(*it)];
