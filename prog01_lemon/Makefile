@@ -1,6 +1,6 @@
 CXX=g++ -Wall -Werror -g -std=c++0x ${OPTIMIZE}
 
-OBJECTS=graph.o debug.o dijkstra.o prim.o steiner.o
+OBJECTS=graph.o debug.o dijkstra.o prim.o kruskal.o steiner.o
 
 all: main.exe
 	

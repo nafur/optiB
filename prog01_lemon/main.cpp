@@ -9,6 +9,7 @@
 
 #include "graph.h"
 #include "prim.h"
+#include "kruskal.h"
 #include "dijkstra.h"
 #include "steiner.h"
 
@@ -24,7 +25,7 @@ int main()
 	srand(time(NULL));
 	
 	cout << "***** Aufgabe 1 *****" << endl;
-	cout << "Prim's Algorithm " << endl;
+	cout << "Kruskal's Algorithm " << endl;
 	
 	cout << endl << "***** Aufgabe 2 *****" << endl;
 	cout << "Dijkstra's Algorithm " << endl;
@@ -58,9 +59,13 @@ int main()
 		graphReader(g, filename.str()).edgeMap("weight", weight).run();
 		
 		cout << "Calculating MST for graph " << i << "...";
-		Prim p(g, weight);
-		int w = p.prim();
+//		Prim p(g, weight);
+//		int w = p.prim();
+		Kruskal k(g, weight);
+		int w = k.kruskal();
+		
 		cout << " overall weight is " << w << endl;
+
 /*		cout << "MST contains the following edges" << endl;
 		for (set<ListGraph::Edge>::iterator it = p.mst->begin(); it != p.mst->end(); ++it)
 			cout << "\t" << g.id(g.u(*it)) << ", " << g.id(g.v(*it)) << endl;
