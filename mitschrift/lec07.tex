@@ -1,0 +1,40 @@
+\begin{lec}[2011-10-31]\end{lec}
+
+\section{Matchins, Stable Sets, Vertex Covers and Edge Covers}
+
+\begin{def}
+Let $G = (V, E)$ be an undirected graph. A \emph{matching} (Paarung) is a
+subset $M \subset E$ such that $e \cap e' = \emptyset \forall e, e' \in M$
+with $e \neq e'$.
+
+A matching $M$ is called \emph{perfect} if all vertices are incident to
+some edge in $M$.
+\end{def}
+
+\begin{ex+}
+An airline has to allocate two pilots to each of the (round)trips on a
+single day. Only certain pairs of pilots can work together, due to
+experience, qualification, location, etc. By defining a graph with vertex
+set the pilots and edges if two pilots can work together, a daily
+corresponds to a matching since a pilot can work at two trips at the same
+time.
+\end{ex+}
+
+\begin{def}
+A matching $M \subseteq E$ is called \emph{maximal} if no further edges can
+be added.
+
+A \emph{maximum} matching is a matching $M$ with maximal cardinality, i.e.
+no other matching $M'$ exists with $|M'| > |M|$.
+
+$\nu(G) =$ \emph{matching number}, size of a maximum matching.
+\end{def}
+
+\subsection{Further related graph parameters}
+$\alpha(G) = $ Stable set number / independent set number (Stabile-Mange-Zahl), size of a maximum stable set in
+$G$: a subset $S \subseteq V$ such that $\forall_{\{v, w\} \in E} \left|
+\{v, w\} \cap S \right| \leq 1$
+
+$\rho(G) = $ Edge cover number (Kantenüberdeckungszahl), minimum size of an
+edge cover of $G$: a subset $F \subseteq E$ such that $\forall v \in V:
+\exists e \in E: e = \{ v, w \}$.
