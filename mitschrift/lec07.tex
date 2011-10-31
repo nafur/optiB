@@ -84,12 +84,53 @@ vertices. Hence, $\nu(G) \leq \tau(G)$.
 ( Gallai's Theorem)
 
 For every graph $G = (V, E)$ without isolated vertices, it holds that
-$\alpha(G) + \tau(G) = |V| = \nu(G) + \rho(G)$.
+\[
+\alpha(G) + \tau(G) = |V| = \nu(G) + \rho(G)
+\]
 \end{thm}
 \begin{proof}
 $\alpha(G) + \tau(G) = |V|$ follows directly from Lemma 7.4.
 
 To show $\nu(G) + \rho(G) = |V|$, consider a maximum matching $M$ ($|M| =
-\nu(G)$).
+\nu(G)$). $M$ covers all $2 |M|$ vertices in $M$. For every vertex not
+covered by $M$, add an incident edge to $M$. The resulting edge cover has
+\[
+|M| + (|V| - 2 |M|) = |V| - |M| = |V| - \nu(G)
+\] edges. Hence, $\rho(G) \leq
+|V| - \nu(G)$.
+
+Now, let $F$ be an edge cover with $|F| = \rho(G)$. Remove for every vertex
+$v \in V$ $deg_F(v) - 1$ edges incident to $v$. The resulting edge set is a
+matching with at least
+\[
+\nu(G) \geq |F| - \sum\limits_{v \in V} (deg_F(v) - 1) = |F| - 2 |F| + |V| = |V| - |F|
+= |V| - \rho(G)
+\]
 \end{proof}
 
+For all graph parameters, there exists a weighted version:
+$\nu(G, w), \tau(G, w), \alpha(G, w), \rho(G, w)$.
+
+\begin{qstn+}
+How do we find a maximum (weighted) matching?
+\end{qstn+}
+
+\begin{defn} % 7.8
+Let $M$ be a matching in $G$. A path $P = (v_0 e_1 v_1 ... e_r v_r)$ in $G$
+is called \emph{$M$-alternating ($M$-alternierend)}, if $M$ contains either
+all edges $e_i$ with $i$ even or all edges $e_i$ with $i$ odd.
+
+A $M$-alternating path $P$ is called \emph{$M$-augmenting ($M$-augmentierender)} path if $v_0$ and
+$v_r$ are not matched in $M$, i.e. $v_0, v_r \not\in \bigcup_{e \in M} e$.
+\end{defn}
+
+\begin{lem} % 7.9
+If $P$ is $M$-augmenting, then $r$ odd and
+\[
+	M' = M \setminus \{ e_2, e_4, ..., e_{r-1} \} \cup \{ e_1, e_3, ..., e_r \}
+\]
+is a matching with $|M'| = |M| + 1$.
+\end{lem}
+\begin{proof}
+Trivial.
+\end{proof}
