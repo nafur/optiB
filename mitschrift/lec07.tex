@@ -1,34 +1,34 @@
 \begin{lec}[2011-10-31]\end{lec}
 
-\section{Matchins, Stable Sets, Vertex Covers and Edge Covers}
+\section{Matchings, Stable Sets, Vertex Covers and Edge Covers}
 
-\begin{def}
-Let $G = (V, E)$ be an undirected graph. A \emph{matching} (Paarung) is a
+\begin{defn}
+Let $G = (V, E)$ be an undirected graph. A \new{matching}{Paarung} is a
 subset $M \subset E$ such that $e \cap e' = \emptyset \forall e, e' \in M$
 with $e \neq e'$.
 
 A matching $M$ is called \emph{perfect} if all vertices are incident to
 some edge in $M$.
-\end{def}
+\end{defn}
 
-\begin{ex+}
+\begin{xmp+}
 An airline has to allocate two pilots to each of the (round)trips on a
 single day. Only certain pairs of pilots can work together, due to
 experience, qualification, location, etc. By defining a graph with vertex
 set the pilots and edges if two pilots can work together, a daily
 corresponds to a matching since a pilot can work at two trips at the same
 time.
-\end{ex+}
+\end{xmp+}
 
-\begin{def}
+\begin{defn}
 A matching $M \subseteq E$ is called \emph{maximal} if no further edges can
 be added.
 
 A \emph{maximum} matching is a matching $M$ with maximal cardinality, i.e.
 no other matching $M'$ exists with $|M'| > |M|$.
 
-$\nu(G) =$ \emph{matching number}, size of a maximum matching.
-\end{def}
+$\nu(G) =$ \new{matching number}{Paarungszahl}, size of a maximum matching.
+\end{defn}
 
 \subsection{Further related graph parameters}
 $\alpha(G) = $ Stable set number / independent set number (Stabile-Mange-Zahl), size of a maximum stable set in
@@ -37,4 +37,59 @@ $G$: a subset $S \subseteq V$ such that $\forall_{\{v, w\} \in E} \left|
 
 $\rho(G) = $ Edge cover number (Kantenüberdeckungszahl), minimum size of an
 edge cover of $G$: a subset $F \subseteq E$ such that $\forall v \in V:
-\exists e \in E: e = \{ v, w \}$.
+\exists e \in F: e = \{ v, w \}$.
+
+$\tau(G) = $ Vertex cover number (Knotenüberdeckungszahl), minium size of a
+vertex cover of $G$: a subset of $W \subseteq V$ such that $\forall e \in E:
+e \cap W \neq \emptyset$.
+
+\begin{lem}
+$\rho(G) = \infty$ if and only if $G$ contains isolated vertices.
+\end{lem}
+\begin{proof}
+If $G$ contains isolated vertices, such vertices cannot be covered by any
+edge, hence $\rho(G) = \infty$. If $G$ does not contain isolated vertices,
+then $E$ is an edge cover itself, thus $\rho(G) \leq |E|$.
+\end{proof}
+
+\begin{lem} % 7.4
+$S \subseteq V$ is a stable set if and only if $V \setminus S$ is a vertex
+cover.
+\end{lem}
+\begin{proof}
+Exercise sheet.
+\end{proof}
+
+\begin{lem} % 7.5
+$\alpha(G) \leq \rho(G)$.
+\end{lem}
+\begin{proof}
+If $\rho(G) = \infty$, then $\alpha(G) \leq \rho(G)$ follows automatically.
+If $\rho(G) < \infty$, then every vertex has degree at least one. Let $F$ be
+an edge cover in $G$. Since the vertices of a stable set are not adjacent,
+there must exist an edge $e \in F$ for all $v \in S$ such that $v \in e_v$
+and $e_v \neq e_w$ for all $v, w \in S, v \neq w$. Hence, $|F| \geq |S|$ and
+it follows $\alpha(G) \leq \rho(G)$.
+\end{proof}
+
+\begin{lem} % 7.6
+$\nu(G) \leq \tau(G)$
+\end{lem}
+\begin{proof}
+To cover all edges of a matching $M$ by vertices, we need at last $|M|$
+vertices. Hence, $\nu(G) \leq \tau(G)$.
+\end{proof}
+[B
+\begin{thm} % 7.7
+( Gallai's Theorem)
+
+For every graph $G = (V, E)$ without isolated vertices, it holds that
+$\alpha(G) + \tau(G) = |V| = \nu(G) + \rho(G)$.
+\end{thm}
+\begin{proof}
+$\alpha(G) + \tau(G) = |V|$ follows directly from Lemma 7.4.
+
+To show $\nu(G) + \rho(G) = |V|$, consider a maximum matching $M$ ($|M| =
+\nu(G)$).
+\end{proof}
+
