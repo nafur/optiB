@@ -1,20 +1,17 @@
 #include <iostream>
 #include <set>
 #include <sstream>
-#include <ctime>
 #include <cstdlib>
 
 #include <lemon/list_graph.h>
 #include <lemon/lgf_reader.h>
 
+#include "debug.h"
 #include "graph.h"
 #include "prim.h"
 #include "kruskal.h"
 #include "dijkstra.h"
 #include "steiner.h"
-
-#define START_TIMER(x) clock_t x = clock();
-#define STOP_TIMER(x) cout << "this took " << (clock() - x) / (CLOCKS_PER_SEC / 1000) << " ms" << endl << endl;
 
 using namespace std;
 using namespace lemon;
@@ -86,6 +83,7 @@ int main()
 		
 		for (int term = 1; term < termFiles[i-1]+1; term++)
 		{
+			START_TIMER(tmr_steiner)
 			stringstream termfname;
 			termfname << "data/Graph" << i << "_Terminals";
 			if (termFiles[i-1] != 1) termfname << term;
@@ -93,13 +91,11 @@ int main()
 			set<ListGraph::Node> terminals;
 			readTerminals(termfname.str(), g, terminals);
 			
-			START_TIMER(tmr_steiner)
 			Steiner steiner(g, weight);
 			int steinerw = steiner.steiner(terminals);
 			cout << "Upper bound for terminals " << term << ": " << steinerw << endl;
+			cout << "steiner: ";
 			STOP_TIMER(tmr_steiner)
 		}
 	}
-	
-	
 }

@@ -2,8 +2,12 @@
 
 #include <iostream>
 #include <set>
+#include <ctime>
 
 #include <lemon/list_graph.h>
+
+#define START_TIMER(x) clock_t x = clock();
+#define STOP_TIMER(x) cout << "this took " << (clock() - x) / (CLOCKS_PER_SEC / 1000) << " ms" << endl << endl;
 
 using namespace std;
 using namespace lemon;
