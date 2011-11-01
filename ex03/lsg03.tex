@@ -28,6 +28,72 @@
 \begin{document}
 
 \section{Aufgabe 1}
+
 \subsection{}
+Darstellung der Abhängigkeiten als Graph:
+
+\begin{tikzpicture}[auto, node distance=2cm]
+	\node (n1) {$1$};
+	\node (n4) [above of=n1] {$4$};
+	\node (n3) [right of=n4] {$3$};
+	\node (n6) [right of=n3] {$6$};
+	\node (n8) [right of=n1] {$8$};
+	\node (n7) [right of=n6] {$7$};
+	\node (n9) [right of=n8] {$9$};
+	\node (n10) [below of=n9] {$10$};
+	\node (n11) [right of=n7] {$11$};
+	\node (n12) [right of=n9] {$12$};
+	\node (n5) [right of=n12] {$5$};
+	\node (n2) [right of=n11] {$2$};
+	\path [->]
+		(n4) edge (n3)
+		(n1) edge (n3)
+		(n1) edge [dashed, line width=1pt] (n8)
+		(n3) edge (n6)
+		(n8) edge (n6)
+		(n8) edge [dashed, line width=1pt] (n9)
+		(n8) edge (n10)
+		(n6) edge (n7)
+		(n9) edge [dashed, line width=1pt] (n12)
+		(n10) edge (n12)
+		(n7) edge (n5)
+		(n7) edge (n11)
+		(n12) edge [dashed, line width=1pt] (n5)
+		(n11) edge (n2)
+	;
+\end{tikzpicture}
+
+Der kritische Pfad ist gestrichelt markiert.
+Die kritischen Aufgaben sind also $1$, $8$, $9$, $12$ und $5$.
+
+Die minimale Zeit $t(a)$ zur Erledigung aller Aufgaben $a_i$ beträgt somit
+$t(a_1) + t(a_8) + t(a_9) + t(a_12) + t(a_5) = 44 + 9 + 36 + 36 + 45 = 170$
+
+Die folgende Tabelle zeigt für alle Aufgaben die frühesten und spätesten
+Startzeitpunkte, die eine optimale Gesamtdauer ermöglichen. Die kritischen Aufgaben sind unterstrichen.
+
+\begin{tabular}{lrrrrrrrrrrrr}
+\hline
+& \underline{$1$} & $2$ & $3$ & $4$ & \underline{$5$} & $6$ & $7$ & \underline{$8$} & \underline{$9$} & $10$ & $11$ & \underline{$12$} \\ 
+\hline
+früheste Zeit & $0$ & $137$ & $47$ & $0$ & $125$ & $70$ & $92$ & $44$ & $53$ & $53$ & $108$ & $89$ \\
+späteste Zeit & $0$ & $154$ & $64$ & $17$ & $125$ & $87$ & $109$ & $44$ & $53$ & $55$ & $125$ & $89$ \\
+\hline
+\end{tabular}
+
+\subsection{}
+Die folgende Strategie soll iterativ zu beschleunigende Knoten nach einem
+Greedy-Verfahren auswählen.
+
+Eine Beschleunigung bringt nur Vorteile, falls dadurch tatsächlich die
+Gesamtdauer verkürzt wird. Die Beschleunigung muss also auf eine Aufgabe im
+kritischen Pfad angewendet werden. Alle anderen Aufgaben können also
+ignoriert werden.
+
+Viele Nachfolger
+Reduktion / Kosten
+Tatsächliche Veringerung
+
+Zwei kritische Pfade? -> Tatsächliche Veringerung >= 0....
 
 \end{document}
