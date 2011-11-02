@@ -96,4 +96,46 @@ Tatsächliche Veringerung
 
 Zwei kritische Pfade? -> Tatsächliche Veringerung >= 0....
 
+\section{Aufgabe 2}
+\section{Aufgabe 3}
+
+\section{Aufgabe 4}
+Ein Graph ist bipartit, falls $V = V_1 \cup V_2$ mit $V_1 \cap V_2 = \emptyset$
+und alle Kanten $e \in E$ die Form $e = \{v_1, v_2\}, v_1 \in V_1, v_2 \in
+V_2$ haben. Dies entspricht der 2-Färbbarkeit, wobei alle Knoten aus $V_1$
+die eine und alle Knoten aus $V_2$ die andere Farbe erhalten.
+
+Behauptung: Für einen Graph, dessen Kreise alle gerade Länge haben, kann mit einem simplen Greddy-Verfahren
+eine 2-Färbung bestimmt werden. Der Graph ist somit 2-Färbbar, also
+bipartit.
+
+Beweis:
+Beginne mit der Menge $T_0 = \{v_i\}$, $v_i$ einem beliebigen Knoten.
+Weise allen Knoten der Menge $T_0$ die Farbe $9$ zu.
+Bestimme nun die Mengen $T_r = \{ v_j \mid \exists \{ v_j, v_k \} \in E, v_k
+\in T_{r-1}, v_j \not\in T_{r mod 2} \cup T_{r mod 2 + 2} \cup ... \cup
+T_{r-2} \}$ und weise den Knoten aus $T_r$ die Farbe $(r mod 2) + 1$ zu.
+Terminiere, sobald $T_r = \emptyset$.
+
+Falls sich so eine widerspruchsfreie Färbung ergibt -- also keine Färbung
+eines Knotens durch eine andere Farbe überschrieben wird -- ist der Graph
+bipartit.
+
+Die Terminierung ergibt sich aus der Widerspruchsfreiheit: Da sich ein
+Widerspruch in dem Überschreiben einer Färbung durch eine andere Färbung
+ergibt, entsteht er genau dann, wenn ein Knoten zunächst in einem $T_r$ mit
+geradem $r$ und anschließend in einem ungeraden $r$ (oder umgekehrt)
+enthalten ist. Ist dies nie der Fall, so wird kein gefärbter Knoten nochmals
+in einem späteren $T_r$ enthalten sein und der Algorithmus terminiert.
+
+Zu zeigen bleibt, dass auf einem Graphen mit Kreisen gerader Länge keine
+Widersprüche entstehen. Ein Widerspruch entsteht genau dann, falls ein
+Knoten gefärbt wird, und nach einer ungeraden Anzahl von Schritten erneut
+gefärbt wird. Dazu muss jedoch ein Pfad ungerader Länge existieren, der in
+diesem Knoten beginnt und dort wieder endet -- also ein Kreis ungerader
+Länge. Dieser existiert nach Vorraussetzung nicht.
+
+Somit ist gezeigt, dass kein Widerspruch entstehen kann und ein solcher Kreis
+stets gefärbt werden kann, der Graph also bipartit ist.
+
 \end{document}
