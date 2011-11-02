@@ -1,4 +1,6 @@
-all: knapsack.cpp
+all: knapsack.exe
+
+knapsack.exe: knapsack.cpp
 	g++ -std=c++0x -Wall -g -o knapsack.exe knapsack.cpp
 
 clean:
