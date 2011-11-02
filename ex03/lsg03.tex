@@ -90,11 +90,17 @@ Gesamtdauer verkürzt wird. Die Beschleunigung muss also auf eine Aufgabe im
 kritischen Pfad angewendet werden. Alle anderen Aufgaben können also
 ignoriert werden.
 
-Viele Nachfolger
-Reduktion / Kosten
-Tatsächliche Veringerung
+Offensichtlich ist es von Vorteil, wenn die Zeitersparnis an einem Knoten
+möglichst groß ist, während die Kosten möglichst klein bleiben.
+Es bietet sich also eine Auswahlfunktion wie $f(v) = t_{ersparnis}(v) /
+\$_{kosten}(v)$ an.
 
-Zwei kritische Pfade? -> Tatsächliche Veringerung >= 0....
+Zusätzlich scheint es sinnvoll, Knoten mit vielen eingehenden und
+ausgehenden Kanten zu bevorzugen, da hier mehr Pfade von der Ersparnis
+profitieren können.
+
+Insgesamt könnte sich also $f(v) = t_{ersparnis}(v) /
+\$_{kosten}(v) \cdot \log(deg(v))$ ergeben.
 
 \section{Aufgabe 2}
 \subsection{}
@@ -125,21 +131,28 @@ $\Rightarrow$ Lösung: $7$
 
 \section{Aufgabe 3}
 
+Sei $S \subseteq V$ eine stabile Menge.
+Genau dann gilt für alle $(v, w) \in E: v \not\in S \vee w \not\in S$.
+Für das Komplement $V \setminus S$ gilt genau dann entsprechend für alle $(v, w)
+\in E: v \in V \setminus S \vee w \in V \setminus S$. $V \setminus S$ ist
+also eine Knotenüberdeckung.
+
 \section{Aufgabe 4}
+
 Ein Graph ist bipartit, falls $V = V_1 \cup V_2$ mit $V_1 \cap V_2 = \emptyset$
 und alle Kanten $e \in E$ die Form $e = \{v_1, v_2\}, v_1 \in V_1, v_2 \in
 V_2$ haben. Dies entspricht der 2-Färbbarkeit, wobei alle Knoten aus $V_1$
 die eine und alle Knoten aus $V_2$ die andere Farbe erhalten.
 
-Behauptung: Für einen Graph, dessen Kreise alle gerade Länge haben, kann mit einem simplen Greddy-Verfahren
-eine 2-Färbung bestimmt werden. Der Graph ist somit 2-Färbbar, also
+Behauptung: Für einen Graph, dessen Kreise alle gerade Länge haben, kann mit einem simplen
+Greedy-Verfahren eine 2-Färbung bestimmt werden. Der Graph ist somit 2-Färbbar, also
 bipartit.
 
 Beweis:
 Beginne mit der Menge $T_0 = \{v_i\}$, $v_i$ einem beliebigen Knoten.
-Weise allen Knoten der Menge $T_0$ die Farbe $9$ zu.
+Weise allen Knoten der Menge $T_0$ die Farbe $0$ zu.
 Bestimme nun die Mengen $T_r = \{ v_j \mid \exists \{ v_j, v_k \} \in E, v_k
-\in T_{r-1}, v_j \not\in T_{r mod 2} \cup T_{r mod 2 + 2} \cup ... \cup
+\in T_{r-1}, v_j \not\in T_{r \mod 2} \cup T_{r \mod 2 + 2} \cup ... \cup
 T_{r-2} \}$ und weise den Knoten aus $T_r$ die Farbe $(r mod 2) + 1$ zu.
 Terminiere, sobald $T_r = \emptyset$.
 
