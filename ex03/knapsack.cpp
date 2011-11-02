@@ -65,7 +65,7 @@ int knapsack(const vector<item>& items, unsigned int limit, bool multi = true){
 	//linke Spalte
 	{
 		unsigned int j = 0;
-		for(unsigned int i = 0; i <= limit / items[j].weight; ++i){
+		for(unsigned int i = 0; i * items[j].weight <= limit && (multi || i <= 1) ; ++i){
 			field(i*items[j].weight, j) = i * items[j].profit;
 		}
 	}
@@ -101,7 +101,7 @@ int knapsack(const vector<item>& items, unsigned int limit, bool multi = true){
 
 int main(){
 	std::cout << "Solution 1: " 
-		<< knapsack(vector<item>{item(1,1), item(4,3), item(3,2)}, 4, false) << "\n";
+		<< knapsack(vector<item>{item(3,2), item(4,3), item(1,1)}, 4, false) << "\n";
 	std::cout << "Solution 2: "
 		<< knapsack(vector<item>{item(.5,1), item(4,3), item(3,2)}, 5, true) << "\n";
 	
