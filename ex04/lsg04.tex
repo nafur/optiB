@@ -28,6 +28,28 @@
 \begin{document}
 
 \section{Aufgabe 1}
+\subsection{}
+
+
+\subsection{}
+Wir wissen, dass ein $k$-regulärer Graph mit $k \geq 1$ ein perfektes
+Matching besitzt. Zeige die Aussage durch Induktion.
+
+Für $k = 1$ existiert ein perfektes Matching. da jeder Knoten nur genau eine
+inzidente Kante hat ($k$-regulär), kann kein anderes, kantendisjunktes
+Matching existieren. Die Aussage gilt also für $k = 1$.
+
+Die Aussage gelte nun für $n$.
+Entfernt man aus einem $n+1$-regulären Graphen die Kanten eines perfekten
+Matchings, so wird der Grad jedes Knotens um $1$ verringert. Es ergibt sich
+also ein $n$-regulärer Graph, der nach Vorraussetzung $n$ kantendisjunkte
+Matchings besitzt. Der $n+1$-reguläre Graph besitzt ein weiteres Matching,
+das soeben entfernt wurde um den $n$-regulären Graph zu erhalten.
+
+Die Aussage gilt somit für alle $k$ durch vollständige Induktion.
+
+\subsection{}
+
 \section{Aufgabe 2}
 \section{Aufgabe 3}
 
