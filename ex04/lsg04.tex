@@ -48,7 +48,52 @@ das soeben entfernt wurde um den $n$-regulären bipartiten Graph zu erhalten.
 
 Die Aussage gilt somit für alle $k$ durch vollständige Induktion.
 
+\pagebreak
 \subsection{}
+Für gerade $k$:
+
+Sei $G$ die $k+1$-Clique. Jeder Knoten in $G$ hat dann $k$ Kanten, da er mit
+jedem anderen Knoten verbunden ist, der Graph also $k$-regulär. Die 
+Gesamtanzahl der Knoten ist allerdings ungerade, was ein perfektes Matching
+bereits unmöglich macht.
+
+Für ungerade $k$:
+
+Sei $G_i$ mit $i = 1, ..., k$ eine Familie von Graphen.
+Jedes $G_i$ ist $k$-regulär bis auf einen ausgezeichneten Knoten $v_{i,
+in}$, der nur $k-1$ inzidente Kanten besitzt. Die Existenz solcher Graphen
+wird im folgenden gezeigt.
+
+Aus diesen $G_i$ lässt sich nun $G$ erzeugen, indem ein weiterer Knoten
+$v_c$ eingefügt wird, der mit einer Kante mit allen $v_{i, in}$ verbunden
+wird. Alle $v_{i, in}$ haben dann, ebenso wie $v_c$, $k$ viele inzidente
+Kanten und der Graph $G$ ist $k$-regulär.
+
+Die Graphen $G_i$ können wie folgt konstruiert werden:
+$G_i = (V_i, E_i)$ mit
+\[
+	V_i = \{ v_{i,in}, v_{i, 1}, ..., v_{i, k-1}, v_{i, t_1}, v_{i, t_2} \}
+\]
+und
+\begin{align*}
+E_i &= \{ \{ v_{i, in}, v_{i, j} \} \mid j \in \{ 1, ..., k-1 \} \} \\
+	&\cup \{ \{ v_{i, t_1}, v_{i, j} \}, \{ v_{i, t_2}, v_{i, j} \} \mid j \in \{ i, ..., k-1 \} \} \\
+	&\cup E_{k-3\text{-reg}}
+\end{align*}
+$E_{k-3\text{-reg}}$ ist dabei eine Menge von Kanten, so dass der Graph
+\[
+	G_{k-3\text{-reg}} = (\{v_{i, 1}, ..., v_{i, k-1}\}, E_{k-3\text{-reg}})
+\]
+$k-3$-regulär ist. Für diesen Graphen kann beispielsweise eine $k-1$-Clique
+ohne die Kanten
+\[
+	E_- = \{\{ v_j, v_{k-j} \} \mid j \in \{1, ..., \frac{k-1}{2}\}\}
+\]
+sein, also 
+\[
+	G_{k-3\text{-reg}} = (\{v_{i, 1}, ..., v_{i, k-1}\}, \{ \{ v_j, v_l\} \mid j \neq l \wedge j+l \neq k\})
+\]
+Der so entstandene Graph $G_i = (V_i, E_i)$ erfüllt die an $G_i$ gestellten Bedingungen.
 
 \section{Aufgabe 2}
 \section{Aufgabe 3}
