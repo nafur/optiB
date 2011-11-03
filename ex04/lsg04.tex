@@ -32,7 +32,7 @@
 
 
 \subsection{}
-Wir wissen, dass ein $k$-regulärer Graph mit $k \geq 1$ ein perfektes
+Wir wissen, dass ein $k$-regulärer bipartiter Graph mit $k \geq 1$ ein perfektes
 Matching besitzt. Zeige die Aussage durch Induktion.
 
 Für $k = 1$ existiert ein perfektes Matching. da jeder Knoten nur genau eine
@@ -40,11 +40,11 @@ inzidente Kante hat ($k$-regulär), kann kein anderes, kantendisjunktes
 Matching existieren. Die Aussage gilt also für $k = 1$.
 
 Die Aussage gelte nun für $n$.
-Entfernt man aus einem $n+1$-regulären Graphen die Kanten eines perfekten
+Entfernt man aus einem $n+1$-regulären bipartiten Graphen die Kanten eines perfekten
 Matchings, so wird der Grad jedes Knotens um $1$ verringert. Es ergibt sich
-also ein $n$-regulärer Graph, der nach Vorraussetzung $n$ kantendisjunkte
-Matchings besitzt. Der $n+1$-reguläre Graph besitzt ein weiteres Matching,
-das soeben entfernt wurde um den $n$-regulären Graph zu erhalten.
+also ein $n$-regulärer bipartiter Graph, der nach Vorraussetzung $n$ kantendisjunkte
+Matchings besitzt. Der $n+1$-reguläre bipartite Graph besitzt ein weiteres Matching,
+das soeben entfernt wurde um den $n$-regulären bipartiten Graph zu erhalten.
 
 Die Aussage gilt somit für alle $k$ durch vollständige Induktion.
 
