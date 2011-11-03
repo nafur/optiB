@@ -30,7 +30,66 @@
 \section{Aufgabe 1}
 \section{Aufgabe 2}
 \section{Aufgabe 3}
+
 \section{Aufgabe 4}
+
+Zum Beweis betrachten wir ein Verfahren, ein perfektes Matching auf einem
+beliebigen Baum zu konstruieren, falls eines existiert. Das Verfahren wird
+eindeutig sein. Das erzeugte Matching ist somit auch eindeutig (oder 
+existiert nicht) und jeder Baum hat somit maximal ein perfektes Matching.
+
+Betrachte folgenden Algorithmus auf dem Baum $B = (V, E)$:
+\begin{enumerate}
+\item Falls $|V| \mod 2 \neq 0$: Gebe Fehler aus
+\item OBdA: wähle einen beliebigen Knoten des Baumes als Wurzelknoten. So
+ergibt sich ein natürlicher Begriff von Blattknoten und dem Wurzelknoten.
+\item Solange Knoten in $V$ existieren:
+	\begin{enumerate}
+	\item Wähle den Blattknoten $v$ mit maximaler Distanz zum Wurzelknoten
+	\item Füge die von $v$ ausgehende Kante $e = \{v, w\}$ in das Matching ein
+	\item Falls $w$ weitere Kindknoten hat: Breche mit Fehler ab
+	\item Entferne $v$ und $w$ aus $V$ sowie alle zu $v$ und $w$ inzidenten
+	Kanten aus $E$
+	\end{enumerate}
+\end{enumerate}
+
+Behauptung: Der Baum $B$ hat ein perfektes Matching $\Leftrightarrow$ der
+Algorithmus findet ein perfektes Matching auf $B$
+
+Beweis:
+
+$\Righarrow$: Es existiert ein perfektes Matching auf $B$, für jeden Knoten
+ist also eine inzidente Kante in $M$ enthalten. Insbesondere ist also für
+den von der Wurzel am weitesten entfernten Blattknoten $v$ eine inzidente Kante
+in $M$ enthalten. Ein Blattknoten hat nur eine inzidente Kante $e = \{v, w\}$, also muss
+genau diese in $M$ enthalten sein.
+
+Mit $e$ ist nun auch bereits eine zu $w$ inzidente Kante in $M$ enthalten,
+es darf also keine weitere zu $w$ inzidente Kante in $M$ enthalten sein.
+Sie können daher im folgenden völlig ignoriert werden, bzw aus dem Baum
+gelöscht werden.
+
+Hierbei besteht prinzipiell die Möglichkeit, dass $w$ weitere Kindknoten
+besitzt und der Baum somit in Teilbäume aufgeteilt wird. Da $v$ jedoch der
+Blattknoten mit der größten Distanz zur Wurzel ist, kann $w$ nur weitere
+einzelne Kindknoten, nicht jedoch Kindknoten mit weiteren Kindern haben.
+Ist dies der Fall, so liegt ein Fehler vor, da auch dieser andere Kindknoten
+lediglich eine Kante mit $w$ gemeinsam hat, $w$ jedoch keine zwei inzidenten
+Kanten in $M$ haben darf.
+
+Der Baum wird so iterativ verkleinert und immer weitere Kanten in $M$
+eingefügt. Der Restbaum besteht zu jedem Zeitpunkt aus den Knoten und
+Kanten, die noch für weitere Matchingkanten zur Verfügung stehen.
+Sind keine Knoten mehr vorhanden, wurden alle Knoten durch Matchingkanten
+abgedeckt und ein perfektes Matching gefunden.
+Dieses Verfahren entspricht genau dem Algorithmus, der daher ein perfektes
+Matching findet, falls eines existiert.
+
+$\Leftarrow$: Der Algorithmus findet ein Matching auf $B$. Da der
+Algorithmus erst terminiert, wenn alle Knoten durch das Matching abgedeckt
+sind, muss das Matching perfekt sein. Die Matchingeigenschaften werden durch
+das Löschen der bereits abgedeckten Knoten sichergestellt.
+
 \section{Aufgabe 5}
 
 \end{document}
