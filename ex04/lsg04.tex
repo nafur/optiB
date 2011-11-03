@@ -7,7 +7,7 @@
 \usepackage{tikz}
 \pagestyle{fancy}
 
-\usetikzlibrary{automata, positioning, arrows}
+\usetikzlibrary{automata, positioning, arrows, calc}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex}
@@ -48,7 +48,6 @@ das soeben entfernt wurde um den $n$-regulären bipartiten Graph zu erhalten.
 
 Die Aussage gilt somit für alle $k$ durch vollständige Induktion.
 
-\pagebreak
 \subsection{}
 Für gerade $k$:
 
@@ -69,6 +68,20 @@ $v_c$ eingefügt wird, der mit einer Kante mit allen $v_{i, in}$ verbunden
 wird. Alle $v_{i, in}$ haben dann, ebenso wie $v_c$, $k$ viele inzidente
 Kanten und der Graph $G$ ist $k$-regulär.
 
+Beispiel für $k = 5$.
+
+\begin{tikzpicture}[node distance=2cm]
+	\node (vc) {$v_c$};
+	\node (g1) [above left of=vc] {$G_1$};
+	\node (g2) [left of=vc] {$G_2$};
+	\node (g3) [below of=vc] {$G_3$};
+	\node (g4) [right of=vc] {$G_4$};
+	\node (g5) [above right of=vc] {$G_5$};
+	\path [draw]
+		(vc) -- (g1) (vc) -- (g2) (vc) -- (g3) (vc) -- (g4) (vc) -- (g5)
+	;
+\end{tikzpicture}
+
 Die Graphen $G_i$ können wie folgt konstruiert werden:
 $G_i = (V_i, E_i)$ mit
 \[
@@ -84,7 +97,30 @@ $E_{k-3\text{-reg}}$ ist dabei eine Menge von Kanten, so dass der Graph
 \[
 	G_{k-3\text{-reg}} = (\{v_{i, 1}, ..., v_{i, k-1}\}, E_{k-3\text{-reg}})
 \]
-$k-3$-regulär ist. Für diesen Graphen kann beispielsweise eine $k-1$-Clique
+$k-3$-regulär ist.
+
+Beispiel eines $G_i$ für $k = 7$. Der graue Bereich soll den $k-3$-regulären Teilgraphen andeuten, 
+in dem weitere Kanten existieren.
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (vin) {$v_{i,in}$};
+	\node (v3) [below left=2cm of vc] {$v_{i,3}$};
+	\node (v2) [left of=v3] {$v_{i,2}$};
+	\node (v1) [left of=v2] {$v_{i,1}$};
+	\node (v4) [below right=2cm of vc] {$v_{i,4}$};
+	\node (v5) [right of=v4] {$v_{i,5}$};
+	\node (v6) [right of=v5] {$v_{i,6}$};
+	\node (vend1) [below=2cm of v3] {$v_{i, t_1}$};
+	\node (vend2) [below=2cm of v4] {$v_{i, t_2}$};
+	\path [draw]
+		(vin) -- (v1) (vin) -- (v2) (vin) -- (v3) (vin) -- (v4) (vin) -- (v5) (vin) -- (v6)
+		(vend1) -- (v1) (vend1) -- (v2) (vend1) -- (v3) (vend1) -- (v4) (vend1) -- (v5) (vend1) -- (v6)
+		(vend2) -- (v1) (vend2) -- (v2) (vend2) -- (v3) (vend2) -- (v4) (vend2) -- (v5) (vend2) -- (v6)
+	;
+	\draw [fill=black, opacity=0.2] ($0.5*(v3)+0.5*(v4)$) ellipse [x radius=5cm, y radius=1cm];
+\end{tikzpicture}
+
+Für diesen $k-3$-regulären Teilgraphen kann beispielsweise eine $k-1$-Clique
 ohne die Kanten
 \[
 	E_- = \{\{ v_j, v_{k-j} \} \mid j \in \{1, ..., \frac{k-1}{2}\}\}
@@ -94,6 +130,34 @@ sein, also
 	G_{k-3\text{-reg}} = (\{v_{i, 1}, ..., v_{i, k-1}\}, \{ \{ v_j, v_l\} \mid j \neq l \wedge j+l \neq k\})
 \]
 Der so entstandene Graph $G_i = (V_i, E_i)$ erfüllt die an $G_i$ gestellten Bedingungen.
+
+Beispiel für $k=7$.
+
+\begin{tikzpicture}[node distance=2cm]
+	\node (v1) {$v_{i,1}$};
+	\node (v2) [right of=v1] {$v_{i,2}$};
+	\node (v3) [below right of=v2] {$v_{i,3}$};
+	\node (v4) [below left of=v3] {$v_{i,4}$};
+	\node (v6) [below left of=v1] {$v_{i,6}$};
+	\node (v5) [below right of=v6] {$v_{i,5}$};
+	\path [draw]
+		(v1) -- (v2) (v1) -- (v3) (v1) -- (v4) (v1) -- (v5)
+		(v2) -- (v3) (v2) -- (v4) (v2) -- (v6)
+		(v3) -- (v2) (v3) -- (v5) (v3) -- (v6)
+		(v4) -- (v5) (v4) -- (v6)
+		(v5) -- (v6)
+	;
+\end{tikzpicture}
+
+Jeder Graph $G_i$ hat genau $k+2$, also ungerade viele Knoten. Bei einem
+Matching innerhalb von $G_i$ bleibt also stets ein Knoten übrig.
+Die einzige Möglichkeit ein perfektes Matching zu erreichen besteht darin,
+dass dieser übrige Knoten $v_{i, in}$ ist. So bleiben jedoch alle $v_{i,
+in}$ sowie $v_c$ übrig. Da in dem durch diese Knoten induzierten Teilgraphen
+alle $v_{i_in}$ jedoch nur genau mit $v_c$ verbunden sind, kann nur eine
+weitere Matchingkante zum Matching hinzugefügt werden. Die anderen $v_{i,
+in}$ bleiben als isolierte Knoten zurück. 
+Daher kann kein perfektes Matching gefunden werden.
 
 \section{Aufgabe 2}
 \section{Aufgabe 3}
