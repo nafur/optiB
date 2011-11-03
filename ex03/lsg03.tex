@@ -153,7 +153,7 @@ Beginne mit der Menge $T_0 = \{v_i\}$, $v_i$ einem beliebigen Knoten.
 Weise allen Knoten der Menge $T_0$ die Farbe $0$ zu.
 Bestimme nun die Mengen $T_r = \{ v_j \mid \exists \{ v_j, v_k \} \in E, v_k
 \in T_{r-1}, v_j \not\in T_{r \mod 2} \cup T_{r \mod 2 + 2} \cup ... \cup
-T_{r-2} \}$ und weise den Knoten aus $T_r$ die Farbe $(r mod 2) + 1$ zu.
+T_{r-2} \}$ und weise den Knoten aus $T_r$ die Farbe $(r \mod 2) + 1$ zu.
 Terminiere, sobald $T_r = \emptyset$.
 
 Falls sich so eine widerspruchsfreie Färbung ergibt -- also keine Färbung
@@ -176,5 +176,9 @@ Länge. Dieser existiert nach Vorraussetzung nicht.
 
 Somit ist gezeigt, dass kein Widerspruch entstehen kann und ein solcher Kreis
 stets gefärbt werden kann, der Graph also bipartit ist.
+
+Sei der Graph nun zweifärbbar. Es ist zu zeigen, dass dieser dann auch nur Kreise gerader Länge enthählt. Sei $K$ ein Kreis, auf dem Graphen $G$.
+
+Angenommen $|K|$ sei ungerade. Sei $v_0 \in K$ und oBdA habe $v_0$ die Farbe $0$. Folge dem Graphen nun $|K| - 1$ Schritte. Wegen der Zweifärbbarkeit (und der geraden Anzahl gegangener Schritte), hat der nun erreichte Knoten $v_{|K|-1}$ die Farbe $0$. Also hat der Nachfolger $v_{|K|}$ die Farbe $1$, was ein Widerspruch ist, da $v_{|K|} = v_0$ und $v_0$ die Farbe $0$ hat.
 
 \end{document}
