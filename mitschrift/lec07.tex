@@ -1,6 +1,8 @@
 \begin{lec}[2011-10-31]\end{lec}
 
-\section{Matchings, Stable Sets, Vertex Covers and Edge Covers}
+\subsection*{Matchings, Stable Sets, Vertex Covers and Edge Covers}
+
+\stepcounter{section}
 
 \begin{defn}
 Let $G = (V, E)$ be an undirected graph. A \new{matching}{Paarung} is a
@@ -30,7 +32,7 @@ no other matching $M'$ exists with $|M'| > |M|$.
 $\nu(G) =$ \new{matching number}{Paarungszahl}, size of a maximum matching.
 \end{defn}
 
-\subsection{Further related graph parameters}
+\subsection*{Further related graph parameters}
 $\alpha(G) = $ Stable set number / independent set number (Stabile-Mange-Zahl), size of a maximum stable set in
 $G$: a subset $S \subseteq V$ such that $\forall_{\{v, w\} \in E} \left|
 \{v, w\} \cap S \right| \leq 1$
@@ -111,9 +113,9 @@ matching with at least
 For all graph parameters, there exists a weighted version:
 $\nu(G, w), \tau(G, w), \alpha(G, w), \rho(G, w)$.
 
-\begin{qstn+}
+\begin{qstn}
 How do we find a maximum (weighted) matching?
-\end{qstn+}
+\end{qstn}
 
 \begin{defn} % 7.8
 Let $M$ be a matching in $G$. A path $P = (v_0 e_1 v_1 ... e_r v_r)$ in $G$
