@@ -1,0 +1,59 @@
+\begin{lec}[2011-11-04]\end{lec}
+
+\subsection*{Matchings in bipartite graphs}
+
+\stepcounter{section}
+
+% theorem 8.1
+\begin{thm}(Berge) Let $G=(V,E)$ be a grpah an $M$ a matching in $G$. Then either $M$ is a maximum matching or there exists an $M$-augmentige path.
+\end{thm}
+\begin{proof}
+If $M$ is a maximum matching, no $M$-augmenting path can exist, since $M'$ would be a larger matching. \\
+Let $\bar{M}$ a matching with $|\bar M | > | M |$. Consider the components (Komponente) of $G'=(V,M \cup \bar M)$. Since the the degree of vertices in $(V,M)$ and $(V,\bar M)$ is at most one, the degree in $G'$ is at most two. Thus, each component of $G'$ is either a path (possibly of length zero) or a cycle. Since $|\bar M| > |M|$, at least one component of $G'$ has to have more edges from $\bar M$ than from $M$. Such a component cannot be a cycle and thus is a path, better an $M$-augmenting path since the end nodes are not matched in $M$.
+\end{proof}
+
+\begin{defn} 
+A graph $ G=(V,E) $ is called \new{bipartite}{bipartit} if and only if $V=U \cup W (U\cap W =\emptyset)$ such that $\{v,w\} \in E \Rightarrow v \in U, w \in W$ (or vice versa). The set $U$ and $W$ are called the color classes of $V$.
+\end{defn}
+
+\begin{xmp+}
+$n$ workers, $m$ Jobs. Not every worker is qualified for every job. How many jobs can be processed simultaneously? $U=$ set of worker. $W=$ set of jobs, $\{u_i,w_j\} \in E \Leftrightarrow$ worker $i$ is qualified for job $j$.
+\end{xmp+}
+
+$\nu(G) \leq \tau(G)$ vertex cover 
+\begin{thm}(König's Matching Theorem, 1931)
+For every bipartite graph $G=(V,E): \nu(G)=\tau(G)$ 
+\end{thm}
+\begin{proof} $\nu(G) \leq \tau(G)$ hols by Lemma 7.6. %TODO 
+We therefore only show $\nu(G) \geq \tau(G)$.
+We may assume that $G$ has at least one edge (otherwise $\nu(G)=\tau(G)=0).$ We will show that $G$ has a vertex $v$ that is matched in every maximum matching. Let $\{v,w\}=e$ be an arbitrary edge in $G$ and assume that $M$ and $N$ are two maximal mathcings with $u$ not matched in $M$ and $v$ not matched in $N$. Define $P$ as the component of $(V,M \cup N)$ containing $u$.
+Since $u$ is only matched in $N$, $deg_P(u)=1$ and thus $u$ is an end node of the path $P$. Since $M$ is maximum, $P$ is \emph{not} an $M$-augmenting path. Hece, the length of $P$ is even. Consequently, $P$ does not contain $v$ (otherwise $P$ ends at $v$ which contradict the bipartiteness of $G:P\cup \{u,v\}$ would be an odd cycle).
+The path $P \cup \{v,v\}$ is thus odd, starts with vertex $v$ not matched in $N$ and ends with another vertex not matched in $N$. Hence $P \cup e$ is $N$-augmenting path; contracdiction since $N$ is a maximum matching.\\
+So, either $u$ or $v$ must be contained in all maximum matchings, let's say $v$. Now, consider $G':=G-v$. It holds that $\nu(G)=\nu(G)-1$. By induction on $n=|V|$ we may assume that $G'$ has a vertex cover $W$ with $|W|=\nu(G')$. Then $W \cup \{v\}$ is a vertex cover of $G$ of size $\nu(G')+1=\nu(G)$. It follows $\tau(G)\leq \nu(G)$.
+\end{proof}
+
+\begin{cor}(König's Edge Cover Theorem)
+Every bipartite graph has $\alpha(G)=\rho(G)$.
+\end{cor}
+\begin{proof}
+Foolows from Thm 7.7(Gallai's Thm) and 8.3 %TODO
+\end{proof}
+
+\subsection*{Matching augmenting algorithm for bipartite graphs}
+
+\emph{Input}:bipartite graph $G=(V,E)$ and a matching $M$
+
+\emph{Output}: matching $M'$ with $|M'| > |M|$ (if it exists)
+
+\emph{Description}: Let $U,W$ be the color classes of $G$. Orientate every edge $e=\{v,w\} (u \in U, w \in W)$ as follows: \\
+if $e \in M$, then orientate from $w$ to $u$ \\
+if $e \notin M$, then orientate from $u$ to $w$ \\
+Let $D$ be the digraph constructed this way. Consider $U':=U \setminus (\bigcup\limits_{e \in M}, \qquad W':=W \setminus (\bigcup\limits_{e \in M}$. An $M$-augmenting path exists if and only if a directed path in $D$ exists starting at a vertex $U'$ and ending at a vertex $W'$. Augment $M$ with this path return $M'$.
+
+\begin{thm}
+A maximum matching can be found by applying at most $\frac{1}{2} |V| $ times the above algorithm.
+\end{thm}
+\begin{proof} Thm 8.2 %TODO
+says that either a maximum matching or an $M$-augmenting path exists. This path can be found by the digraph as it has to start with an unmatched vertex and alternates between matched and not matched edges. Thes is guaranteed by the direction of the edges in the digrpah.. If we start with $M = \emptyset$, the size increases by one in every iteration. A max matching can at most $\frac{1}{2} |V|$ edges.
+\end{proof}
+
