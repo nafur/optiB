@@ -1,0 +1,110 @@
+\begin{lec}[2011-11-07]\end{lec}
+
+\stepcounter{section}
+
+\begin{cor}[Frobenius theorem]
+	A bipartite graph $G=(V,E)$ has a perfect, iff all the vertex covers contain at least $\frac{1}{2} |V|$ nodes.
+\end{cor}
+
+\begin{proof}
+	Let $\tau(G) \geq \frac{1}{2} |V|$ hold. We derive $\nu(G) \geq \frac{1}{2} |V|$ from König's theorem, but $\nu(G) \leq \frac{1}{2} |V|$ holds as well. If $\tau(G) < \frac{1}{2} |V|$ holds, $\nu(G) < \frac{1}{2} |V|$ holds as well and therefore no perfect matching exists.
+\end{proof}
+
+\begin{cor}
+	Every regular bipartite graph ($\deg(r) = \deg(W) \; \forall v,w \in B$) (with positive degree) has a perfect matching
+\end{cor}
+
+\begin{proof}
+	exercise
+\end{proof}
+
+\begin{thm}[Hall's theorem (Hochzeitssatz)]
+	Let $G =( U \cup W, E)$ be a bipartite graph with classes $U, W$. For each subset $X \subseteq U$, $N(X)$ describes the set of nodes in $W$, which are adjacent to a node in $X$ (neighborhood)
+	\[
+		\nu(G) = |U| \Leftrightarrow | \nu(X)| \geq |X| \; \forall X \subseteq U
+	\]
+\end{thm}
+
+\begin{proof}
+	necessity. If $|N(X)| < |X|$ holds, then a matching $M$ can contain at most 
+	$| N(X)|$ edges with ending nodes in $X$. Therefore noes remain in $X$ which 
+	cannot be covered by a matching.
+	
+	Sufficient: Assume $\nu(G)<|U|$, but $|N(X)| \geq |X| \; \forall X \subseteq U$.
+	Then there exists a vertex cover $Z$ for $G$ with $|Z| < |U|$.
+	
+	Define $X:=U \setminus Z$. Then it follows that $N(X) \subseteq W \cap Z$ and 
+	therefore \[
+		|X| - |N(X)| \geq \underbrace{|U| - |U \cap Z|}_{=|X|} - \underbrace{| W \cap Z |}_{\geq |N(X)|} = |U| - |Z| > 0
+	\]
+	produces a contradiction
+\end{proof}
+
+\subsection*{Maximum Weighted Matching on bipartite graphs}
+
+Let $G=(V,E)$ be a graph and let $\omega: E \rightarrow \R$ be a weight function
+For any subset $M$ of $E$ define the weight $\omega(M)$ of $M$ by \[
+	\omega(M) = \sum\limits_{e \in M}\omega(e)
+\]
+
+\begin{defn+}
+	We call a matching extreme if it has maximum weight among all matchings of 
+	\new{cardinality $|M|$}{Kardnialität $|M|$}
+	\[
+		l(e) =
+		\begin{cases}
+			w(l), & \text{if } l\in M \\
+			-w(l), & \text{if } l \not \in M
+		\end{cases}
+	\]	
+\end{defn+}
+
+\begin{lem}
+	Let $P \plainset{e_1, e_2, …, e_r}$ be an $M$-augmenting path of minimal length.
+	If $M$ is extreme, then $M' = M \setminus \underbrace{\plainset{e_2, …, e_{n-1}}}_{\in M} \cup \underbrace{\plainset{e_1, e_2, …, e_r}}_{\not \in M}$ is again extreme
+\end{lem}
+
+\begin{proof}
+	Let $N$ be any extreme matching of size $|M| + 1$. As $|N| > |M|$, $M \cup N$
+	has a component $Q = \plainset{f_1, f_2, …, f_q}$ that is an $M$-augmenting path.
+	As $P$ is a shortest $M$-augmenting path, we know $l(P) \leq l(Q)$. Moreover,
+	as $M^*=N\setminus \plainset{f_1, f_3, …, f_q} \cup \plainset{f_2, …, f_{q-1}}$ 
+	is a matching of size $|M|$ and as $M$ is extreme, we know that $\omega(M^*) \leq \omega(M)$
+	Hence $\omega(N) = \omega(M^*) - l(Q) \leq \omega (M) - l(P) = \omega(M')$.
+	Hence $M'$ is extreme.
+\end{proof}
+
+\subsection*{Hungarian Methode for maximum weighted matching}
+"find iteratively extreme matchings $M_1, M_2, …, M_j$ with $|M_k|=K$. Then the
+matching among $M_1, …, M_j$ of maximum weight is a maximum weight matching."
+
+Define  $D$ as in the maximum cardinality matching algorithm.
+
+set \[U'=U\setminus (\cup_{l\in M}e) \qquad W'=W\setminus ( \cup_{l \in M}e) \]
+
+extend $D$ with nodes $s$ and $t$ and arcs $(s,u) \; \forall u \in U'$ with 
+length $0$ and $(w,t) \; \forall w \in W'$ with length $0$.
+
+Now we find a shortest path form $s$ to $t$, to get an extreme matching $M'$ 
+from extreme matching $M$ $(|M'| > |M|)$.
+
+%9.5
+\begin{thm}
+	Let $M$ be an extreme matching. Then $D$ does not contain a directed circuit 
+	of negative length.
+\end{thm}
+
+\begin{proof}
+	Suppose $C$ is a directed circuit in $D$ with length $l(C) < 0$. We may assume 
+	$C=(u_0, w_1, u_1, …, w_t, u_t)$ with $u_0=u_t$, $u_1, …, u_t \in U$ and 
+	$w_1, …, w_t \in W$. Then $w_1u_1, …, w_tu_t$ belong to $M$ and the edges 
+	$u_0w_1, …, u_{t-1}w_t$ do not belong to $M$.
+	Then $M''=M\setminus \plainset{w_1u_1, …, w_tu_t} \cup \plainset{u_0w_1, …, u_{t+1}w_t}$
+	matching of cardinality $|M''| = |M|$ with weight: $\omega(M'') = \omega(M) - l(C) > \omega(M)$.
+	This contradicts to $M$ being extreme.
+\end{proof}
+
+\begin{cor}
+	The maximum weighted matching in bipartite graphs can be found by using a 
+	shortest path algorithm $\frac{1}{2}|V|$-times.
+\end{cor}
