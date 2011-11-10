@@ -535,25 +535,39 @@ sind, muss das Matching perfekt sein. Die Matchingeigenschaften werden durch
 das Löschen der bereits abgedeckten Knoten sichergestellt.
 
 \section{Aufgabe 5}
-Beweis durch Induktion über die Anzahl der Knoten in $G$.
+Sei $M$ ein Matching und $M^*$ ein Maximales Matching auf dem Graphen $G = (V,
+E)$.
 
-Für $|V| = 0$ und $|V| = 1$ ist die Aussage trivial, da $|M| = |M^*| = 0$.
-Für $|V| = 2$ kann der Graph entweder eine Kante enthalten (dann gilt $|M| =
-|M^*| = 1$) oder keine Kante enthalten ($|M| = |M^*| = 0$), die Aussage gilt
-also auch.
+Betrachte $H = (V, M \cup M^*)$. Da für jeden Knoten $v$ gilt, dass $\deg(v)
+\leq 2$ besteht $H$ lediglich aus Pfaden und Kreisen. Wir werden zeigen,
+dass $M$ maximal $|M^*|$ Kanten mehr als $M^*$ beinhalten kann. Dazu
+versuchen wir $\Delta = \frac{|M| - |M^*|}{|M^*|}$ zu maximieren. (Maximale
+Matchings mit $0$ Kanten können wir ignorieren, da hier ohnehin $|M| = |M^*|
+= 0$ gelten muss.)
 
-Es gelte die Aussage für $|V_{n-1}| = n-1$, zeige sie für $|V_n| = n$.
+Da $M$ und $M^*$ Matchings, müssen Kreise abwechselnd Kanten auf $M$ und
+$M^*$ enthalten, die Anzahl der Kanten aus $M$ und aus $M^*$ sind also für
+jeden Kreis identisch. Kreise erhöhen $\Delta$ also nicht.
 
-Es gibt einen Knoten $v \in V_n$, so dass entweder $\exists e \in M: v \in e
-\wedge \exists e \in M^*: v \in e$ oder $\not\exists e \in M: v \in e \wedge \not\exists e \in
-M^*: v \in e$.
+Wir betrachten nun alle Pfade und vergleichen die Anzahl von Kanten dieser
+Pfade aus $M$ und $M^*$. Pfade der Länge $1$ können nur in $M^*$ oder in 
+$M$ und $M^*$ enthalten sein. Sie erhöhen $\Delta$ daher nicht.
+Pfade gerader Länge müssen, da $M$ und $M^*$ Matchings, gleich viele Kanten
+aus $M$ und $M^*$ enthalten. Sie erhöhen $\Delta$ ebenfalls nicht.
+Pfade ungerader Länge können entweder $k$ Kanten aus $M$ und $k+1$ Kanten
+aus $M^*$ ($\Delta$ wird verringert) enthalten, oder umgekehrt $k$ kanten
+aus $M$ und $k-1$ Kanten aus $M^*$ ($\Delta$ wird erhöht).
 
-Würde kein solcher Knoten existieren, so wäre jeder Knoten entweder zu einer
-Kante in $M$ oder einer Kante in $M^*$ inzident. Dann wäre aber $M \cup M^*$
-wiederum ein Matching, da kein Knoten zu zwei Kanten aus $M \cup M^*$
-inzident ist. Dies ist ein Widerspruch zu der Annahme, dass $M$ ein Maximum
-Matching ist.
+Um $\Delta$ zu maximieren kommen also lediglich Pfade ungerader Länge mit
+Länge mindestens $3$ mit mehr Kanten aus $M$ als aus $M^*$. Offensichtlich
+trägt ein solcher Pfad der Länge $k$ eine Differenz von $1$ zu $\Delta$
+bei, wobei $M^*$ um $(k-1) / 2$ vergrößert wird.
 
-Falls $v$ zu Kanten aus beiden Matchings inzident ist, so 
+Das maximale Delta ergibt sich bei solchen Pfaden der Länge $3$:
+$\Delta = \frac{2 - 1}{1} = 1$.
 
+Es gilt nach Definition von $\Delta$
+\[ |M^*| \cdot \frac{1}{\Delta} + |M^*| = |M| \]
+Da $\Delta \leq 1$ gilt also für beliebige $M$: $2 \cdot |M^*| \geq |M|$.
+\qed
 \end{document}
