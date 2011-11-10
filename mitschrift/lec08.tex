@@ -48,7 +48,7 @@ Foolows from Thm 7.7(Gallai's Thm) and 8.3 %TODO
 \emph{Description}: Let $U,W$ be the color classes of $G$. Orientate every edge $e=\{v,w\} (u \in U, w \in W)$ as follows: \\
 if $e \in M$, then orientate from $w$ to $u$ \\
 if $e \notin M$, then orientate from $u$ to $w$ \\
-Let $D$ be the digraph constructed this way. Consider $U':=U \setminus (\bigcup\limits_{e \in M}, \qquad W':=W \setminus (\bigcup\limits_{e \in M}$. An $M$-augmenting path exists if and only if a directed path in $D$ exists starting at a vertex $U'$ and ending at a vertex $W'$. Augment $M$ with this path return $M'$.
+Let $D$ be the digraph constructed this way. Consider \[ U':=U \setminus \bigcup\limits_{e \in M}e \quad \text{and} \quad W':=W \setminus \bigcup\limits_{e \in M}e \]An $M$-augmenting path exists if and only if a directed path in $D$ exists starting at a vertex $U'$ and ending at a vertex $W'$. Augment $M$ with this path return $M'$.
 
 \begin{thm}
 A maximum matching can be found by applying at most $\frac{1}{2} |V| $ times the above algorithm.
