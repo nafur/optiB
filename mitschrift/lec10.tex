@@ -1,0 +1,136 @@
+\begin{lec}[2011-11-10]\end{lec}
+
+\stepcounter{section}
+
+\subsection*{Matchings in non-bipartite graphs}
+
+%10.1
+\begin{defn}
+	A component of a graph is called \new{odd}{ungerade}, if its number 
+	of vertices is odd. We define $o(G):=$ number of odd components of $G$. 
+	$G-U:=G[V \setminus U]$ denotes the subgraph induced by $V \setminus U$.
+\end{defn}
+
+%10.2
+\begin{thm}[Tutte-Berge-Formula]
+	For a graph $G=(V,E)$ it holds that $D(G)=\min_{U \subset V} \plainset{\frac{1}{2}(|V|+|U|-o(G-U))}$
+\end{thm}
+	
+\begin{proof}
+	We first prove $\leq$. For $U \subseteq V$ it holds that 
+	\begin{align*}
+		\nu(F) &\leq |U| + \nu(G-U) \leq |U| + \frac{1}{2} (| V \setminus U| - o(G-U)) \\
+		       &= \frac{1}{2}(|U \setminus V| + 2 |U| - o(G-U)) \\
+					 &= \frac{1}{2}(|V| + |U| - o(G-U))
+	\end{align*}
+	Now, we prove $\geq$. We apply inductions on $|V|$. For $|V| = 0$, the statement is trivial.
+	Furterh, we may assume w.l.o.g (o.B.d.A) that $G$ is connected, otherwise the
+	result follows by induction on the components of $G$.
+	
+	Case 1:\newline
+	There exists a vertex $v$ that is matched in all maximum matches (like in the 
+	bipartite case). Thus $\nu (G-V) = \nu (G)-1$ and by induction there exists
+	a subset $U'\subseteq V-v$ with $\nu (G-V) = \frac{1}{2}(|V\setminus \plainset{v}|+ |U'|-o(G-v-U'))$
+	Set $U:=U' \cup \plainset{V}$. Then \begin{align*}
+		\nu(G) &= \nu(G-v)-1=\frac{1}{2}(|V\setminus \plainset{v}|+ |U'| - o(G-U'-v))-1 \\
+		       &= \frac12 (|V| - 1 + |U| - 1 - o(G-U) + 2) \\
+					 &\leq \min_{T \subseteq V}\frac12(|V|+|T| -O(G-T))
+	\end{align*}
+	
+	Case 2:\newline
+	There does \emph(not) exist a vertex matched in all maximum matchings. So for 
+	all $v \in V$, there exists a maximum matching without $v$. Then, in particular
+	$\nu(G)<\frac12|V|$. We will show that there exists in this case a matching 
+	of size $\frac12(|V|-1)$. By this, we have proven the theorem (set $U=\emptyset$).
+	\newline
+	If there does not exist a matching of size $\frac12(|V|-1)$, then for every
+	matching $M$, there exist two vertices $u$ and $v$ such that both are not 
+	matched. Among all maximum matchings, select a triple $(M,u,v)$ for which 
+	$\dist(u,v)$ is minimum there, $\dist(u,v)$ is the minimum number of edges 
+	or a path between $u$ and $v$. That is, for any other maximum matching $N$
+	and pair of unmatched vertices $s,t$, $\dist(s,t) \geq \dist(u,v)$.
+	
+	If $\dist(u,v)=1$, then $u$ and $v$ are adjacent and we can extend $M$ with 
+	$\plainset{u,v}$, a contradiction. Thus, $\dist(u,v)\geq 2$ and hence there 
+	exists a vertex $t$ on the shortest path from $u$ to $v$. Not that $t$ is 
+	matched in $M$, otherwise $\dist(u,t)<\dist(u,v)$; a contradition.	For $t$ 
+	there exist other maximum matchings not covering $t$. Choose $N$ such that 
+	$|M \cap N|$ is maximal. \newline
+	Also, $u$ and $v$ are covered by $N$, since otherwise $N$ would have a pair
+	$(t,u)$ (or $(t,v)$) of unmatched vertices with $\dist(u,t) < \dist (u,v)$ 
+	(respectively $\dist(t,v) < \dist(u,v)$)\newline	
+	Since $|M| = |N|$, there must be a second vertex $x\neq t$ which is not
+	covered by $N$, but covered by $M$. Let $e=\plainset{x,y} \in M$. Then $y$ is
+	also covered by $N$, otherwise $N$ could be extended by $\plainset{x,y}$, 
+	contradiction to maximality of $|N|$. Let $f=\plainset{y,z}\in N$. Now
+	replace $N$ by $N \setminus \plainset f \cup \plainset e$. The new matching 
+	has one more edge in common with $M$, contradiction. \newline
+	Hence, a maximum matching cannot mis two or more vertices. Thus $\nu (G) = 
+	\frac12(|V|-1)$
+	
+
+	
+\end{proof}
+
+%10.2
+\begin{cor}[Tutte's 1-Factor Theorem]
+	A graph $G(V,E)$ has a perfect matching if and only if $G - U$ contains at
+	most $|U|$ odd components for all $U \subseteq V$.
+\end{cor}
+
+\begin{cor}
+	Let $G = (V,E)$ be a grph without isolated vertices. Then \[
+		\rho(G) = \max_{U \subseteq V} \frac{|U| + o(G[U])}2
+	\]
+\end{cor}
+
+\begin{proof}
+	Homework
+\end{proof}
+
+\subsection*{Edmond's Matching Algroithm (the blossom shrinking algorithm) 1965}
+	Again we are looking for $M$-augmenting paths. In bipartite graphs we just have 
+	to find a shortest path in the orientation of $G$ by $M$. 
+	
+\begin{xmp+}
+\begin{tikzpicture}
+	\node (n1) {$1$};
+	\node (n2) [right of=n1] {$2$};
+	\node (n3) [right of=n2] {$3$};
+	\node (n4) [above right of=n3] {$4$};
+	\node (n5) [below right of=n3] {$5$};
+	\node (n6) [right of=n4] {$6$};
+	
+	\path
+		(n1) edge (n2)
+		(n2) edge [red] (n3)
+		(n3) edge (n4)
+		(n3) edge (n5)
+		(n4) edge [red] (n5)
+		(n4) edge (n6)
+	;
+\end{tikzpicture}
+und noch ein Graph
+\end{xmp+}
+
+\begin{xmp+}
+	Weitere 2 graphen
+\end{xmp+}
+
+We define for sets $X$ and $Y$: \[
+	X/Y:= 
+		\begin{cases}
+			X & \text{if } X \cap Y=\emptyset \\
+			(X\setminus Y) \cup \plainset Y & \text{if } X \cap Y \neq \emptyset
+		\end{cases}
+\]
+
+Thus, if $G=(V,E)$ is a graph and $C\subseteq V$, then $V/C$ is the set of ver-
+tices where all vertices in $C$ are replaced by a singe vertex $C$.
+For an edge $e\in E$, $e/C= e$ if $e$ and $C$ are disjoint, whereas $e/C=
+\plainset{u,C}$ if $e \in \plainset{u,v}$ with $u \not \in C$, $v \in C$, and
+$e/C=\plainset{C,C}$ if $e = \plainset{u,v}$ with $u,v \in C$.
+
+The last type is unimporteant fo mathings and can be ignored. Further, for 
+$F \subseteq E$, we have $F/C:= \plainset{f/C: f\in F}$ and thus $G/C:=(V/C,E/C)$
+is again a graph which results from \new{shrinking}{Schrumpfen} of $C$.
