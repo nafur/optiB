@@ -5,6 +5,12 @@
 \usepackage[ngerman]{babel}
 \usepackage{amsthm}
 \usepackage{tikz}
+\usepackage{listings}
+\usepackage{fullpage}
+
+\lstset{numbers=left, basicstyle=\ttfamily, numberstyle=\tiny, mathescape=true} %listing style für code
+
+\usetikzlibrary{positioning}
 \pagestyle{fancy}
 
 \usetikzlibrary{automata, positioning, arrows, calc}
@@ -160,6 +166,313 @@ in}$ bleiben als isolierte Knoten zurück.
 Daher kann kein perfektes Matching gefunden werden.
 
 \section{Aufgabe 2}
+
+Wähle $u_i$ mit kleinstem $i$.
+
+Wähle Pfad anschließend so, dass das $w_k$ mit kleinstem $k$ herauskommt.
+
+\begin{tikzpicture}[node distance=2cm, line width=1pt]
+\node (u1) {$u_1$};
+\node (u2) [right of=u1] {$u_2$};
+\node (u3) [right of=u2] {$u_3$};
+\node (u4) [right of=u3] {$u_4$};
+\node (u5) [right of=u4] {$u_5$};
+\node (u6) [right of=u5] {$u_6$};
+\node (u7) [right of=u6] {$u_7$};
+\node (u8) [right of=u7] {$u_8$};
+
+\node (w1) [below of=u1] {$w_1$};
+\node (w2) [right of=w1] {$w_2$};
+\node (w3) [right of=w2] {$w_3$};
+\node (w4) [right of=w3] {$w_4$};
+\node (w5) [right of=w4] {$w_5$};
+\node (w6) [right of=w5] {$w_6$};
+\node (w7) [right of=w6] {$w_7$};
+\node (w8) [right of=w7] {$w_8$};
+\node (w9) [right of=w8] {$w_9$};
+
+\path
+(u1) edge (w1) (u1) edge (w3)
+(u2) edge (w1) (u2) edge (w5) (u2) edge (w6) (u2) edge (w7)
+(u3) edge (w1) (u3) edge (w3)
+(u4) edge (w1) (u4) edge (w2)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u6) edge (w2)
+(u7) edge (w8) (u7) edge (w9)
+(u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge (w4)
+;
+\end{tikzpicture}
+
+$u_1 w_1$
+
+\begin{tikzpicture}[node distance=2cm, line width=1pt]
+\node (u1) {$u_1$};
+\node (u2) [right of=u1] {$u_2$};
+\node (u3) [right of=u2] {$u_3$};
+\node (u4) [right of=u3] {$u_4$};
+\node (u5) [right of=u4] {$u_5$};
+\node (u6) [right of=u5] {$u_6$};
+\node (u7) [right of=u6] {$u_7$};
+\node (u8) [right of=u7] {$u_8$};
+
+\node (w1) [below of=u1] {$w_1$};
+\node (w2) [right of=w1] {$w_2$};
+\node (w3) [right of=w2] {$w_3$};
+\node (w4) [right of=w3] {$w_4$};
+\node (w5) [right of=w4] {$w_5$};
+\node (w6) [right of=w5] {$w_6$};
+\node (w7) [right of=w6] {$w_7$};
+\node (w8) [right of=w7] {$w_8$};
+\node (w9) [right of=w8] {$w_9$};
+
+\path
+(u1) edge [red] (w1) (u1) edge (w3)
+(u2) edge (w1) (u2) edge (w5) (u2) edge (w6) (u2) edge (w7)
+(u3) edge (w1) (u3) edge (w3)
+(u4) edge (w1) (u4) edge (w2)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u6) edge (w2)
+(u7) edge (w8) (u7) edge (w9)
+(u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge (w4)
+;
+\end{tikzpicture}
+
+$u_2 w_1 u_1 w_3$
+
+\begin{tikzpicture}[node distance=2cm, line width=1pt]
+\node (u1) {$u_1$};
+\node (u2) [right of=u1] {$u_2$};
+\node (u3) [right of=u2] {$u_3$};
+\node (u4) [right of=u3] {$u_4$};
+\node (u5) [right of=u4] {$u_5$};
+\node (u6) [right of=u5] {$u_6$};
+\node (u7) [right of=u6] {$u_7$};
+\node (u8) [right of=u7] {$u_8$};
+
+\node (w1) [below of=u1] {$w_1$};
+\node (w2) [right of=w1] {$w_2$};
+\node (w3) [right of=w2] {$w_3$};
+\node (w4) [right of=w3] {$w_4$};
+\node (w5) [right of=w4] {$w_5$};
+\node (w6) [right of=w5] {$w_6$};
+\node (w7) [right of=w6] {$w_7$};
+\node (w8) [right of=w7] {$w_8$};
+\node (w9) [right of=w8] {$w_9$};
+
+\path
+(u1) edge (w1) (u1) edge [red] (w3)
+(u2) edge [red] (w1) (u2) edge (w5) (u2) edge (w6) (u2) edge (w7)
+(u3) edge (w1) (u3) edge (w3)
+(u4) edge (w1) (u4) edge (w2)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u6) edge (w2)
+(u7) edge (w8) (u7) edge (w9)
+(u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge (w4)
+;
+\end{tikzpicture}
+
+$u_3 w_1 u_2 w_6$
+
+\begin{tikzpicture}[node distance=2cm, line width=1pt]
+\node (u1) {$u_1$};
+\node (u2) [right of=u1] {$u_2$};
+\node (u3) [right of=u2] {$u_3$};
+\node (u4) [right of=u3] {$u_4$};
+\node (u5) [right of=u4] {$u_5$};
+\node (u6) [right of=u5] {$u_6$};
+\node (u7) [right of=u6] {$u_7$};
+\node (u8) [right of=u7] {$u_8$};
+
+\node (w1) [below of=u1] {$w_1$};
+\node (w2) [right of=w1] {$w_2$};
+\node (w3) [right of=w2] {$w_3$};
+\node (w4) [right of=w3] {$w_4$};
+\node (w5) [right of=w4] {$w_5$};
+\node (w6) [right of=w5] {$w_6$};
+\node (w7) [right of=w6] {$w_7$};
+\node (w8) [right of=w7] {$w_8$};
+\node (w9) [right of=w8] {$w_9$};
+
+\path
+(u1) edge (w1) (u1) edge [red] (w3)
+(u2) edge (w1) (u2) edge (w5) (u2) edge [red] (w6) (u2) edge (w7)
+(u3) edge [red] (w1) (u3) edge (w3)
+(u4) edge (w1) (u4) edge (w2)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u6) edge (w2)
+(u7) edge (w8) (u7) edge (w9)
+(u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge (w4)
+;
+\end{tikzpicture}
+
+$u_4 w_2$
+
+\begin{tikzpicture}[node distance=2cm, line width=1pt]
+\node (u1) {$u_1$};
+\node (u2) [right of=u1] {$u_2$};
+\node (u3) [right of=u2] {$u_3$};
+\node (u4) [right of=u3] {$u_4$};
+\node (u5) [right of=u4] {$u_5$};
+\node (u6) [right of=u5] {$u_6$};
+\node (u7) [right of=u6] {$u_7$};
+\node (u8) [right of=u7] {$u_8$};
+
+\node (w1) [below of=u1] {$w_1$};
+\node (w2) [right of=w1] {$w_2$};
+\node (w3) [right of=w2] {$w_3$};
+\node (w4) [right of=w3] {$w_4$};
+\node (w5) [right of=w4] {$w_5$};
+\node (w6) [right of=w5] {$w_6$};
+\node (w7) [right of=w6] {$w_7$};
+\node (w8) [right of=w7] {$w_8$};
+\node (w9) [right of=w8] {$w_9$};
+
+\path
+(u1) edge (w1) (u1) edge [red] (w3)
+(u2) edge (w1) (u2) edge (w5) (u2) edge [red] (w6) (u2) edge (w7)
+(u3) edge [red] (w1) (u3) edge (w3)
+(u4) edge (w1) (u4) edge [red] (w2)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u6) edge (w2)
+(u7) edge (w8) (u7) edge (w9)
+(u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge (w4)
+;
+\end{tikzpicture}
+
+$u_7 w_8$
+
+\begin{tikzpicture}[node distance=2cm, line width=1pt]
+\node (u1) {$u_1$};
+\node (u2) [right of=u1] {$u_2$};
+\node (u3) [right of=u2] {$u_3$};
+\node (u4) [right of=u3] {$u_4$};
+\node (u5) [right of=u4] {$u_5$};
+\node (u6) [right of=u5] {$u_6$};
+\node (u7) [right of=u6] {$u_7$};
+\node (u8) [right of=u7] {$u_8$};
+
+\node (w1) [below of=u1] {$w_1$};
+\node (w2) [right of=w1] {$w_2$};
+\node (w3) [right of=w2] {$w_3$};
+\node (w4) [right of=w3] {$w_4$};
+\node (w5) [right of=w4] {$w_5$};
+\node (w6) [right of=w5] {$w_6$};
+\node (w7) [right of=w6] {$w_7$};
+\node (w8) [right of=w7] {$w_8$};
+\node (w9) [right of=w8] {$w_9$};
+
+\path
+(u1) edge (w1) (u1) edge [red] (w3)
+(u2) edge (w1) (u2) edge (w5) (u2) edge [red] (w6) (u2) edge (w7)
+(u3) edge [red] (w1) (u3) edge (w3)
+(u4) edge (w1) (u4) edge [red] (w2)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u6) edge (w2)
+(u7) edge [red] (w8) (u7) edge (w9)
+(u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge (w4)
+;
+\end{tikzpicture}
+
+$u_8 w_4$
+
+\begin{tikzpicture}[node distance=2cm, line width=1pt]
+\node (u1) {$u_1$};
+\node (u2) [right of=u1] {$u_2$};
+\node (u3) [right of=u2] {$u_3$};
+\node (u4) [right of=u3] {$u_4$};
+\node (u5) [right of=u4] {$u_5$};
+\node (u6) [right of=u5] {$u_6$};
+\node (u7) [right of=u6] {$u_7$};
+\node (u8) [right of=u7] {$u_8$};
+
+\node (w1) [below of=u1] {$w_1$};
+\node (w2) [right of=w1] {$w_2$};
+\node (w3) [right of=w2] {$w_3$};
+\node (w4) [right of=w3] {$w_4$};
+\node (w5) [right of=w4] {$w_5$};
+\node (w6) [right of=w5] {$w_6$};
+\node (w7) [right of=w6] {$w_7$};
+\node (w8) [right of=w7] {$w_8$};
+\node (w9) [right of=w8] {$w_9$};
+
+\path
+(u1) edge (w1) (u1) edge [red] (w3)
+(u2) edge (w1) (u2) edge (w5) (u2) edge [red] (w6) (u2) edge (w7)
+(u3) edge [red] (w1) (u3) edge (w3)
+(u4) edge (w1) (u4) edge [red] (w2)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u6) edge (w2)
+(u7) edge [red] (w8) (u7) edge (w9)
+(u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge [red] (w4)
+;
+\end{tikzpicture}
+
+Keine weiteren M-erweiternden Pfade vorhanden.
+
+\[
+\Rightarrow M = \{ (1, 3), (2, 6), (3, 1), (4, 2), (5, 5), (7, 8), (8, 4) \}
+\]
+
+\begin{tikzpicture}[node distance=2cm, line width=1pt, auto]
+\node (u1) {$u_1$};
+\node (u2) [circle, draw, right of=u1] {$u_2$};
+\node (u3) [right of=u2] {$u_3$};
+\node (u4) [right of=u3] {$u_4$};
+\node (u5) [circle, draw, right of=u4] {$u_5$};
+\node (u6) [right of=u5] {$u_6$};
+\node (u7) [circle, draw, right of=u6] {$u_7$};
+\node (u8) [circle, draw, right of=u7] {$u_8$};
+
+\node (w1) [circle, draw, below of=u1] {$w_1$};
+\node (w2) [circle, draw, right of=w1] {$w_2$};
+\node (w3) [circle, draw, right of=w2] {$w_3$};
+\node (w4) [right of=w3] {$w_4$};
+\node (w5) [right of=w4] {$w_5$};
+\node (w6) [right of=w5] {$w_6$};
+\node (w7) [right of=w6] {$w_7$};
+\node (w8) [right of=w7] {$w_8$};
+\node (w9) [right of=w8] {$w_9$};
+
+
+
+\path
+(u1) edge (w1) (u1) edge [red] (w3)
+(u2) edge (w1) (u2) edge (w5) (u2) edge [red] (w6) (u2) edge (w7)
+(u3) edge [red] (w1) (u3) edge (w3)
+(u4) edge (w1) (u4) edge [red] (w2)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u6) edge (w2)
+(u7) edge [red] (w8) (u7) edge (w9)
+(u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge [red] (w4)
+;
+\end{tikzpicture}
+
+\begin{lstlisting}[caption=Algorithmus zum Berechnen des Vertex Covers]
+$T' \leftarrow U \setminus \bigcup_{e \in M} e$
+Wiederhole:
+    $T \leftarrow T'$
+    $T' \leftarrow T \cup (\{w \in W \mid \exists e \in E \setminus M : e = \{w, v\}, v \in T \})$
+    $T' \leftarrow T' \cup (\{u \in U \mid \exists e \in M : e = \{u, v\}, v \in T \})$
+Solange $T' \neq T$
+Vertex Cover $C = (U \setminus T) \cup (W \cap T)$
+\end{lstlisting}
+
+Ausführen des Algorithmus:
+\begin{align*}
+T' &= \{ u_6 \} \\
+T &= T' \\
+T' &= \{ u_6, w_2 \} \\
+T' &= \{ u_6, w_2, u_4 \} \\
+T &= T' \\
+T' &= \{ u_6, w_2, u_4, w_1 \} \\
+T' &= \{ u_6, w_2, u_4, w_1, u_3 \} \\
+T &= T' \\
+T' &= \{ u_6, w_2, u_4, w_1, u_3, w_3 \} \\
+T' &= \{ u_6, w_2, u_4, w_1, u_3, w_3, u_1 \} \\
+T &= T' \\
+(U \setminus T) \cup (W \cap T) &= \{ u_2, u_5, u_7, u_8, w_1, w_2, w_3 \} 
+\end{align*}
+
 \section{Aufgabe 3}
 
 \section{Aufgabe 4}
