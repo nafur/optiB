@@ -7,4 +7,4 @@ all: $(PDF)
 	pdflatex --halt-on-error $^
 
 clean:
-	rm -rf *.pdf
+	rm -rf $(PDF)
