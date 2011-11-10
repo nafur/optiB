@@ -222,5 +222,25 @@ sind, muss das Matching perfekt sein. Die Matchingeigenschaften werden durch
 das Löschen der bereits abgedeckten Knoten sichergestellt.
 
 \section{Aufgabe 5}
+Beweis durch Induktion über die Anzahl der Knoten in $G$.
+
+Für $|V| = 0$ und $|V| = 1$ ist die Aussage trivial, da $|M| = |M^*| = 0$.
+Für $|V| = 2$ kann der Graph entweder eine Kante enthalten (dann gilt $|M| =
+|M^*| = 1$) oder keine Kante enthalten ($|M| = |M^*| = 0$), die Aussage gilt
+also auch.
+
+Es gelte die Aussage für $|V_{n-1}| = n-1$, zeige sie für $|V_n| = n$.
+
+Es gibt einen Knoten $v \in V_n$, so dass entweder $\exists e \in M: v \in e
+\wedge \exists e \in M^*: v \in e$ oder $\not\exists e \in M: v \in e \wedge \not\exists e \in
+M^*: v \in e$.
+
+Würde kein solcher Knoten existieren, so wäre jeder Knoten entweder zu einer
+Kante in $M$ oder einer Kante in $M^*$ inzident. Dann wäre aber $M \cup M^*$
+wiederum ein Matching, da kein Knoten zu zwei Kanten aus $M \cup M^*$
+inzident ist. Dies ist ein Widerspruch zu der Annahme, dass $M$ ein Maximum
+Matching ist.
+
+Falls $v$ zu Kanten aus beiden Matchings inzident ist, so 
 
 \end{document}
