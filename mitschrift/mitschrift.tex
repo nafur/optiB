@@ -1,4 +1,4 @@
-\documentclass[a4paper,twoside,10pt]{article}
+\documentclass[a4paper,twoside]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -10,7 +10,7 @@
 \usepackage{amsthm}
 \usepackage[normalem]{ulem}
 \usepackage{listings} %für code
-\usepackage{hyperref}
+\usepackage[pdfborder={1 1 0}]{hyperref}
 \usepackage[acronym]{glossaries}
 \usepackage{fancyhdr}
 
@@ -33,7 +33,7 @@
 \definecolor{highlight}{cmyk}{0.8,0,0.38,0.34}
 \newcommand{\new}[2]{\newacronym{#1}{#2}{#1}\emph{\textcolor{highlight}{\gls{#1}}}}
 
-\newtheoremstyle{style}
+\newtheoremstyle{numbered}
    {}
    {}
    {}
@@ -43,7 +43,7 @@
    {\newline} 
    {}
 
-\theoremstyle{style}
+\theoremstyle{numbered}
 
 \newtheorem{thm}[subsection]{Theorem}
 \newtheorem{sat}[subsection]{Satz}
