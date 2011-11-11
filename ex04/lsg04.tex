@@ -6,18 +6,21 @@
 \usepackage{amsthm}
 \usepackage{tikz}
 \usepackage{listings}
-\usepackage{fullpage}
+%\usepackage{fullpage}
 
 \lstset{numbers=left, basicstyle=\ttfamily, numberstyle=\tiny, mathescape=true} %listing style für code
 
 \usetikzlibrary{positioning}
-\pagestyle{fancy}
-
 \usetikzlibrary{automata, positioning, arrows, calc}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex}
-\setlength{\headheight}{23pt}
+%\setlength{\headheight}{30pt}
+\addtolength{\textwidth}{2in}
+\addtolength{\textheight}{1.5in}
+\addtolength{\hoffset}{-1in}
+\addtolength{\voffset}{-0.75in}
+\pagestyle{fancy}
 
 % Kopfzeile
 \lhead{Optimierung B}
