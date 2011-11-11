@@ -17,6 +17,7 @@
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex}
+\setlength{\headheight}{23pt}
 
 % Kopfzeile
 \lhead{Optimierung B}
@@ -135,8 +136,6 @@ sein, also
 \[
 	G_{k-3\text{-reg}} = (\{v_{i, 1}, ..., v_{i, k-1}\}, \{ \{ v_j, v_l\} \mid j \neq l \wedge j+l \neq k\})
 \]
-Der so entstandene Graph $G_i = (V_i, E_i)$ erfüllt die an $G_i$ gestellten Bedingungen.
-
 Beispiel für $k=7$.
 
 \begin{tikzpicture}[node distance=2cm]
@@ -155,6 +154,8 @@ Beispiel für $k=7$.
 	;
 \end{tikzpicture}
 
+Der so entstandene Graph $G_i = (V_i, E_i)$ erfüllt die an $G_i$ gestellten Bedingungen.
+
 Jeder Graph $G_i$ hat genau $k+2$, also ungerade viele Knoten. Bei einem
 Matching innerhalb von $G_i$ bleibt also stets ein Knoten übrig.
 Die einzige Möglichkeit ein perfektes Matching zu erreichen besteht darin,
@@ -167,9 +168,12 @@ Daher kann kein perfektes Matching gefunden werden.
 
 \section{Aufgabe 2}
 
-Wähle $u_i$ mit kleinstem $i$.
+Suche in jedem Schritt einen $M$-erweiternden Pfad. Wähle den Pfad so, dass
+der Pfad im $u_i$ mit kleinstem $i$ beginnt. Wähle den Pfad weiterhin so,
+dass er im $w_k$ mit kleinstem $k$ endet.
 
-Wähle Pfad anschließend so, dass das $w_k$ mit kleinstem $k$ herauskommt.
+Die im jeweiligen Schritt im Matching enthaltenen Kanten sind gestrichelt
+markiert.
 
 \begin{tikzpicture}[node distance=1.75cm, line width=1pt]
 \node (u1) {$u_1$};
@@ -196,14 +200,14 @@ Wähle Pfad anschließend so, dass das $w_k$ mit kleinstem $k$ herauskommt.
 (u2) edge (w1) (u2) edge (w5) (u2) edge (w6) (u2) edge (w7)
 (u3) edge (w1) (u3) edge (w3)
 (u4) edge (w1) (u4) edge (w2)
-(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [dashed] (w5)
 (u6) edge (w2)
 (u7) edge (w8) (u7) edge (w9)
 (u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge (w4)
 ;
 \end{tikzpicture}
 
-$u_1 w_1$
+Pfad: $u_1 w_1$
 
 \begin{tikzpicture}[node distance=1.75cm, line width=1pt]
 \node (u1) {$u_1$};
@@ -226,18 +230,18 @@ $u_1 w_1$
 \node (w9) [right of=w8] {$w_9$};
 
 \path
-(u1) edge [red] (w1) (u1) edge (w3)
+(u1) edge [dashed] (w1) (u1) edge (w3)
 (u2) edge (w1) (u2) edge (w5) (u2) edge (w6) (u2) edge (w7)
 (u3) edge (w1) (u3) edge (w3)
 (u4) edge (w1) (u4) edge (w2)
-(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [dashed] (w5)
 (u6) edge (w2)
 (u7) edge (w8) (u7) edge (w9)
 (u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge (w4)
 ;
 \end{tikzpicture}
 
-$u_2 w_1 u_1 w_3$
+Pfad: $u_2 w_1 u_1 w_3$
 
 \begin{tikzpicture}[node distance=1.75cm, line width=1pt]
 \node (u1) {$u_1$};
@@ -260,18 +264,18 @@ $u_2 w_1 u_1 w_3$
 \node (w9) [right of=w8] {$w_9$};
 
 \path
-(u1) edge (w1) (u1) edge [red] (w3)
-(u2) edge [red] (w1) (u2) edge (w5) (u2) edge (w6) (u2) edge (w7)
+(u1) edge (w1) (u1) edge [dashed] (w3)
+(u2) edge [dashed] (w1) (u2) edge (w5) (u2) edge (w6) (u2) edge (w7)
 (u3) edge (w1) (u3) edge (w3)
 (u4) edge (w1) (u4) edge (w2)
-(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [dashed] (w5)
 (u6) edge (w2)
 (u7) edge (w8) (u7) edge (w9)
 (u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge (w4)
 ;
 \end{tikzpicture}
 
-$u_3 w_1 u_2 w_6$
+Pfad: $u_3 w_1 u_2 w_6$
 
 \begin{tikzpicture}[node distance=1.75cm, line width=1pt]
 \node (u1) {$u_1$};
@@ -294,18 +298,18 @@ $u_3 w_1 u_2 w_6$
 \node (w9) [right of=w8] {$w_9$};
 
 \path
-(u1) edge (w1) (u1) edge [red] (w3)
-(u2) edge (w1) (u2) edge (w5) (u2) edge [red] (w6) (u2) edge (w7)
-(u3) edge [red] (w1) (u3) edge (w3)
+(u1) edge (w1) (u1) edge [dashed] (w3)
+(u2) edge (w1) (u2) edge (w5) (u2) edge [dashed] (w6) (u2) edge (w7)
+(u3) edge [dashed] (w1) (u3) edge (w3)
 (u4) edge (w1) (u4) edge (w2)
-(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [dashed] (w5)
 (u6) edge (w2)
 (u7) edge (w8) (u7) edge (w9)
 (u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge (w4)
 ;
 \end{tikzpicture}
 
-$u_4 w_2$
+Pfad: $u_4 w_2$
 
 \begin{tikzpicture}[node distance=1.75cm, line width=1pt]
 \node (u1) {$u_1$};
@@ -328,18 +332,18 @@ $u_4 w_2$
 \node (w9) [right of=w8] {$w_9$};
 
 \path
-(u1) edge (w1) (u1) edge [red] (w3)
-(u2) edge (w1) (u2) edge (w5) (u2) edge [red] (w6) (u2) edge (w7)
-(u3) edge [red] (w1) (u3) edge (w3)
-(u4) edge (w1) (u4) edge [red] (w2)
-(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u1) edge (w1) (u1) edge [dashed] (w3)
+(u2) edge (w1) (u2) edge (w5) (u2) edge [dashed] (w6) (u2) edge (w7)
+(u3) edge [dashed] (w1) (u3) edge (w3)
+(u4) edge (w1) (u4) edge [dashed] (w2)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [dashed] (w5)
 (u6) edge (w2)
 (u7) edge (w8) (u7) edge (w9)
 (u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge (w4)
 ;
 \end{tikzpicture}
 
-$u_7 w_8$
+Pfad: $u_7 w_8$
 
 \begin{tikzpicture}[node distance=1.75cm, line width=1pt]
 \node (u1) {$u_1$};
@@ -362,18 +366,18 @@ $u_7 w_8$
 \node (w9) [right of=w8] {$w_9$};
 
 \path
-(u1) edge (w1) (u1) edge [red] (w3)
-(u2) edge (w1) (u2) edge (w5) (u2) edge [red] (w6) (u2) edge (w7)
-(u3) edge [red] (w1) (u3) edge (w3)
-(u4) edge (w1) (u4) edge [red] (w2)
-(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u1) edge (w1) (u1) edge [dashed] (w3)
+(u2) edge (w1) (u2) edge (w5) (u2) edge [dashed] (w6) (u2) edge (w7)
+(u3) edge [dashed] (w1) (u3) edge (w3)
+(u4) edge (w1) (u4) edge [dashed] (w2)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [dashed] (w5)
 (u6) edge (w2)
-(u7) edge [red] (w8) (u7) edge (w9)
+(u7) edge [dashed] (w8) (u7) edge (w9)
 (u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge (w4)
 ;
 \end{tikzpicture}
 
-$u_8 w_4$
+Pfad: $u_8 w_4$
 
 \begin{tikzpicture}[node distance=1.75cm, line width=1pt]
 \node (u1) {$u_1$};
@@ -396,14 +400,14 @@ $u_8 w_4$
 \node (w9) [right of=w8] {$w_9$};
 
 \path
-(u1) edge (w1) (u1) edge [red] (w3)
-(u2) edge (w1) (u2) edge (w5) (u2) edge [red] (w6) (u2) edge (w7)
-(u3) edge [red] (w1) (u3) edge (w3)
-(u4) edge (w1) (u4) edge [red] (w2)
-(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
+(u1) edge (w1) (u1) edge [dashed] (w3)
+(u2) edge (w1) (u2) edge (w5) (u2) edge [dashed] (w6) (u2) edge (w7)
+(u3) edge [dashed] (w1) (u3) edge (w3)
+(u4) edge (w1) (u4) edge [dashed] (w2)
+(u5) edge (w8) (u5) edge (w9) (u5) edge [dashed] (w5)
 (u6) edge (w2)
-(u7) edge [red] (w8) (u7) edge (w9)
-(u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge [red] (w4)
+(u7) edge [dashed] (w8) (u7) edge (w9)
+(u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge [dashed] (w4)
 ;
 \end{tikzpicture}
 
@@ -412,40 +416,6 @@ Keine weiteren M-erweiternden Pfade vorhanden.
 \[
 \Rightarrow M = \{ (1, 3), (2, 6), (3, 1), (4, 2), (5, 5), (7, 8), (8, 4) \}
 \]
-
-\begin{tikzpicture}[node distance=1.75cm, line width=1pt, auto]
-\node (u1) {$u_1$};
-\node (u2) [circle, draw, right of=u1] {$u_2$};
-\node (u3) [right of=u2] {$u_3$};
-\node (u4) [right of=u3] {$u_4$};
-\node (u5) [circle, draw, right of=u4] {$u_5$};
-\node (u6) [right of=u5] {$u_6$};
-\node (u7) [circle, draw, right of=u6] {$u_7$};
-\node (u8) [circle, draw, right of=u7] {$u_8$};
-
-\node (w1) [circle, draw, below of=u1] {$w_1$};
-\node (w2) [circle, draw, right of=w1] {$w_2$};
-\node (w3) [circle, draw, right of=w2] {$w_3$};
-\node (w4) [right of=w3] {$w_4$};
-\node (w5) [right of=w4] {$w_5$};
-\node (w6) [right of=w5] {$w_6$};
-\node (w7) [right of=w6] {$w_7$};
-\node (w8) [right of=w7] {$w_8$};
-\node (w9) [right of=w8] {$w_9$};
-
-
-
-\path
-(u1) edge (w1) (u1) edge [red] (w3)
-(u2) edge (w1) (u2) edge (w5) (u2) edge [red] (w6) (u2) edge (w7)
-(u3) edge [red] (w1) (u3) edge (w3)
-(u4) edge (w1) (u4) edge [red] (w2)
-(u5) edge (w8) (u5) edge (w9) (u5) edge [red] (w5)
-(u6) edge (w2)
-(u7) edge [red] (w8) (u7) edge (w9)
-(u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge [red] (w4)
-;
-\end{tikzpicture}
 
 \begin{lstlisting}[caption=Algorithmus zum Berechnen des Vertex Covers]
 $T' \leftarrow U \setminus \bigcup_{e \in M} e$
@@ -472,6 +442,41 @@ T' &= \{ u_6, w_2, u_4, w_1, u_3, w_3, u_1 \} \\
 T &= T' \\
 (U \setminus T) \cup (W \cap T) &= \{ u_2, u_5, u_7, u_8, w_1, w_2, w_3 \} 
 \end{align*}
+
+\begin{tikzpicture}[node distance=1.75cm, line width=1pt, auto]
+\node (u1) {$u_1$};
+\node (u2) [circle, draw, right of=u1] {$u_2$};
+\node (u3) [right of=u2] {$u_3$};
+\node (u4) [right of=u3] {$u_4$};
+\node (u5) [circle, draw, right of=u4] {$u_5$};
+\node (u6) [right of=u5] {$u_6$};
+\node (u7) [circle, draw, right of=u6] {$u_7$};
+\node (u8) [circle, draw, right of=u7] {$u_8$};
+
+\node (w1) [circle, draw, below of=u1] {$w_1$};
+\node (w2) [circle, draw, right of=w1] {$w_2$};
+\node (w3) [circle, draw, right of=w2] {$w_3$};
+\node (w4) [right of=w3] {$w_4$};
+\node (w5) [right of=w4] {$w_5$};
+\node (w6) [right of=w5] {$w_6$};
+\node (w7) [right of=w6] {$w_7$};
+\node (w8) [right of=w7] {$w_8$};
+\node (w9) [right of=w8] {$w_9$};
+
+
+
+\path
+(u1) edge (w1) (u1) edge (w3)
+(u2) edge (w1) (u2) edge (w5) (u2) edge (w6) (u2) edge (w7)
+(u3) edge (w1) (u3) edge (w3)
+(u4) edge (w1) (u4) edge (w2)
+(u5) edge (w8) (u5) edge (w9) (u5) edge (w5)
+(u6) edge (w2)
+(u7) edge (w8) (u7) edge (w9)
+(u8) edge (w9) (u8) edge (w8) (u8) edge (w7) (u8) edge (w6) (u8) edge (w5) (u8) edge (w4)
+;
+\end{tikzpicture}
+
 
 \section{Aufgabe 3}
 
@@ -528,6 +533,10 @@ Sind keine Knoten mehr vorhanden, wurden alle Knoten durch Matchingkanten
 abgedeckt und ein perfektes Matching gefunden.
 Dieses Verfahren entspricht genau dem Algorithmus, der daher ein perfektes
 Matching findet, falls eines existiert.
+
+Die Terminierung ist sichergestellt, da der Algorithmus abbricht, sobald der
+Graph keine Knoten mehr besitzt und in jeder Iteration zwei Knoten aus dem
+Graphen entfernt werden.
 
 $\Leftarrow$: Der Algorithmus findet ein Matching auf $B$. Da der
 Algorithmus erst terminiert, wenn alle Knoten durch das Matching abgedeckt
