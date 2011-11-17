@@ -42,6 +42,49 @@
 \section{Aufgabe 3}
 \section{Aufgabe 4}
 \section{Aufgabe 5}
+Sei $G = (V, E)$ bipartit mit Farbklassen $U, W$ sowie $M_1, M_2 \subseteq E$ Matchings in $G$
+gegeben. Konstruiere nun ein Matching $M \subseteq M_1 \cup M_2$ so dass $M$
+alle Knoten aus $U$ überdeckt, die auch von $M_1$ überdeckt werden, und alle
+Knoten aus $W$ überdeckt, die auch von $M_2$ überdeckt werden.
+
+Betrachten wir zunächst $M' = M_1 \cup M_2$. Wir suchen nun eine Auswahl von
+Kanten $M \subseteq M'$, so das $M$ die obigen Forderungen erfüllt.
+Wir wissen, da $M_1, M_2$
+Matchings, dass $M'$ nur aus zwei Typen von Zusammenhangskomponenten
+bestehen kann: aus Kreisen und aus Pfaden. Diese Komponenten können
+unabhängig voneinander betrachtet werden.
+
+Im Falle eines Kreises $K$ wählen wir oBdA $M = M_1 \cap K$. Da in einem
+Kreis stets abwechselnd Kanten aus $M_1$ und $M_2$ vorkommen, ist $M$ ein
+Matching, falls wir alle Kanten aus $M_1$ wählen. Zudem sind damit alle
+Knoten des Kreises abgedeckt, insbesondere auch die von $M_1$ in $U$ und von
+$M_2$ in $W$ abgedeckten.
+
+Im Falle eines Pfades $P$ kommen auch hier abwechselnd Kanten aus $M_1$ und
+$M_2$ vor. Wir müssen zwischen Pfaden gerader und ungerader Länge unterscheiden.
+Bei Pfaden ungerader Länge können wir die Kanten in $M$ so wählen, das alle
+Knoten auf dem Pfade überdeckt werden. Hier gilt wiederum $M = P \cap M_1$
+oder $M = P \cap M_2$, je nachdem ob die erste Kante des Pfades zu $M_1$
+oder $M_2$ gehört.
+
+Hat der Pfad jedoch gerade Länge, so können nicht alle Knoten überdeckt
+werden, genauer können alle bis auf einen der Endpunkte überdeckt werden.
+Zunächst beobachten wir, dass die erste Kante zu $M_1$ und die
+letzte zu $M_2$ gehört (oder umgekehrt, oBdA betrachten wir diesen Fall).
+Wir müssen nun entscheiden, welchen der beiden Endpunkte wir nicht
+überdecken.
+
+Da der Graph bipartit ist, muss ein Graph gerader Länge in der selben
+Farbklasse beginnen und enden. Also seien beide Endpunkte $v_1, v_2 \in U$
+(wiederum oBdA, für $v_1, v_2 \in W$ gilt die Aussage analog).
+Dann wählen wir $M = P \cap M_1$, da so genau der Endpunkt herausfällt, der
+nicht von $M_1$ sondern von $M_2$ überdeckt ist. Da der Endpunkt aber in
+$U$, muss er von $M$ auch nicht überdeckt werden.
+
+So können wir für jede Zusammenhangskomponente einzeln ein geeignetes
+Matching erzeugen, das gesamte Matching $M$ erhalten wir dann durch
+Vereinigung aller Matchings auf den Komponenten. $\qed$
+
 \section{Aufgabe 6}
 \subsection{}
 Die Tutte-Berge-Formel besagt, dass die Größe eines Maximum Matchings
