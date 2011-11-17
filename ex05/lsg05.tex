@@ -45,12 +45,12 @@
 \section{Aufgabe 6}
 \subsection{}
 \subsection{}
-$k = 3$
 
 \tikzstyle{level 1}=[sibling angle=120]
 \tikzstyle{level 2}=[sibling angle=45]
-\tikzstyle{level 3}=[sibling angle=30]
-\begin{tikzpicture}[grow cyclic, cap=round, shape=circle]
+\begin{figure}[h]\caption{Beispielgraph für $k=3$}
+\begin{center}
+\begin{tikzpicture}[grow cyclic, cap=round]
 \node (vc) {$v_c$}
 	child foreach \i in {1,2,3} {
 		node (v\i-1) {$v_{\i,i}$}
@@ -63,91 +63,38 @@ $k = 3$
 \foreach \i in {1,2,3}
 	\draw (v\i1) -- (v\i-t2) (v\i2) -- (v\i-t1) (v\i-t1) -- (v\i-t2);
 \end{tikzpicture}
-
-$k = 5$
+\end{center}
+\end{figure}
 
 \tikzstyle{level 1}=[sibling angle=72]
 \tikzstyle{level 2}=[sibling angle=30]
-\tikzstyle{level 3}=[sibling angle=30]
-\begin{tikzpicture}[grow cyclic, cap=round, shape=circle]
+\begin{figure}[h]\caption{Beispielgraph für $k=5$}
+\begin{center}
+\begin{tikzpicture}[grow cyclic, cap=round]
 \node (vc) {$v_c$}
-	child { node (v1i) {$v_{1i}$} 
- 		child { node (v11) {$v_{11}$} }
-		child { node (v12) {$v_{12}$}
-			child { node (v1t1) {$v_{1t_1}$} }
+	child foreach \i in {1,2,3,4,5} {
+		node (v\i-i) {$v_{\i,i}$} 
+ 		child [level distance=2cm] { node (v\i-1) {$v_{\i,1}$} }
+		child { node (v\i-2) {$v_{\i,2}$}
+			child { node (v\i-t1) {$v_{\i,t_1}$} }
 		}
-		child { node (v13) {$v_{13}$}
-			child { node (v1t2) {$v_{1t_2}$} }
+		child { node (v\i-3) {$v_{\i,3}$}
+			child { node (v\i-t2) {$v_{\i,t_2}$} }
 		}
-		child { node (v14) {$v_{14}$} }
-	}
-	child { node (v2i) {$v_{2i}$}
- 		child { node (v21) {$v_{21}$} }
-		child { node (v22) {$v_{22}$}
-			child { node (v2t1) {$v_{2t_1}$} }
-		}
-		child { node (v23) {$v_{23}$}
-			child { node (v2t2) {$v_{2t_2}$} }
-		}
-		child { node (v24) {$v_{24}$} }
-	}
-	child { node (v3i) {$v_{3i}$}
- 		child { node (v31) {$v_{31}$} }
-		child { node (v32) {$v_{32}$}
-			child { node (v3t1) {$v_{3t_1}$} }
-		}
-		child { node (v33) {$v_{33}$}
-			child { node (v3t2) {$v_{3t_2}$} }
-		}
-		child { node (v34) {$v_{34}$} }
-	}
-	child { node (v4i) {$v_{4i}$}
- 		child { node (v41) {$v_{41}$} }
-		child { node (v42) {$v_{42}$}
-			child { node (v4t1) {$v_{4t_1}$} }
-		}
-		child { node (v43) {$v_{43}$}
-			child { node (v4t2) {$v_{4t_2}$} }
-		}
-		child { node (v44) {$v_{44}$} }
-	}
-	child { node (v5i) {$v_{5i}$}
- 		child { node (v51) {$v_{51}$} }
-		child { node (v52) {$v_{52}$}
-			child { node (v5t1) {$v_{5t_1}$} }
-		}
-		child { node (v53) {$v_{53}$}
-			child { node (v5t2) {$v_{5t_2}$} }
-		}
-		child { node (v54) {$v_{54}$} }
+		child [level distance=2cm] { node (v\i-4) {$v_{\i,4}$} }
 	}
 ;
-\draw
-(v11) -- (v1t1) (v11) -- (v1t2)
-(v12) -- (v1t1) (v12) -- (v1t2)
-(v13) -- (v1t1) (v13) -- (v1t2)
-(v14) -- (v1t1) (v14) -- (v1t2)
-
-(v21) -- (v2t1) (v21) -- (v2t2)
-(v22) -- (v2t1) (v22) -- (v2t2)
-(v23) -- (v2t1) (v23) -- (v2t2)
-(v24) -- (v2t1) (v24) -- (v2t2)
-
-(v31) -- (v3t1) (v31) -- (v3t2)
-(v32) -- (v3t1) (v32) -- (v3t2)
-(v33) -- (v3t1) (v33) -- (v3t2)
-(v34) -- (v3t1) (v34) -- (v3t2)
-
-(v41) -- (v4t1) (v41) -- (v4t2)
-(v42) -- (v4t1) (v42) -- (v4t2)
-(v43) -- (v4t1) (v43) -- (v4t2)
-(v44) -- (v4t1) (v44) -- (v4t2)
-
-(v51) -- (v5t1) (v51) -- (v5t2)
-(v52) -- (v5t1) (v52) -- (v5t2)
-(v53) -- (v5t1) (v53) -- (v5t2)
-(v54) -- (v5t1) (v54) -- (v5t2)
+\foreach \i in {1,2,3,4,5}
+	\draw
+		(v\i-1) -- (v\i-2) (v\i-2) -- (v\i-3)
+		(v\i-3) -- (v\i-4) (v\i-1) edge [bend left] (v\i-4)
+		(v\i-1) -- (v\i-t1) (v\i-1) -- (v\i-t2)
+		(v\i-2) -- (v\i-t2)	(v\i-3) -- (v\i-t1)
+		(v\i-4) -- (v\i-t1) (v\i-4) -- (v\i-t2)
+		(v\i-t1) -- (v\i-t2)
 ;
 \end{tikzpicture}
+\end{center}
+\end{figure}
 
 \end{document}
