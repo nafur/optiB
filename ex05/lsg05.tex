@@ -44,6 +44,20 @@
 \section{Aufgabe 5}
 \section{Aufgabe 6}
 \subsection{}
+Die Tutte-Berge-Formel besagt, dass die Größe eines Maximum Matchings
+\[
+	\frac{1}{2} \min_{U \subseteq V} ( |U| - odd(G - U) + |V|)
+\]
+entspricht. Da kein perfektes Matching existieren soll, darf die folgende
+Gleichheit nicht erfüllt sein:
+\begin{align*}
+|V| &= \min_{U \subseteq V} ( |U| - odd(G - U) + |V|) \\
+	&= \min_{U \subseteq V} ( |U| - odd(G - U) ) + |V| \\
+\Leftrightarrow 0 &= \min_{U \subseteq V} ( |U| - odd(G - U) )
+\end{align*}
+Es darf also kein $U \subseteq V$ existieren, so dass $|U| = odd(G - U)$.
+
+
 \subsection{}
 
 \tikzstyle{level 1}=[sibling angle=120]
