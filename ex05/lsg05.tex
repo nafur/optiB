@@ -52,40 +52,16 @@ $k = 3$
 \tikzstyle{level 3}=[sibling angle=30]
 \begin{tikzpicture}[grow cyclic, cap=round, shape=circle]
 \node (vc) {$v_c$}
-	child { node (v1i) {$v_{1i}$} 
-		child { node (v11) {$v_{11}$}
-			child { node (v1t1) {$v_{1t_1}$} }
-		}
-		child { node (v12) {$v_{12}$}
-			child { node (v1t2) {$v_{1t_2}$} }
-		}
-	}
-	child { node (v2i) {$v_{2i}$}
-		child { node (v21) {$v_{21}$}
-			child { node (v2t1) {$v_{2t_1}$} }
-		}
-		child { node (v22) {$v_{22}$}
-			child { node (v2t2) {$v_{2t_2}$} }
-		}
-	}
-	child { node (v3i) {$v_{3i}$}
-		child { node (v31) {$v_{31}$}
-			child { node (v3t1) {$v_{3t_1}$} }
-		}
-		child { node (v32) {$v_{32}$}
-			child { node (v3t2) {$v_{3t_2}$} }
+	child foreach \i in {1,2,3} {
+		node (v\i-1) {$v_{\i,i}$}
+		child foreach \k in {1,2} {
+			node (v\i\k) {$v_{\i,\k}$}
+			child { node (v\i-t\k) {$v_{\i,t_\k}$} }
 		}
 	}
 ;
-\draw (v11) -- (v1t2);
-\draw (v12) -- (v1t1);
-\draw (v1t1) -- (v1t2);
-\draw (v21) -- (v2t2);
-\draw (v22) -- (v2t1);
-\draw (v2t1) -- (v2t2);
-\draw (v31) -- (v3t2);
-\draw (v32) -- (v3t1);
-\draw (v3t1) -- (v3t2);
+\foreach \i in {1,2,3}
+	\draw (v\i1) -- (v\i-t2) (v\i2) -- (v\i-t1) (v\i-t1) -- (v\i-t2);
 \end{tikzpicture}
 
 $k = 5$
