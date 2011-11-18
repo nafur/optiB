@@ -38,6 +38,35 @@
 \begin{document}
 
 \section{Aufgabe 1}
+\begin{tikzpicture}[node distance=2cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=2cm and 1.9cm of n5] {$2$};
+	\node (n3) [below right=2cm and 1.9cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1.9cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1.9cm of n3] {$7$};
+	\node (n8) [below right=0.8cm and 1.8cm of n6] {$8$};
+	\node (n9) [right=4cm of n2] {$9$};
+	\node (n11) [right=4cm of n3] {$11$};
+	\node (n13) [right of=n8] {$13$};
+	\node (n10) [right=3cm of n9] {$10$};
+	\node (n12) [right=3cm of n11] {$12$};
+	\path
+		(n1) edge (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge (n4) (n3) edge (n5) (n3) edge (n7) (n3) edge (n11)
+		(n4) edge (n5)
+		(n6) edge (n7) (n6) edge (n8)
+		(n7) edge (n8)
+		(n9) edge (n10) (n9) edge (n13)
+		(n10) edge (n13)
+		(n11) edge (n12) (n11) edge (n13)
+		(n12) edge (n13)
+	;
+\end{tikzpicture}
+
+
 \section{Aufgabe 2}
 \section{Aufgabe 3}
 \section{Aufgabe 4}
