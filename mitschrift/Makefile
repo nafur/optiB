@@ -1,9 +1,9 @@
 all: mitschrift.pdf
 
 mitschrift.pdf: $(wildcard *.tex)
-	pdflatex mitschrift.tex
+	pdflatex --halt-on-error mitschrift.tex
 	makeglossaries mitschrift
-	pdflatex mitschrift.tex
+	pdflatex --halt-on-error mitschrift.tex
 
 clean:
-	rm -rf *.aux
+	rm -rf *.acn *.acr *.alg *.aux *.glo *.ist *.log *.out
