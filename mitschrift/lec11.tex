@@ -1,0 +1,135 @@
+\begin{lec}[2011-11-21]\end{lec}
+\stepcounter{section}
+
+\section*{Edmonds' Matching Algroithm}
+Let $G$ be a graph, $M$ a matching in $G$ and $W$ the set of unmatched vertices.
+A $M$-augmenting path is a $M$-alternating $W$-$W$ chain of positive length 
+where all vertices are distinct.
+
+We call a $M$-alternating chain $P=\plainset{v_0, v_0, …, v_t}$ a \new{$M$-blossom}{$M$-Blüte}
+if $v_0, …, v_{t-1}$ are dstinct, $v_0$ is not matched in $M$ and $v_t = v_0$
+
+
+
+%11.1
+\begin{thm}
+	Let $C$  be a $M$-blossom in $G$. $M$ is a maximum matching if and only if 
+	$M \setminus C$ is a maximum matching in $G \setminus C$.
+\end{thm}
+
+\begin{proof}
+	Let $C = \plainset{v_0, v_1, …, v_t}$, $G' = G\setminus C$, $M' = M \setminus C$.
+	First, let $P$ be a $M$-augmenting path in $G$.
+	W.l.o.g we may assume that $P$ does not start in $v_0$ (therwise turnaround
+	$P$).
+	If $P$ does not visit any vertex of $C$, then $P$ is a $M$-augmenting
+	path in $G'$ as well.
+	If $P$ visits a vertex of $C$, then we can decompose $P$ in $Q$ and $R$
+	with $Q$ ending at the first vertex of $C$.
+	Replace this vertex in $Q$ with vertex $C$ in $G'$. Then Q is a $M$-
+	augmenting path in $G'$.
+	Now, on the reverse, let $P'$ be an $M'$-augmenting path in $G'$.
+	If $P'$ does not visit vertex $C$, then $P'$ is $M$-augmenting path in $G$.
+	If vertex $C$ is visited by $P'$, we may assume that $C$ is the end
+	vertex (since $M'$ does not cover $C$). We thus can replace vertex $C$
+	with a suitable vertex $v_i \in C$ such that the new path $Q$ ends at
+	$v_2$ in $G$.
+	If $i$ is odd, then we extend $Q$ with $v_{i+1}, v_{i+2}, …, v_t = v_0$.
+	If $i$ is even, then we extend $Q$ with $v_{i-1}, v_{i-2}, …, v_0$.
+	The resulting path is a $M$-augmenting path in $G$
+\end{proof}
+\section*{Edmonds' Algorithm}
+Input: Mathing $M$ with set $W \subseteq V$ of unmatched vertices
+Output: Mathing $N$ with $|N| = |M| + 1$ or a certificate that $M$ is a
+maximum matching.
+Description:
+\begin{lstlisting}
+Case 1: No $M$-alternating $W$-$W$ chain exists:
+	Then $M$ is an maximum matching. 
+	STOP.
+Case 2: A $M$-alternating $W$-$W$ chain exists:
+	Let $P = (v_0, v_1, …, v_t)$ be a shortest $M$-alternating 
+	$W$-$W$ chain
+	Case 2A: $P$ is a path.
+		Then $P$ is $M$-augmenting and $N:=M \Delta P$.
+	Case 2B: $P$ is not a path.
+		Choose $i<j$ with $v_i = v_j$ 
+		and $j$ as small as possible
+		Replace $M$ by $M \Delta \plainset{v_0, …, v_i}$
+		Then $C:=\plainset{v_i, v_{i+1}, …, v_j}$ is a $M$-blossom.
+		Apply the Algorithm recursively 
+		until $G':=G \setminus C$ and $M' := M \setminus C$.
+		
+		* If a $M'$-augmenting path $P$ in $G'$
+		  is returned, transform $P'$ to a 
+		  $M$-autmenting path in $G$ 
+		  (by \todo{Thm 11.1})
+		* If $M'$ is a maximum matching in $G'$, 
+		  then $M$ is a maximum matching in $G$
+		  (\todo{Thm 11.1})
+\end{lstlisting}
+%11.2
+\begin{thm}
+	Edmonds' Algorithm is correct and needs at most $\frac12 |V|$ repetitions to find a maximum matching.
+\end{thm}
+
+\begin{proof}
+	Follows directly from \todo{thm 7.11} and \todo{thm 11.1}.
+\end{proof}
+
+How do we find a $M$-alternating $W$-$W$ chain?
+%11.3
+\begin{defn}
+	A \new{$M$-alternating forest}{$M$-alternierender Wald} $(V,F)$ is a
+	forest with $ M \subseteq F$, each component of $(V,F)$ contains 
+	\emph{either} a vertex for $W$ \emph{or} exists of a single edge in $M$,
+	and each path in $(V,F)$ starting with a vertex in $W$ is 
+	$M$-alternating.
+	
+	Let \begin{align*}
+		even(F) =& \plainset{ v \in V: F \text{ contains a $W$-$v$ path of even length}} \\
+		odd(F) =& \plainset{ v \in V: F \text{ contains a $W$-$v$ path of odd length}} \\
+		free(F) =& \plainset{ v \in V: F \text{ does not contain a $W$-$v$ path}} 
+	\end{align*}
+	
+	\todo{insert Figure ELISA 1}
+	
+	Note that each vertex $u \in odd(F)$ is incident to a unique edge in
+	$F \setminus M$ and a unique edge in $M$.
+\end{defn}
+
+%11.4
+\begin{lem}
+	If no edge $e \in E$ exists that connects $even(F)$ with $even(F) \cup 
+	free(F)$, then $M$ is a maximum matching.
+\end{lem}
+
+\begin{proof}
+	If no such edge exists, then even(F) is a stable set in $G - odd(F)$.
+	In fact every vertex $u \in even(F)$ is an odd component in $G - odd(F)$.
+	Let $U:=odd(F)$.
+	\begin{align*}
+		& o(G-U) \geq | even(F)| = |W| + |odd(F)| = |V| - 2 |M| + |U| \\
+		\Leftrightarrow& 2 |M| \geq |V| + |U| - o(G-U).
+	\end{align*}
+	By Tutte-Berge-Formula, $M$ is a maximum matching.
+\end{proof}
+\section*{Construction of an $M$-alternating forest}
+Intialization: $F:=M$. Choose for every vertex $v \in V$ an edge $e_v = vu$ with $u \in W$ (if possible).
+
+Iterate: Find $v \in even(F) \cup free(F)$ for which $e_v=vu$ exists. \newline
+Case 1 : $v \in free(F)$: Add $uv$ to $F$. Let $vw\in M$. For all $wx \in E$, set $e_x = \plainset{x,w}$ \newline
+Case 2: $v \in even(F)$: Find $W-u$ respectively $W-v$ paths $P$ and $Q$ in $F$ \newline
+2a: If $P$ and $Q$ are disjoint, then $F \cup \plainset{uv} \cup Q$ is a $M$-augmenting path \newline
+2b: If $P$ and $Q$ are not disjoint, then $P \cup Q \cup \plainset{uv}$ contains a $M$-blossom $C$. For all edges $cx$ with $c \in C$ and $x \not \in C$, set $e_x = C_x$. Replace $G$ by $G \setminus C$.
+\todo{insert Figure ELISA 2}
+\begin{align*}
+	F=M\cup \plainset{} \\
+	W=\plainset{1,16,18}
+\end{align*}
+\tiny
+\begin{tabular}{ c | c | c | c | c | c | c | c | c | c |c | c | c | c | c |c | c | c | c | c |c | c | c | c | c}
+  v & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 \\
+  \hline 
+  $\plainset{v,u}=e_v$ & & 1 & & & & & & & & 18
+\end{tabular}
