@@ -1,6 +1,6 @@
 all: mitschrift.pdf
 
-mitschrift.pdf: mitschrift.tex
+mitschrift.pdf: $(wildcard *.tex)
 	pdflatex mitschrift.tex
 	makeglossaries mitschrift
 	pdflatex mitschrift.tex
