@@ -38,20 +38,24 @@
 \begin{document}
 
 \section{Aufgabe 1}
-\begin{tikzpicture}[node distance=2cm]
+
+Der Graph zeigt jeweils den Zustand \emph{vor} der rechts angegebenen
+Operation.
+
+\begin{tikzpicture}[node distance=1cm]
 	\node (n1) {$1$};
 	\node (n4) [right of=n1] {$4$};
 	\node (n5) [right of=n4] {$5$};
-	\node (n2) [above right=2cm and 1.9cm of n5] {$2$};
-	\node (n3) [below right=2cm and 1.9cm of n5] {$3$};
-	\node (n6) [below right=0.8cm and 1.9cm of n2] {$6$};
-	\node (n7) [above right=0.8cm and 1.9cm of n3] {$7$};
-	\node (n8) [below right=0.8cm and 1.8cm of n6] {$8$};
-	\node (n9) [right=4cm of n2] {$9$};
-	\node (n11) [right=4cm of n3] {$11$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=2cm of n2] {$9$};
+	\node (n11) [right=2cm of n3] {$11$};
 	\node (n13) [right of=n8] {$13$};
-	\node (n10) [right=3cm of n9] {$10$};
-	\node (n12) [right=3cm of n11] {$12$};
+	\node (n10) [right=2cm of n9] {$10$};
+	\node (n12) [right=2cm of n11] {$12$};
 	\path
 		(n1) edge (n2) (n1) edge (n3)
 		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
@@ -65,6 +69,517 @@
 		(n12) edge (n13)
 	;
 \end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+$M = \emptyset$ \\
+$W = V$.
+
+Wähle als kürzesten $M$-alternierenden $W-W$-Weg \\
+$P = 1, 2$.
+
+$P$ ist ein Pfad.
+
+$M = \{ (1, 2) \}$. \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=2cm of n2] {$9$};
+	\node (n11) [right=2cm of n3] {$11$};
+	\node (n13) [right of=n8] {$13$};
+	\node (n10) [right=2cm of n9] {$10$};
+	\node (n12) [right=2cm of n11] {$12$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge (n4) (n3) edge (n5) (n3) edge (n7) (n3) edge (n11)
+		(n4) edge (n5)
+		(n6) edge (n7) (n6) edge (n8)
+		(n7) edge (n8)
+		(n9) edge (n10) (n9) edge (n13)
+		(n10) edge (n13)
+		(n11) edge (n12) (n11) edge (n13)
+		(n12) edge (n13)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+$M = \{ (1, 2) \}$ \\
+$W = V \setminus \{1, 2\}$.
+
+Wähle als kürzesten $M$-alternierenden $W-W$-Weg \\
+$P = 3, 4$.
+
+$P$ ist ein Pfad.
+
+$M = \{ (1, 2), (3, 4) \}$. \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=2cm of n2] {$9$};
+	\node (n11) [right=2cm of n3] {$11$};
+	\node (n13) [right of=n8] {$13$};
+	\node (n10) [right=2cm of n9] {$10$};
+	\node (n12) [right=2cm of n11] {$12$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge [dashed] (n4) (n3) edge (n5) (n3) edge (n7) (n3) edge (n11)
+		(n4) edge (n5)
+		(n6) edge (n7) (n6) edge (n8)
+		(n7) edge (n8)
+		(n9) edge (n10) (n9) edge (n13)
+		(n10) edge (n13)
+		(n11) edge (n12) (n11) edge (n13)
+		(n12) edge (n13)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+$M = \{ (1, 2), (3, 4) \}$ \\
+$W = V \setminus \{1, 2, 3, 4\}$.
+
+Wähle als kürzesten $M$-alternierenden $W-W$-Weg \\
+$P = 6, 7$.
+
+$P$ ist ein Pfad.
+
+$M = \{ (1, 2), (3, 4), (6, 7) \}$. \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=2cm of n2] {$9$};
+	\node (n11) [right=2cm of n3] {$11$};
+	\node (n13) [right of=n8] {$13$};
+	\node (n10) [right=2cm of n9] {$10$};
+	\node (n12) [right=2cm of n11] {$12$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge [dashed] (n4) (n3) edge (n5) (n3) edge (n7) (n3) edge (n11)
+		(n4) edge (n5)
+		(n6) edge [dashed] (n7) (n6) edge (n8)
+		(n7) edge (n8)
+		(n9) edge (n10) (n9) edge (n13)
+		(n10) edge (n13)
+		(n11) edge (n12) (n11) edge (n13)
+		(n12) edge (n13)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+$M = \{ (1, 2), (3, 4), (6, 7) \}$ \\
+$W = V \setminus \{1, 2, 3, 4, 6, 7\}$.
+
+Wähle als kürzesten $M$-alternierenden $W-W$-Weg \\
+$P = 9, 10$.
+
+$P$ ist ein Pfad.
+
+$M = \{ (1, 2), (3, 4), (6, 7), (9, 10) \}$. \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=2cm of n2] {$9$};
+	\node (n11) [right=2cm of n3] {$11$};
+	\node (n13) [right of=n8] {$13$};
+	\node (n10) [right=2cm of n9] {$10$};
+	\node (n12) [right=2cm of n11] {$12$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge [dashed] (n4) (n3) edge (n5) (n3) edge (n7) (n3) edge (n11)
+		(n4) edge (n5)
+		(n6) edge [dashed] (n7) (n6) edge (n8)
+		(n7) edge (n8)
+		(n9) edge [dashed] (n10) (n9) edge (n13)
+		(n10) edge (n13)
+		(n11) edge (n12) (n11) edge (n13)
+		(n12) edge (n13)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+$M = \{ (1, 2), (3, 4), (6, 7), (9, 10) \}$ \\
+$W = V \setminus \{1, 2, 3, 4, 6, 7, 9, 10\}$.
+
+Wähle als kürzesten $M$-alternierenden $W-W$-Weg \\
+$P = 11, 12$.
+
+$P$ ist ein Pfad.
+
+$M = \{ (1, 2), (3, 4), (6, 7), (9, 10), (11, 12) \}$. \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=2cm of n2] {$9$};
+	\node (n11) [right=2cm of n3] {$11$};
+	\node (n13) [right of=n8] {$13$};
+	\node (n10) [right=2cm of n9] {$10$};
+	\node (n12) [right=2cm of n11] {$12$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge [dashed] (n4) (n3) edge (n5) (n3) edge (n7) (n3) edge (n11)
+		(n4) edge (n5)
+		(n6) edge [dashed] (n7) (n6) edge (n8)
+		(n7) edge (n8)
+		(n9) edge [dashed] (n10) (n9) edge (n13)
+		(n10) edge (n13)
+		(n11) edge [dashed] (n12) (n11) edge (n13)
+		(n12) edge (n13)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+$M = \{ (1, 2), (3, 4), (6, 7), (9, 10), (11, 12) \}$ \\
+$W = V \setminus \{1, 2, 3, 4, 6,
+7, 9, 10, 11, 12\}$.
+
+Wähle als kürzesten $M$-alternierenden $W-W$-Weg \\
+$P = 5, 3, 4, 5$.
+
+$P$ ist kein Pfad. Fasse Blossom zu einem Knoten zusammen und führe
+Algorithmus auf $G / P$ aus. \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {};
+	\node (n5) [right of=n4] {};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$B$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=2cm of n2] {$9$};
+	\node (n11) [right=2cm of n3] {$11$};
+	\node (n13) [right of=n8] {$13$};
+	\node (n10) [right=2cm of n9] {$10$};
+	\node (n12) [right=2cm of n11] {$12$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge (n7) (n3) edge (n11)
+		(n6) edge [dashed] (n7) (n6) edge (n8)
+		(n7) edge (n8)
+		(n9) edge [dashed] (n10) (n9) edge (n13)
+		(n10) edge (n13)
+		(n11) edge [dashed] (n12) (n11) edge (n13)
+		(n12) edge (n13)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+$M = \{ (1, 2), (6, 7), (9, 10), (11, 12) \}$ \\
+$W = V \setminus \{1, 2, 6, 7, 9, 10, 11, 12\}$.
+
+Wähle als kürzesten $M$-alternierenden $W-W$-Weg \\
+$P = B, 7, 6, 8$.
+
+$P$ ist ein Pfad.
+
+$M = \{ (1,2), (B,7), (6,8), (9,10), (11,12) \}$ \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=2cm of n2] {$9$};
+	\node (n11) [right=2cm of n3] {$11$};
+	\node (n13) [right of=n8] {$13$};
+	\node (n10) [right=2cm of n9] {$10$};
+	\node (n12) [right=2cm of n11] {$12$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge [dashed] (n4) (n3) edge (n5) (n3) edge (n7) (n3) edge (n11)
+		(n4) edge (n5)
+		(n6) edge [dashed] (n7) (n6) edge (n8)
+		(n7) edge (n8)
+		(n9) edge [dashed] (n10) (n9) edge (n13)
+		(n10) edge (n13)
+		(n11) edge [dashed] (n12) (n11) edge (n13)
+		(n12) edge (n13)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+Ergebnis von rekursivem Aufruf:
+
+$M_{rek} = \{ (1,2), (B,7), (6,8), (9,10), (11,12) \}$
+
+Wandle $M_{rek}$ in Matching in $G$ um:
+
+$M = \{ (1, 2), (3, 7), (4,5) (6, 8), (9, 10), (11, 12) \}$ \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=2cm of n2] {$9$};
+	\node (n11) [right=2cm of n3] {$11$};
+	\node (n13) [right of=n8] {$13$};
+	\node (n10) [right=2cm of n9] {$10$};
+	\node (n12) [right=2cm of n11] {$12$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge (n4) (n3) edge (n5) (n3) edge [dashed] (n7) (n3) edge (n11)
+		(n4) edge [dashed] (n5)
+		(n6) edge (n7) (n6) edge [dashed] (n8)
+		(n7) edge (n8)
+		(n9) edge [dashed] (n10) (n9) edge (n13)
+		(n10) edge (n13)
+		(n11) edge [dashed] (n12) (n11) edge (n13)
+		(n12) edge (n13)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+$M = \{ (1, 2), (3, 7), (4,5) (6, 8), (9, 10), (11, 12) \}$ \\
+$W = \{13\}$
+
+Wähle als kürzesten $M$-alternierenden $W-W$-Weg \\
+$P = 13, 9, 10, 13$
+
+$P$ ist kein Pfad. Fasse Blossom zu einem Knoten zusammen und führe
+Algorithmus auf $G / P$ aus. \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=4cm of n2] {$B$};
+	\node (n11) [right=2cm of n3] {$11$};
+	\node (n12) [right=2cm of n11] {$12$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge (n4) (n3) edge (n5) (n3) edge [dashed] (n7) (n3) edge (n11)
+		(n4) edge [dashed] (n5)
+		(n6) edge (n7) (n6) edge [dashed] (n8)
+		(n7) edge (n8)
+		(n11) edge [dashed] (n12) (n11) edge (n9)
+		(n12) edge (n9)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+$M = \{ (1, 2), (3, 7), (4,5) (6, 8), (11, 12) \}$ \\
+$W = \{B\}$
+
+Wähle als kürzesten $M$-alternierenden $W-W$-Weg \\
+$P = B, 11, 12, B$
+
+$P$ ist kein Pfad. Fasse Blossom zu einem Knoten zusammen und führe
+Algorithmus auf $G / P$ aus. \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=of n8] {$B$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge (n4) (n3) edge (n5) (n3) edge [dashed] (n7) (n3) edge (n9)
+		(n4) edge [dashed] (n5)
+		(n6) edge (n7) (n6) edge [dashed] (n8)
+		(n7) edge (n8)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+$M = \{ (1, 2), (3, 7), (4,5) (6, 8) \}$ \\
+$W = \{B\}$
+
+Wähle als kürzesten $M$-alternierenden $W-W$-Weg \\
+$P = B, 3, 7, 6, 8, 7, 3, B$
+
+$P$ ist kein Pfad. Tausche Matching-Kanten auf $P$ vor Blossom.
+
+$M = \{ (1, 2), (3, B), (4,5) (6, 8) \}$ \\
+
+Fasse Blossom zu einem Knoten zusammen und führe
+Algorithmus auf $G / P$ aus. \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {};
+	\node (n7) [above right=0.8cm and 1cm of n3] {};
+	\node (n8) [below right=0.3cm and 0cm of n6] {$B_2$};
+	\node (n9) [right=of n8] {$B$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n8) (n2) edge (n9)
+		(n3) edge (n4) (n3) edge (n5) (n3) edge (n8) (n3) edge [dashed] (n9)
+		(n4) edge [dashed] (n5)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+$M = \{ (1, 2), (3, 7), (4,5) \}$ \\
+$W = \{B_2\}$
+
+Es existiert kein $M$-alternierender $W-W$-Weg.
+
+$\Rightarrow$ $M$ ist maximum Matching. \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=of n8] {$B$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge (n4) (n3) edge (n5) (n3) edge (n7) (n3) edge [dashed] (n9)
+		(n4) edge [dashed] (n5)
+		(n6) edge (n7) (n6) edge [dashed] (n8)
+		(n7) edge (n8)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+Ergebnis von rekursivem Aufruf: \\
+$M_{rek} = \{ (1, 2), (3, B), (4,5) \}$
+
+Wandle $M_{rek}$ in Matching in $G$ um:
+
+$M = \{ (1, 2), (3, B), (4,5), (6, 8)\}$ \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=4cm of n2] {$B$};
+	\node (n11) [right=2cm of n3] {$11$};
+	\node (n12) [right=2cm of n11] {$12$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge (n4) (n3) edge (n5) (n3) edge (n7) (n3) edge [dashed] (n11)
+		(n4) edge [dashed] (n5)
+		(n6) edge (n7) (n6) edge [dashed] (n8)
+		(n7) edge (n8)
+		(n11) edge (n12) (n11) edge (n9)
+		(n12) edge [dashed] (n9)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+Ergebnis von rekursivem Aufruf: \\
+$M_{rek} = \{ (1,2), (3,B), (4,5), (6,8) \}$
+
+Wandle $M_{rek}$ in Matching in $G$ um:
+
+$M = \{ (1, 2), (3, 11), (4,5), (6, 8), (12, B) \}$ \\
+}
+
+\begin{tikzpicture}[node distance=1cm]
+	\node (n1) {$1$};
+	\node (n4) [right of=n1] {$4$};
+	\node (n5) [right of=n4] {$5$};
+	\node (n2) [above right=1.5cm and 1cm of n5] {$2$};
+	\node (n3) [below right=1.5cm and 1cm of n5] {$3$};
+	\node (n6) [below right=0.8cm and 1cm of n2] {$6$};
+	\node (n7) [above right=0.8cm and 1cm of n3] {$7$};
+	\node (n8) [below right=0.3cm and 1cm of n6] {$8$};
+	\node (n9) [right=2cm of n2] {$9$};
+	\node (n11) [right=2cm of n3] {$11$};
+	\node (n13) [right of=n8] {$13$};
+	\node (n10) [right=2cm of n9] {$10$};
+	\node (n12) [right=2cm of n11] {$12$};
+	\path
+		(n1) edge [dashed] (n2) (n1) edge (n3)
+		(n2) edge (n3) (n2) edge (n4) (n2) edge (n5) (n2) edge (n6) (n2) edge (n9)
+		(n3) edge (n4) (n3) edge (n5) (n3) edge (n7) (n3) edge [dashed] (n11)
+		(n4) edge [dashed] (n5)
+		(n6) edge (n7) (n6) edge [dashed] (n8)
+		(n7) edge (n8)
+		(n9) edge [dashed] (n10) (n9) edge (n13)
+		(n10) edge (n13)
+		(n11) edge (n12) (n11) edge (n13)
+		(n12) edge [dashed] (n13)
+	;
+\end{tikzpicture}
+\parbox[b]{0.45\textwidth}{
+Ergebnis von rekursivem Aufruf: \\
+$M_{rek} = \{ (1,2), (3,11), (4,5), (6,8), (12, B)\}$
+
+Wandle $M_{rek}$ in Matching in $G$ um:
+
+$M = \{ (1, 2), (3, 11), (4,5) (6, 8), (9, 10), (12, 13) \}$
+
+Das maximale Matching ist $M$. \\
+}
 
 
 \section{Aufgabe 2}
