@@ -1,0 +1,91 @@
+\begin{lec}[2011-11-24]\end{lec}
+\stepcounter{section}
+
+\section*{Weighted Matchings in general graphs}
+Instead of a maximum weighted matching, we search for a minimum weighted perfect matching. Without loss of generallity we may assume that $G$ contains at least one perfect matching: construct a new graph $H$ by copying $G$, add $n=|V(G)|$ new vertices\todo{insert figure NIKLAS 1}, each one adjacent to one vertex of $G$, an add a clique on the new vertices. All new edges have weight zero. To turn a maximum weight perfec matching into a minimum weight perfect matching, we define new weights  \[w'(e):=W-w(e) \quad\text{with}\quad W = \max_{e\in E} w(e) \]
+%12.1
+\begin{lem}
+	A maximum weight matching in $(G,w)$ corresponds to a minimum weight perfect matching in $(H,w')$.
+\end{lem}
+
+\begin{proof}
+	Let $M$ be a perfect matching in $H$.
+	\[
+		w'(M)= n \cdot W - \sum\limits_{e \in M \cap E(G)} w(e)
+	\]
+	Hence
+	\[ 
+		\min_{M \in E(H)} w'(M) = n \cdot W - \max_{M \in E(G)} w(M)
+	\]
+	\todo{insert NIKLAS 3}
+	In contrast to the maximum cardinality matching problem, we also might have to "unshrink" a blossom: Expand
+\end{proof}
+
+%12.2
+\begin{defn}
+	 A collection $\Omega$ of odd subsets of $V$ is called \new{nested}{verschachtelt}, if for all $U,W \Omega$ either $U\cap W = \emptyset$ or $U \subseteq W$ or $W \subseteq U$.
+\end{defn}
+
+\begin{xmp+}
+	\begin{align*}
+		\Omega =  \plainset{\plainset{1}, \plainset{2}, \plainset{3}, \plainset{4}, \plainset{5}, \plainset{6}, \plainset{7}, \plainset{1,2,3}, \plainset{4,5,6}, \plainset{4, …, 7}}
+	\end{align*}\todo{insert NIKLAS 4}
+	if
+	\begin{align*}
+		\Omega =  \plainset{\plainset{1}, \plainset{2}, \plainset{3}, \plainset{4}, \plainset{5}, \plainset{6}, \plainset{7}, \plainset{1,2,3}, \plainset{4,5,6}}
+	\end{align*}
+	then 
+	\begin{align*}
+		\Omega^{max} =  \plainset{\plainset{1,2,3}, \plainset{4,5,6}, \plainset{7}}
+	\end{align*}
+\end{xmp+}
+
+We will assume that $\plainset{v} \in \Omega$ for all $v \in V$. As a consequence $\Omega$ covers $V$. Further, there exist inclusionwise maximal elements in $\Omega$. Let $\Omega^{max}$ denote the subsets of $\Omega$ that are inclusionwise maximal. Therefor $\Omega^{max}$ is a partition of $V$. The algorithm for finding a minimum weight perfect matching is "primal-dual", i.e., during the algorithm both a matching and a dual object, a function $\Pi: \Omega \rightarrow \Q$ is carried on. We consider functions $\Pi: \Omega \rightarrow \Q$ satisfying following conditions:
+\begin{align}\label{eq:12.2.1}
+	\begin{cases}
+		\Pi(U) \geq 0 & \text{ if } U \in \Omega \text{ with } |U| \geq \varepsilon \\
+		\sum\limits_{U \in \Omega:  e \in \delta(U)} \Pi(U) \leq w(e) & \text{ for all } e \in E
+	\end{cases}
+\end{align}
+
+%12.3
+\begin{lem}
+	Let $N$ be a perfect matching. Then $w(N) \geq \sum\limits_{U \in \Omega}\Pi(U)$
+\end{lem}
+
+\begin{proof}
+	\begin{align}\label{eq:12.3.1}
+		w(N) = \sum\limits_{e \in N} w(e) \stackrel{\ref{eq:12.2.1}}{\geq} \sum\limits_{e \in N} \sum\limits_{U \in \Omega: e \in \delta(U)} \Pi(U) = \sum\limits_{u \in \Omega} \Pi(U) \cdot | N \cap \delta(U)|\stackrel{*}{\geq} \sum\limits_{U \in \Omega}\Pi(U)
+	\end{align}\todo{insert NIKLAS 5}
+	
+	(*): since all elements of $\Omega$ are of odd size, there always must be at least one vertex of $U$ matched with a vertex of $V \setminus U$ in every perfect $m$.
+	
+	So if we have a perfect matching $N$ and a function $\Pi$ fullfilling \ref{eq:12.3.1} with equality, we are done. Thus, a given $\Pi: \Omega \rightarrow \Q$, we define \[
+	w_\Pi(e):=w(e)-\sum\limits_{U \in \Omega: e \in \delta(U)} \Pi(U) \stackrel{\ref{eq:12.2.1}}{\geq} 0
+\] This in the end $w_\Pi(e)=0$ for all $e \in N$. Further, leth $G \setminus \Omega$ be the graph with all $U \in \Omega^{max}$ shrunken (with $U$ as shrunken vertex). Thus  $G \setminus \Omega$ has vertex set $\Omega^{max}$ and $U,W \in \Omega^{max}$ are adjacent if and only if there exist $u \in U$, $w \in W$ with $\plainset{u,w} \in E$. Finally, we only consider collections $\Omega$ such that for all $U\in \Omega$ with $|U| \geq 3$, the graph $H_U$ contains a Hamilton cycle $C_U$ with edges $e$ having $w_\Pi(e) = 0$. Hence $H_U$ is the graph obtaind by shrinking all inclusionwise minimal subsets in $G[U]$ \label{rel:12.2.2}
+\end{proof}
+
+\section*{Edmonds' Minimum Weighted Perfect Matching Algorithm}
+\begin{lstlisting}
+Initialize:
+	$M:=\emptyset$, 
+	$F:=\emptyset$,
+	$\Omega := \plainset{\plainset{v}, v \in V}$,
+	$\Pi(\plainset{v}):=0$
+As long as $M$ is not perfect in $G \setminus \Omega$ iterate as follows
+     a) Select a maximal such that 
+		$\Pi(U) - \alpha \geq 0 \forall U \in \Omega, |U| \geq \varepsilon, U \in odd(F)$,
+		$\Pi(U) + \alpha \geq 0 \forall U \in \Omega, |U| \geq \varepsilon,  U \in even(F)$, and
+		$\sum\limits_{U\in \Omega \cap odd(F): e \in \delta(U)} (\Pi(u)-\alpha) + \sum\limits_{U\in \Omega \cap even(F): e \in \delta(U)} (\Pi(u)-\alpha) \leq w(e) \forall e \in E$
+	Reset $\Pi(U):=\Pi(U)-\alpha$ for $U \in odd(F)$ and 
+		$\Pi(U):=\Pi(U)+\alpha$ for $U \in even(F)$
+	The new $\Pi$ fullfills $\text{\ref{eq:12.2.1}}$ and in addition either of
+		the following holds:
+		i)  $\exists e \in G \setminus \Omega$ with $w_\Pi(e)=0$ such that $e$ intesects with $even(F)$ but not with $odd(F)$
+		ii) $\exists U \in odd(F)$ with $|U| \geq \varepsilon$ and $\Pi(U) = 0$
+     b) If (i) holds, and only 1 end vertex of $e$ belongs to $even(F)$ and the other one is in $free(F)$ then extend F with $e$ GROP
+	If (i) holds, and both end vertices of $e$ belong to $even(F)$ and $F \cup \plainset{e}$ contains a cycle $U$, add $U$ to $\Omega$ with $\Pi(U):=0$, replace $F$ by $F \setminus U$ and $M$ by $M \setminus U$ SHRINK
+	If (i) holds, and both ... $even(F)$ and $F \cup \plainset e$ contains a $M$-augmenting path, augment $M$ an replace $F:=M$. AUGMENT
+     c) If (ii) holds, remove $U$ from $\Omega$, replace $F$ by $F \cup P \cup N$ and $M$ by $M \cup N$, where $P$ is the path of even length in $C_U$ connection the two vertices incident to the edges in $F$ adjacent to $U$ and N the matching $C_U$ which covers all vertices in $U$ not covered by $M$ EXPAND
+END
+\end{lstlisting}
