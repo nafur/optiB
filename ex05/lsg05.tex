@@ -583,8 +583,35 @@ Das maximale Matching ist $M$. \\
 
 
 \section{Aufgabe 2}
+
 \section{Aufgabe 3}
+Der Satz von Tutte besagt für einen Graphen $G = (V, E)$:
+\[
+	\exists M \text{ perfektes Matching in } G \Leftrightarrow
+	\forall S \subseteq V: |S| \geq odd(G - S)
+\]
+
+Sei $G = (V, E)$ ein regulärer Graph ohne Brücken.
+Betrachte eine beliebige Knotenteilmenge $S \subseteq V$.
+Wir werden zeigen, dass $|S| \geq odd(G - S)$. Dann hat $G$ ein perfektes
+Matching.
+Betrachte nun alle Zusammenhangskomponenten von $G - S$ mit ungeradem Grad.
+Wir nennen diese $C_i, i = 1 ... k$.
+
+Da $G$ 3-regulär, muss die Anzahl der ausgehenden Kanten von jedem $C_i$
+nach dem Handschlaglemma ungerade sein. Da ausserdem keine Brücken
+existieren, muss die Anzahl größer als $1$ sein, also mindestens $3$.
+
+Die Anzahl der von $S$ ausgehenden Kanten kann gleichzeitig maximal
+$3 \cdot |S|$ sein, da $G$ 3-regulär.
+Die Anzahl der $C_i$ ist also durch $3 \cdot |S| / 3$ beschränkt, also
+$odd(G - S) \leq |S|$.
+\qed
+
+
+
 \section{Aufgabe 4}
+
 \section{Aufgabe 5}
 Sei $G = (V, E)$ bipartit mit Farbklassen $U, W$ sowie $M_1, M_2 \subseteq E$ Matchings in $G$
 gegeben. Konstruiere nun ein Matching $M \subseteq M_1 \cup M_2$ so dass $M$
