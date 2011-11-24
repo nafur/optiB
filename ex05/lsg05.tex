@@ -584,6 +584,22 @@ Das maximale Matching ist $M$. \\
 
 \section{Aufgabe 2}
 
+Sei $G = (V, E)$ ohne isolierte Knoten. Dann gilt $\nu(G) + \rho(G) = |V|$.
+$\nu(G)$ ist hierbei die Paarungszahl.
+
+Nach dem Satz von Tutte-Berge gilt
+\[
+	\nu(G) = \min_{U \subseteq V} \frac{1}{2} (|V| + |U| - odd(G - U))
+\]
+
+Die Behauptung entspricht also
+
+\begin{align*}
+&	\min_{U \subseteq V} \frac{|V| + |U| - odd(G - U)}{2} + \max_{U \subseteq V} \frac{|U| + odd(G[U])}{2} &= |V| \\
+\Leftrightarrow &\min_{U \subseteq V} \frac{|U| - odd(G - U)}{2} + \max_{U \subseteq V} \frac{|U| + odd(G[U])}{2} &= \frac{|V|}{2} \\
+\Leftrightarrow &\min_{U \subseteq V} |U| - odd(G - U) + \max_{U \subseteq V} |U| + odd(G[U]) &= |V|
+\end{align*}
+
 \section{Aufgabe 3}
 Tuttes 1-Faktor Theorem besagt für einen Graphen $G = (V, E)$:
 \[
@@ -607,8 +623,6 @@ $3 \cdot |S|$ sein, da $G$ 3-regulär.
 Die Anzahl der $C_i$ ist also durch $3 \cdot |S| / 3$ beschränkt, also
 $odd(G - S) \leq |S|$.
 \qed
-
-
 
 \section{Aufgabe 4}
 
