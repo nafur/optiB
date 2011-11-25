@@ -1,0 +1,89 @@
+\begin{lec}[2011-11-25]\end{lec}
+\stepcounter{section}
+
+\section*{The Traveling Salesman Problem}
+
+\begin{defn}
+A (directed) cycle (path) with $|V|$ (resp. $|V|-1$) edges is called a
+(directed) \new{Hamilton cycle}{Hamiltonkreis} (\new{Hamilton
+path}{Hamiltonpfad}).
+
+Occasionally, a Hamilton cycle will be called a \new{tour}{Tour}.
+
+The \new{traveling salesman problem (TSP)}{Problem des Handelsreisenden} is
+to find, given distances $c_{ij}$ for all $i, j$, a minimum length Hamilton
+cycle in a complete graph.
+
+If $c_{ij} = c_{ji} \forall i,j$, the problem is
+\new{symmetric}{symmetrisch}, otherwise it is
+\new{assymmetric}{assymetrisch}.
+
+If $c_{ij}$ represent euclidean distances in $\mathbb{R}^2$, the TSP is
+euclidean.
+\end{defn}
+
+\begin{lem}\label{lem:13.2}
+If $c_{ij} < \infty$ fulfills the triangle inequality $c_{ij} + c_{jk} \geq
+c_{ik}$, the vertices can be placed in $\mathbb{R}^2$ such that the TSP is
+euclidean.
+\qed
+\end{lem}
+
+Let $C(S, k) =$ minimum length of a path from vertex $1$ to vertex $k$ which
+visits all vertices in $S$ exactly once (and no other vertices).
+Hence, the TSP is solved as soon as we have computed $C(\{2, ..., n\}, 1)$.
+
+\begin{lem}
+\[
+C(S, k) = min_{j \in S} \left\{ C(S \setminus \{j\}, j) + c_{jk} \right\}
+\]
+\end{lem}
+\begin{proof}
+The optimal path from $1$ to $k$ via $S$ has as last-but-one vertex a vertex
+$j^* \in S$. The path from $1$ to $j^*$ via $S \setminus \{j^*\}$ should be
+optimal (i.e. has value $C(S \setminus \{j^*\}, j^*))$, otherwise we can
+improve it. Vertex $j^*$ can be determined by taking the minimum among all
+$j \in S$.
+\end{proof}
+
+\begin{lstlisting}[caption=Held-Karp Algorithm for TSP]
+Initialize $C(\emptyset, k) = c_{1k} \forall k \in \{2, ..., n\}$
+FOR $2 \leq l \leq n-1$ DO
+	FOR ALL $S \subseteq \{2, ..., n\}$ with $|S| = l$ DO
+		FOR $k \in \{2, ..., n\} \setminus S$ DO
+			$C(S, k) = \min_{j \in S} \left\{ C(S \setminus \{j\}, j) + c_{jk} \right\}$
+		ENDDO
+	ENDDO
+ENDDO
+$C^* = \min_{j \in \{2, ..., n\}} \left\{ C(\{2, ..., n\}\setminus\{j\}, j) + c_{j1} \right\}$
+RETURN $C^*$
+\end{lstlisting}
+
+\begin{thm}
+The Held-Karp algorithm is correct.
+
+In total $(n-1) 2^{n-2} - (n-2)$ values have to be computed.
+\end{thm}
+\begin{proof}
+Follows directly from Lemma~\ref{lem:13.2} and the slides.
+\end{proof}
+
+For comparison: Complete enumeration searches through $(n-1)!$ tours. $999! \approx 10^{2500}$.
+Stirling formula tells us:
+\[
+\lim_{n \rightarrow \infty} \frac{n! \cdot e^n}{\sqrt{2 \pi n} \cdot n^n} = 1 \Rightarrow 2^n << n!
+\]
+The pratical running time of the algorithm can be reduced significantly by a good solution value (upper bound):
+all values $C(S, k) >$ upper bound can be ignored for further computations.
+
+\subsection*{SpanningTree heuristic}
+A TSP tour is a set of $|V|$ edges \strike{building a cycle} connecting all vertices.
+Instead, I might search for a relaxation, the minimum spanning tree plus one edge.
+Stated otherwise, the MST is a lower bound on the TSP tour.
+
+\begin{lstlisting}[caption=The MST heuristic is therefore]
+Find a MST $T$ in $G$
+Duplicate all edges in $T$: $T_2$
+Determine an euler tour in $(V, T_2)$
+Replace vertices visited twice by the shortest to the next not yet visited vertex.
+\end{lstlisting}
