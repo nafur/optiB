@@ -14,11 +14,11 @@ if $v_0, …, v_{t-1}$ are dstinct, $v_0$ is not matched in $M$ and $v_t = v_0$
 %11.1
 \begin{thm}
 	Let $C$  be a $M$-blossom in $G$. $M$ is a maximum matching if and only if 
-	$M \setminus C$ is a maximum matching in $G \setminus C$.
+	$M / C$ is a maximum matching in $G / C$.
 \end{thm}
 
 \begin{proof}
-	Let $C = \plainset{v_0, v_1, …, v_t}$, $G' = G\setminus C$, $M' = M \setminus C$.
+	Let $C = \plainset{v_0, v_1, …, v_t}$, $G' = G / C$, $M' = M / C$.
 	First, let $P$ be a $M$-augmenting path in $G$.
 	W.l.o.g we may assume that $P$ does not start in $v_0$ (therwise turnaround
 	$P$).
@@ -58,7 +58,7 @@ Case 2: A $M$-alternating $W$-$W$ chain exists:
 		Replace $M$ by $M \Delta \plainset{v_0, …, v_i}$
 		Then $C:=\plainset{v_i, v_{i+1}, …, v_j}$ is a $M$-blossom.
 		Apply the Algorithm recursively 
-		until $G':=G \setminus C$ and $M' := M \setminus C$.
+		until $G':=G / C$ and $M' := M / C$.
 		
 		* If a $M'$-augmenting path $P$ in $G'$
 		  is returned, transform $P'$ to a 
@@ -121,7 +121,7 @@ Iterate: Find $v \in even(F) \cup free(F)$ for which $e_v=vu$ exists. \newline
 Case 1 : $v \in free(F)$: Add $uv$ to $F$. Let $vw\in M$. For all $wx \in E$, set $e_x = \plainset{x,w}$ \newline
 Case 2: $v \in even(F)$: Find $W-u$ respectively $W-v$ paths $P$ and $Q$ in $F$ \newline
 2a: If $P$ and $Q$ are disjoint, then $F \cup \plainset{uv} \cup Q$ is a $M$-augmenting path \newline
-2b: If $P$ and $Q$ are not disjoint, then $P \cup Q \cup \plainset{uv}$ contains a $M$-blossom $C$. For all edges $cx$ with $c \in C$ and $x \not \in C$, set $e_x = C_x$. Replace $G$ by $G \setminus C$.
+2b: If $P$ and $Q$ are not disjoint, then $P \cup Q \cup \plainset{uv}$ contains a $M$-blossom $C$. For all edges $cx$ with $c \in C$ and $x \not \in C$, set $e_x = C_x$. Replace $G$ by $G / C$.
 \todo{insert Figure ELISA 2}
 \begin{align*}
 	F=M\cup \plainset{} \\
