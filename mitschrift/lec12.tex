@@ -73,17 +73,13 @@ Initialize:
 	$\Omega := \plainset{\plainset{v}, v \in V}$,
 	$\Pi(\plainset{v}):=0$
 As long as $M$ is not perfect in $G \setminus \Omega$ iterate as follows
-     a) Select a maximal such that 
-		$\Pi(U) - \alpha \geq 0 \forall U \in \Omega, |U| \geq \varepsilon, U \in odd(F)$,
-		$\Pi(U) + \alpha \geq 0 \forall U \in \Omega, |U| \geq \varepsilon,  U \in even(F)$, and
-		$\sum\limits_{U\in \Omega \cap odd(F): e \in \delta(U)} (\Pi(u)-\alpha) + \sum\limits_{U\in \Omega \cap even(F): e \in \delta(U)} (\Pi(u)-\alpha) \leq w(e) \forall e \in E$
-	Reset $\Pi(U):=\Pi(U)-\alpha$ for $U \in odd(F)$ and 
-		$\Pi(U):=\Pi(U)+\alpha$ for $U \in even(F)$
-	The new $\Pi$ fullfills $\text{\ref{eq:12.2.1}}$ and in addition either of
-		the following holds:
-		i)  $\exists e \in G \setminus \Omega$ with $w_\Pi(e)=0$ such that $e$ intesects with $even(F)$ but not with $odd(F)$
-		ii) $\exists U \in odd(F)$ with $|U| \geq \varepsilon$ and $\Pi(U) = 0$
-     b) If (i) holds, and only 1 end vertex of $e$ belongs to $even(F)$ and the other one is in $free(F)$ then extend F with $e$ GROP
+     a) Select $\alpha$ maximal such that 
+		$\Pi(U) - \alpha \geq 0 \forall U \in \Omega, |U| \geq \varepsilon, U \in odd(F)$, $\Pi(U) + \alpha \geq 0 \forall U \in \Omega, |U| \geq \varepsilon,  U \in even(F)$, and $\sum\limits_{U\in \Omega \cap odd(F): e \in \delta(U)} (\Pi(u)-\alpha) + \sum\limits_{U\in \Omega \cap even(F): e \in \delta(U)} (\Pi(u)-\alpha) \leq w(e) \forall e \in E$
+	Reset $\Pi(U):=\Pi(U)-\alpha$ for $U \in odd(F)$ and $\Pi(U):=\Pi(U)+\alpha$ for $U \in even(F)$
+	The new $\Pi$ fullfills $\text{\ref{eq:12.2.1}}$ and in addition either of the following holds:
+	i)  $\exists e \in G \setminus \Omega$ with $w_\Pi(e)=0$ such that $e$ intesects with $even(F)$ but not with $odd(F)$
+	ii) $\exists U \in odd(F)$ with $|U| \geq \varepsilon$ and $\Pi(U) = 0$
+     b) If (i) holds, and only 1 end vertex of $e$ belongs to $even(F)$ and the other one is in $free(F)$ then extend F with $e$ GROW
 	If (i) holds, and both end vertices of $e$ belong to $even(F)$ and $F \cup \plainset{e}$ contains a cycle $U$, add $U$ to $\Omega$ with $\Pi(U):=0$, replace $F$ by $F \setminus U$ and $M$ by $M \setminus U$ SHRINK
 	If (i) holds, and both ... $even(F)$ and $F \cup \plainset e$ contains a $M$-augmenting path, augment $M$ an replace $F:=M$. AUGMENT
      c) If (ii) holds, remove $U$ from $\Omega$, replace $F$ by $F \cup P \cup N$ and $M$ by $M \cup N$, where $P$ is the path of even length in $C_U$ connection the two vertices incident to the edges in $F$ adjacent to $U$ and N the matching $C_U$ which covers all vertices in $U$ not covered by $M$ EXPAND
