@@ -7,3 +7,6 @@ mitschrift.pdf: $(wildcard *.tex)
 
 clean:
 	rm -rf *.acn *.acr *.alg *.aux *.glo *.ist *.log *.out
+
+superclean: clean
+	rm -rf *.pdf

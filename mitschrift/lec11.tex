@@ -6,8 +6,8 @@ Let $G$ be a graph, $M$ a matching in $G$ and $W$ the set of unmatched vertices.
 A $M$-augmenting path is a $M$-alternating $W$-$W$ chain of positive length 
 where all vertices are distinct.
 
-We call a $M$-alternating chain $P=\plainset{v_0, v_0, …, v_t}$ a \new{$M$-blossom}{$M$-Blüte}
-if $v_0, …, v_{t-1}$ are dstinct, $v_0$ is not matched in $M$ and $v_t = v_0$
+We call a $M$-alternating chain $P=\plainset{v_0, v_0, ..., v_t}$ a \new{$M$-blossom}{$M$-Blüte}
+if $v_0, ..., v_{t-1}$ are dstinct, $v_0$ is not matched in $M$ and $v_t = v_0$
 
 
 
@@ -18,7 +18,7 @@ if $v_0, …, v_{t-1}$ are dstinct, $v_0$ is not matched in $M$ and $v_t = v_0$
 \end{thm}
 
 \begin{proof}
-	Let $C = \plainset{v_0, v_1, …, v_t}$, $G' = G\setminus C$, $M' = M \setminus C$.
+	Let $C = \plainset{v_0, v_1, ..., v_t}$, $G' = G\setminus C$, $M' = M \setminus C$.
 	First, let $P$ be a $M$-augmenting path in $G$.
 	W.l.o.g we may assume that $P$ does not start in $v_0$ (therwise turnaround
 	$P$).
@@ -34,8 +34,8 @@ if $v_0, …, v_{t-1}$ are dstinct, $v_0$ is not matched in $M$ and $v_t = v_0$
 	vertex (since $M'$ does not cover $C$). We thus can replace vertex $C$
 	with a suitable vertex $v_i \in C$ such that the new path $Q$ ends at
 	$v_2$ in $G$.
-	If $i$ is odd, then we extend $Q$ with $v_{i+1}, v_{i+2}, …, v_t = v_0$.
-	If $i$ is even, then we extend $Q$ with $v_{i-1}, v_{i-2}, …, v_0$.
+	If $i$ is odd, then we extend $Q$ with $v_{i+1}, v_{i+2}, ..., v_t = v_0$.
+	If $i$ is even, then we extend $Q$ with $v_{i-1}, v_{i-2}, ..., v_0$.
 	The resulting path is a $M$-augmenting path in $G$
 \end{proof}
 \section*{Edmonds' Algorithm}
@@ -48,15 +48,15 @@ Case 1: No $M$-alternating $W$-$W$ chain exists:
 	Then $M$ is an maximum matching. 
 	STOP.
 Case 2: A $M$-alternating $W$-$W$ chain exists:
-	Let $P = (v_0, v_1, …, v_t)$ be a shortest $M$-alternating 
+	Let $P = (v_0, v_1, ..., v_t)$ be a shortest $M$-alternating 
 	$W$-$W$ chain
 	Case 2A: $P$ is a path.
 		Then $P$ is $M$-augmenting and $N:=M \Delta P$.
 	Case 2B: $P$ is not a path.
 		Choose $i<j$ with $v_i = v_j$ 
 		and $j$ as small as possible
-		Replace $M$ by $M \Delta \plainset{v_0, …, v_i}$
-		Then $C:=\plainset{v_i, v_{i+1}, …, v_j}$ is a $M$-blossom.
+		Replace $M$ by $M \Delta \plainset{v_0, ..., v_i}$
+		Then $C:=\plainset{v_i, v_{i+1}, ..., v_j}$ is a $M$-blossom.
 		Apply the Algorithm recursively 
 		until $G':=G \setminus C$ and $M' := M \setminus C$.
 		

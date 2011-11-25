@@ -31,9 +31,9 @@ $D$ contains a negative weighted cycle if and only if one of the diagonal elemen
 \newcommand{\wii}[0]{w_{ii}}
 \newcommand{\wij}[0]{w_{ij}}
 
-Let $W^k$ be the matrix $W$ after iteration $k$, with $W^0$ being the initial matrix. By induction on $k = 0, …, n$ we show that $W^k$ is the matrix of shortest path lengths with vertices $1, …, k$ as \emph{possible} internal vertices, provided $D$ does not contain a negative cycle on these vertices.
+Let $W^k$ be the matrix $W$ after iteration $k$, with $W^0$ being the initial matrix. By induction on $k = 0, ..., n$ we show that $W^k$ is the matrix of shortest path lengths with vertices $1, …, k$ as \emph{possible} internal vertices, provided $D$ does not contain a negative cycle on these vertices.
 
-If $D$ has a negative cycle, then $\wii^k < 0$ for an $i \in \{ 1, …, n\}$
+If $D$ has a negative cycle, then $\wii^k < 0$ for an $i \in \{ 1, ..., n\}$
 
 For $k = 0$, the statement clearly true.
 
@@ -41,16 +41,16 @@ Assume, it is correct for $k \geq 0$, and we have executed the $(k+1)$st iterati
 
 It holds that $\wij^{k+1} = \min\{\wij^k, w_{i,k+1}^k + w_{k+1,j}^k\}$. Note that, provided no negative cycle exists, $w_{i,k+1}^{k+1}$ does not have any vertex $k+1$ as internal vertex, and thus $w_{i,k+1}^{k+1} = w_{i,k+1}^k$ (similarly, $w_{k+1,j}^{k+1} = w_{k+1,j}^k$).
 
-$w_{i,k+1}^k$ is the minimal length of a $[i,k+1]$-path with $\{1, …, k\}$ as allowed internal vertices. Similarly, $w_{k+1,j}^k$.
+$w_{i,k+1}^k$ is the minimal length of a $[i,k+1]$-path with $\{1, ..., k\}$ as allowed internal vertices. Similarly, $w_{k+1,j}^k$.
 
-Thus, $w_{i,k+1}^k+w_{k+1,j}^k$ is the minimal length of an $[i,j]$-path (not necessarily simple) containing $k+1$ (mandatory) and $\{ 1, …, k \}$ (voluntary). If the shortest path from $i$ to $j$ using $\{1, …, k+1\}$ does not contain $k+1$, it only contains $\{1, … , k\}$ (voluntary) and, hence, $\wij^k$ is the right value.
+Thus, $w_{i,k+1}^k+w_{k+1,j}^k$ is the minimal length of an $[i,j]$-path (not necessarily simple) containing $k+1$ (mandatory) and $\{ 1, ..., k \}$ (voluntary). If the shortest path from $i$ to $j$ using $\{1, …, k+1\}$ does not contain $k+1$, it only contains $\{1, … , k\}$ (voluntary) and, hence, $\wij^k$ is the right value.
 
 What remains to show is that the connection of the $[i,k+1]$-path with the $[l+1,j]$-path is indeed a simple path.
 
-Let $K$ be this chain. After removal of cycles, the chain $K$ contains (of course) a simple $[i,j]$-path $\bar K$. Since such cycles may only contain vertices from $\{1, …, k+1\}$, one cycle must contain $k+1$.
+Let $K$ be this chain. After removal of cycles, the chain $K$ contains (of course) a simple $[i,j]$-path $\bar K$. Since such cycles may only contain vertices from $\{1, ..., k+1\}$, one cycle must contain $k+1$.
 If this cycle is not negatively weighted, then path $\bar K$ is shorter and $\wij< w_{i,k+1}^k + w_{k+1,j}^k$.
 
-If this cycle is negatively weighted, $w_{k+1,k+1}^k<0$ (the cycle only contains internal vertices from $\{1, …, k\}$) and algorithm would have stopped earlier.
+If this cycle is negatively weighted, $w_{k+1,k+1}^k<0$ (the cycle only contains internal vertices from $\{1, ..., k\}$) and algorithm would have stopped earlier.
 \end{proof}
 
 \subsection*{Min-Max-Theorems for combinatorial Optimization Problems}
@@ -84,7 +84,7 @@ Stated  otherwise, for every cut $B$, there exists a vertex set $W \subset V$ su
 \end{proof}
 
 \begin{thm} %5.4
-	Let $D=(V,A)$ be a digraph, $c(a) \in \Z_+ \, \forall a \in A \wedge s,t \in V \wedge s\neq t$. Then the $\min$ length of an $[s,t]$-path equals the maximum number $d$ of (not necessarily different) $(s,t)$-cuts $C_1, …, C_d$ such that every arc $a \in A$ is contained in at most $c(a)$ cuts.
+	Let $D=(V,A)$ be a digraph, $c(a) \in \Z_+ \, \forall a \in A \wedge s,t \in V \wedge s\neq t$. Then the $\min$ length of an $[s,t]$-path equals the maximum number $d$ of (not necessarily different) $(s,t)$-cuts $C_1, ..., C_d$ such that every arc $a \in A$ is contained in at most $c(a)$ cuts.
 \end{thm}
 
 \begin{proof}
@@ -98,5 +98,5 @@ Stated  otherwise, for every cut $B$, there exists a vertex set $W \subset V$ su
 	
 	(for the example graph on the board)
 	
-	The shortest $[s,t]$-path $P$ consists of arcs $a_1, … a_k$ with arc $a_j$ contained in $(s,t)$-cuts $C_i$,  $i \in \{\sum_{l=1}^{j-1} c(a_l) + 1, …, \sum_{l=1}^j a(a_l)\}$: exactly $c(a)$ cuts.
+	The shortest $[s,t]$-path $P$ consists of arcs $a_1, ... a_k$ with arc $a_j$ contained in $(s,t)$-cuts $C_i$,  $i \in \{\sum_{l=1}^{j-1} c(a_l) + 1, …, \sum_{l=1}^j a(a_l)\}$: exactly $c(a)$ cuts.
 \end{proof}	
