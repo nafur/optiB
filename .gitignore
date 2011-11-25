@@ -5,5 +5,9 @@ lemon
 *.png
 *.o
 *.exe
+*.glg
+*.ilg
+*.ind
+*.xdy
 *~
 *.fuse_hidden*
