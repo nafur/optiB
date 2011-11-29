@@ -73,7 +73,7 @@ int main()
 	for (int i=1; i<7; i++)
 	{
 		stringstream filename;
-		filename << "data_01/Graph" << i << ".lgf";
+		filename << "data_1/Graph" << i << ".lgf";
 		
 		ListGraph g;
 		ListGraph::EdgeMap<int> weight(g);
@@ -97,7 +97,7 @@ int main()
 	for (int i=1; i<7; i++)
 	{
 		stringstream filename;
-		filename << "data_01/Graph" << i << ".lgf";
+		filename << "data_1/Graph" << i << ".lgf";
 		
 		ListGraph g;
 		ListGraph::EdgeMap<int> weight(g);
@@ -109,7 +109,7 @@ int main()
 		{
 			START_TIMER(tmr_steiner)
 			stringstream termfname;
-			termfname << "data_01/Graph" << i << "_Terminals";
+			termfname << "data_1/Graph" << i << "_Terminals";
 			if (termFiles[i-1] != 1) termfname << term;
 			termfname << ".txt";
 			set<ListGraph::Node> terminals;
