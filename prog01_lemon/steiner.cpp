@@ -86,8 +86,10 @@ int Steiner::steiner(const set<ListGraph::Node> terminals)
 	}
 	
 	// clean up dijkstras
-	for (ListGraph::NodeIt n(this->g); n != INVALID; ++n)
-		delete dijk[n];
-		
+	for (set<ListGraph::Node>::iterator it = terminals.begin(); it != terminals.end(); ++it)
+	{
+		delete dijk[*it];
+	}
+
 	return overallw;
 }
