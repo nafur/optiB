@@ -13,7 +13,7 @@ int Kruskal::kruskal()
 	ListGraph::NodeMap<int> vertices(this->g);
 	
 	int cnt = countNodes(this->g);
-	int map[cnt];
+	int* map = new int[cnt];
 	
 	// sorted edges
 	priority_queue<cmpEdge> edges;
@@ -51,6 +51,8 @@ int Kruskal::kruskal()
 
 		this->mst->insert(cur);
 	}
+	
+	delete[] map;
 	
 	return weight;
 }

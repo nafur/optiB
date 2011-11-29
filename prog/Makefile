@@ -1,4 +1,4 @@
-CXX=g++ -Wall -Werror -g -std=c++0x ${OPTIMIZE}
+CXX=g++ -Wall -Werror -pedantic -g -std=c++0x ${OPTIMIZE} -Ilemon
 
 OBJECTS=graph.o debug.o dijkstra.o prim.o kruskal.o steiner.o
 
