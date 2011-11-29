@@ -21,3 +21,13 @@ void dump(const ListGraph& g, const ListGraph::EdgeMap<int>& weight)
 	}
 	cout << "finished dump" << endl;
 }
+
+void dump(const Dijkstra& d, const ListGraph& g)
+{
+	cout << "dumping dijkstra " << &d << endl;
+	for (ListGraph::NodeIt n(g); n != INVALID; ++n)
+	{
+		cout << g.id(n)+1 << ": dist = " << (*d.dist)[n] << ", pred = " << g.id((*d.pred)[n])+1 << endl;
+	}
+	cout << "finished dump" << endl;
+}

@@ -4,6 +4,8 @@
 #include <set>
 #include <ctime>
 
+#include "dijkstra.h"
+
 #include <lemon/list_graph.h>
 
 #define START_TIMER(x) clock_t x = clock();
@@ -16,3 +18,4 @@ void dump(const ListGraph& g, const ListGraph::EdgeMap<int>& weight);
 //void dump(ListGraph::EdgeMap<int>& map);
 //void dump(ListGraph::NodeMap<int>& map);
 //void dump(set<ListGraph::Node>& set);
+void dump(const Dijkstra& d, const ListGraph& g);
