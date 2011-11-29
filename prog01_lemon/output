@@ -1,0 +1,133 @@
+***** Aufgabe 1 *****
+Kruskal's Algorithm 
+We first sort all edges by inserting them into a priority queue, resulting in a complexity of O(m * log(m)).
+For each edge, we then check if it connects two different node sets. This is the case exactly n times.
+If this is the case, we merge two vertex sets by iterating over all vertices.
+Otherwise, we continue with the next edge.
+
+Overall, this results in a complexity of O(m * log(m) + m + n * n) = O(n*n + m*log(m)).
+
+Using a more sophisticated set datastructure that is optimized to perform union operations might result in a slightly better complexity.
+
+***** Aufgabe 2 *****
+Dijkstra's Algorithm 
+This is not the most efficient dijkstra implementation, as a fibbonaci heap is necessary for this.
+As we use a simple priority queue, we have a slightly higher complexity.
+Using a traditional priority queue, we have to insert a node with it's current distance to the queue, every time this node is updated.
+Thereby, the queue can contain each node multiple times.
+
+We have the following complexity estimation:
+Over the run of the algorithm, the queue can contain at most m nodes, m being the number of edges.
+For n of these nodes, being the first occurences of the specific node, we iterate over all (at most n) incident edges and update the distances of the incident nodes.
+An update of a distance will then produce an insertion of a node to the priority queue, resulting in a log(m) overhead for reorganizing the heap underneath.
+For all other nodes, we will notice that the distance they had when being inserted is not the distance they have in this moment. If this is the case, they are ignored.
+
+Thus, we have a worst case complexity of O(m * log(m) + m).
+As log(m) is at most log(n*n) = log(n) * 2, the complexity is O(m * log(n))
+Optimal dijkstra results in a worst case complexity of O(n * log(n) + m).
+As our graphs usually have only as many edges as they have nodes, our implementation will not be much slower.
+If the triangle inequality holds in the graph, our implementation will be as fast as the optimal one, as no nodes are inserted a second time.
+
+***** Aufgabe 3 *****
+Algorithm to efficiently find a good approximation for a steiner tree
+Idea:
+	Run Dijkstra to find all shortest paths from every terminal node to all other terminal nodes
+	Create an intermediate graph containing all terminal nodes
+	For each pair of nodes insert an edge with weight being the length of shortest path between those nodes into the intermediate graph
+	Calculate a MST on this intermediate graph
+	Replace every edge in the intermediate graph with the corresponding shortest path
+The result is a connected graph containing at least all terminal nodes
+Note that the result is however not garantueed to be a tree (i.e. it can contain cycles)
+An example for this behaviour, in which it is obviously not optimal, is the following graph: 
+V = (a, b, c, d, e), E = ((a,b), (a,e), (b,e), (c,e), (d,e)), Terminal nodes = (a, b, c, d)
+A MST in the intermediate graph is (a,b), (a,d), (b,c) with an overall weight of 5
+However, an optimal steiner tree would be (a,e), (b,e), (c,e), (d,e) with an overall weight of 4
+
+***** Aufgabe 4 *****
+
+*** 4 a) ***
+Calculating MST for graph 1... overall weight is 238
+the output of the edges is disabled. Please enable it in the code at line 89
+
+Calculating MST for graph 2... overall weight is 337
+the output of the edges is disabled. Please enable it in the code at line 89
+
+Calculating MST for graph 3... overall weight is 255
+the output of the edges is disabled. Please enable it in the code at line 89
+
+Calculating MST for graph 4... overall weight is 6481
+the output of the edges is disabled. Please enable it in the code at line 89
+
+Calculating MST for graph 5... overall weight is 8763
+the output of the edges is disabled. Please enable it in the code at line 89
+
+Calculating MST for graph 6... overall weight is 60792
+the output of the edges is disabled. Please enable it in the code at line 89
+
+this took 920 ms
+
+
+*** 4 b) and c) ***
+Calculating steiner trees for graph 1
+Upper bound for terminals 1: 94
+steiner: this took 0 ms
+
+Printing steiner tree for first example.
+note that the given ids are not garantued to match those in the file...
+	20 -- 2
+	19 -- 20
+	18 -- 15
+	17 -- 18
+	16 -- 17
+	14 -- 13
+	12 -- 11
+	10 -- 14
+	10 -- 5
+	10 -- 5
+	9 -- 10
+	8 -- 9
+	7 -- 8
+	6 -- 7
+	4 -- 1
+	3 -- 12
+	3 -- 4
+	2 -- 16
+	2 -- 10
+	2 -- 3
+	2 -- 10
+	2 -- 3
+Calculating steiner trees for graph 2
+Upper bound for terminals 1: 234
+steiner: this took 20 ms
+
+Calculating steiner trees for graph 3
+Upper bound for terminals 1: 254
+steiner: this took 120 ms
+
+Calculating steiner trees for graph 4
+Upper bound for terminals 1: 1166
+steiner: this took 10 ms
+
+Upper bound for terminals 2: 1868
+steiner: this took 20 ms
+
+Upper bound for terminals 3: 2348
+steiner: this took 40 ms
+
+Upper bound for terminals 4: 4491
+steiner: this took 90 ms
+
+Calculating steiner trees for graph 5
+Upper bound for terminals 1: 2574
+steiner: this took 160 ms
+
+Upper bound for terminals 2: 3880
+steiner: this took 300 ms
+
+Upper bound for terminals 3: 6253
+steiner: this took 760 ms
+
+Calculating steiner trees for graph 6
+Upper bound for terminals 1: 4726
+steiner: this took 2000 ms
+
