@@ -2,7 +2,7 @@ CXX=g++ -Wall -Werror -g -std=c++0x ${OPTIMIZE}
 
 OBJECTS=graph.o debug.o dijkstra.o prim.o kruskal.o steiner.o
 
-all: main_01.exe
+all: main_1.exe
 	
 %.exe: %.cpp ${OBJECTS}
 	${CXX} -o $@ $< ${OBJECTS}
