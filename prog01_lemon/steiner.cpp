@@ -5,6 +5,8 @@
 #include "prim.h"
 #include "kruskal.h"
 
+#include <cassert>
+
 #include <map>
 #include <iostream>
 
@@ -21,12 +23,16 @@ int Steiner::steiner(const set<ListGraph::Node> terminals)
 	this->sweight = new ListGraph::EdgeMap<int>(*this->s);
 	
 	// perform dijkstra for every terminal
+	int c = 0;
 	ListGraph::NodeMap<Dijkstra*> dijk(this->g);
 	for (set<ListGraph::Node>::iterator it = terminals.begin(); it != terminals.end(); ++it)
 	{
 		dijk[*it] = new Dijkstra(this->g, this->weight);
 		dijk[*it]->dijkstra(*it);
+//		dump(*dijk[*it], this->g);
+		c++;
 	}
+//	cout << "num: " << c << endl;
 
 	// build intermediate graph
 	ListGraph intermediate;
@@ -45,6 +51,8 @@ int Steiner::steiner(const set<ListGraph::Node> terminals)
 		{
 			ListGraph::Edge e = intermediate.addEdge(it1, it2);
 			iweight[e] = (*dijk[imapper[it1]]->dist)[imapper[it2]];
+//			cout << "comparing " << this->g.id(it1)+1 << " with " << this->g.id(imapper[it2])+1 << endl;
+			assert((*dijk[imapper[it1]]->dist)[imapper[it2]] == (*dijk[imapper[it2]]->dist)[imapper[it1]]);
 		}
 	}
 	
@@ -53,6 +61,8 @@ int Steiner::steiner(const set<ListGraph::Node> terminals)
 	mst.prim();
 //	Kruskal mst(intermediate, iweight);
 //	mst.kruskal();
+
+	int count = 0, cnt = 0;
 	
 	// build final graph
 	map<ListGraph::Node, ListGraph::Node> smapper;
@@ -73,10 +83,15 @@ int Steiner::steiner(const set<ListGraph::Node> terminals)
 			// add edge to graph
 			ListGraph::Edge e = this->s->addEdge(smapper[last], smapper[cur]);
 			(*this->sweight)[e] = (*dijk[u]->dist)[last] - (*dijk[u]->dist)[cur];
+//			cout << "edge " << this->g.id(last) << " -- " << this->g.id(cur) << " with " << (*this->sweight)[e] << endl;
+			cnt++;
+			count += (*this->sweight)[e];
 			last = cur;
 		}
 		while (cur != u);
 	}
+//	cout << "overall weight: " << count << endl;
+//	cout << "number of edges: " << countEdges(*this->s) << " vs. " << cnt << endl;
 	
 	// compute overall weight
 	int overallw = 0;

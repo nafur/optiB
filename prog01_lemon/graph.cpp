@@ -9,7 +9,7 @@ void readTerminals(const string& filename, const ListGraph& g, set<ListGraph::No
 	{
 		getline(file, line);
 		if (line.size() == 0) continue;
-		terminals.insert(g.nodeFromId(atoi(line.c_str())));
+		terminals.insert(g.nodeFromId(atoi(line.c_str()) - 1));
 	}
 	file.close();
 }
