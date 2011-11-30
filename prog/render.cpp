@@ -4,6 +4,7 @@
 #include <lemon/lgf_reader.h>
 #include <lemon/graph_to_eps.h>
 #include <lemon/color.h>
+#include <lemon/color.cc>
 
 using namespace std;
 using namespace lemon;
