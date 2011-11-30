@@ -1,8 +1,8 @@
-CXX=g++ -Wall -Werror -pedantic -g -std=c++0x ${OPTIMIZE} -Ilemon
+CXX=g++ -Wall -Werror -pedantic -g -std=c++0x ${OPTIMIZE}
 
-OBJECTS=graph.o debug.o dijkstra.o prim.o kruskal.o steiner.o
+OBJECTS=graph.o debug.o dijkstra.o prim.o kruskal.o steiner.o bipartite.o
 
-all: main_1.exe main_2.exe
+all: main_1.exe main_2.exe render.exe
 	
 %.exe: %.cpp ${OBJECTS}
 	${CXX} -o $@ $< ${OBJECTS}
