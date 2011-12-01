@@ -65,7 +65,7 @@ The Held-Karp algorithm is correct.
 In total $(n-1) 2^{n-2} - (n-2)$ values have to be computed.
 \end{thm}
 \begin{proof}
-Follows directly from Lemma~\ref{lem:13.2} and the slides.
+Follows directly from Lemma \ref{lem:13.2} and the slides.
 \end{proof}
 
 For comparison: Complete enumeration searches through $(n-1)!$ tours. $999! \approx 10^{2500}$.
@@ -77,7 +77,7 @@ The pratical running time of the algorithm can be reduced significantly by a goo
 all values $C(S, k) >$ upper bound can be ignored for further computations.
 
 \subsection*{SpanningTree heuristic}
-A TSP tour is a set of $|V|$ edges \strike{building a cycle} connecting all vertices.
+A TSP tour is a set of $|V|$ edges \sout{building a cycle} connecting all vertices.
 Instead, I might search for a relaxation, the minimum spanning tree plus one edge.
 Stated otherwise, the MST is a lower bound on the TSP tour.
 
