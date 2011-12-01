@@ -22,10 +22,6 @@ struct Allocation
 		{
 			this->load(filename);
 		}
-		~Allocation()
-		{
-//			if (this->values != 0) delete[] this->values;
-		}
 		
 		int allocate();
 };
