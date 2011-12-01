@@ -39,4 +39,19 @@
 
 \section{Aufgabe 1}
 
+\section{Aufgabe 4}
+	Sei $G=(V,E)$ ein euklidischer Graph.
+	Sei $C \subseteq E$ eine Lösung des TSPs.
+	Angenommen es existieren zwei sich überschneidende Kanten $ab \in C$ (von $a \in V$ nach $b \in V$), und $cd \in C$ (von $c \in V$ nach $d \in V$). 
+	
+	Falls $a$, $b$, $c$, $d$ colinear sind, gilt die Aussage nicht:
+	Sei $G$ ein volltändiger Graph mit $V = \{a,b,c,d\}$, und $a$, $b$, $c$, $d$ seien colinear. Dann ist der Zykel $C_1 = (ab,bc,cd,da)$ eine Lösung des TSP. Dies ist ein Widerspruch zu Behauptung.
+	
+	Falls $a$, $b$, $c$, $d$ collinear sind, colinear sind existiert $S$, der Schnittpunkt der beiden Kanten $ab$ und $cd$. Dann 	gilt:
+	\begin{align*}
+		|ab|+|cd| = (|aS| + |Sb|) + (|cS| + |Sd|) = (|aS| + |Sd|) + (|bS| + |Sc|) \stackrel*< |ad| + |bc|
+	\end{align*}
+	zu *: die Gleichheit würde genau dann gelten, wenn $a$, $S$ und $d$ sowie $b$, $S$ und $c$ colinear sind. Aufgrund der Konstruktion von $S$ würde das jedoch bedeuten, dass $a$, $b$, $c$, und $d$ kolinear sind. 
+	
+	Das Ersetzen von $ab$, und $cd$ im Zykel $C$ durch $ad$ und $cd$ und Umnummerieren von $C$ führt also zu einem kürzeren Zykel $C'$ der immer noch alle Knoten besucht. Dies ist ein Widerspruch dazu, dass $C$ Lösung des TSP ist. Also gilt die Behauptung.
 \end{document}
