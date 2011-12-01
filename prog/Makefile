@@ -1,11 +1,19 @@
 CXX=g++ -Wall -Werror -pedantic -g -std=c++0x ${OPTIMIZE}
 
-OBJECTS=graph.o debug.o dijkstra.o prim.o kruskal.o steiner.o bipartite.o
+OBJ1=graph.o debug.o dijkstra.o prim.o kruskal.o steiner.o
+OBJ2=debug.o bipartite.o allocation.o
+OBJR=
 
 all: main_1.exe main_2.exe render.exe
-	
-%.exe: %.cpp ${OBJECTS}
-	${CXX} -o $@ $< ${OBJECTS}
+
+main_1.exe: main_1.cpp ${OBJ1}
+	${CXX} -o $@ $< ${OBJ1}
+
+main_2.exe: main_2.cpp ${OBJ2}
+	${CXX} -o $@ $< ${OBJ2}
+
+render.exe: render.cpp ${OBJR}
+	${CXX} -o $@ $< ${OBJR}
 
 .PRECIOUS: %.o
 %.o: %.cpp %.h
