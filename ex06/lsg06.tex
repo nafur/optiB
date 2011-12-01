@@ -39,6 +39,43 @@
 
 \section{Aufgabe 1}
 
+\section{Aufgabe 2}
+Behauptung: Es existiert ein Algorithmus, der in einem vollständigen
+bipartiten Graphen mit Präferenzlisten ein stabiles Matching findet.
+Ist dieser Algorithmus korrekt, so existiert in jedem Graphen ein solches
+Matching.
+
+Der Algorithmus funktioniert wie folgt:
+
+\begin{lstlisting}
+Eingabe: $G = (H \cup D, H \times D), M = \emptyset \subseteq H \times D$
+Solange $\exists h \in H: \not \exists d: (h, d) \in M$
+	Sei $h$ dieses $h \in H$
+	Sei $d \in D$ die fuer $h$ beste Partnerin, die $h$ nicht bereits gefragt hat
+	Falls $\not \exists h' \in H: (h', d) \in M$:
+		$M = M \cup \{(h, d)\}$
+	Sonst Falls $d$ mag $h$ mehr als aktuellen Partner $h'$:
+		$M = (M \setminus \{(h', d)\}) \cup \{(h, d)\}$
+Ausgabe: $M$
+\end{lstlisting}
+
+Zu zeigen ist, dass dieser Algorithmus immer terminiert und ein stabiles Matching liefert.
+
+Angenommen, das Matching $M$ sei instabil. Dann existieren $(h, d), (h', d') \in M$, 
+so dass $h$ und $d'$ sich jeweils mehr mögen als den jeweiligen Partner.
+
+Da $h$ seine Prioritätsliste von oben abarbeitet und $d$ auf dieser unter
+$d'$ steht, muss nach dem Algorithmus $h$ zu irgendeinem Zeitpunkt $d'$ um 
+eine Partnerschaft gebeten haben.
+
+$d'$ muss diese abgelehnt haben oder später zugunsten eines für sie besseren
+Partners beendet haben. Da $d'$ aber einem für sie schlechteren Partner
+zugeordnet ist, hätte $d'$ dieses Angebot jedoch weder abgelehnt noch die
+Partnerschaft zugunsten des schlechteren Kandidaten $h'$ aufgegeben.
+
+Dies ist ein Widerspruch, das Matching kann also nicht instabil sein. \qed
+
+
 \section{Aufgabe 4}
 	Sei $G=(V,E)$ ein euklidischer Graph.
 	Sei $C \subseteq E$ eine Lösung des TSPs.
