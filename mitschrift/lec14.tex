@@ -9,5 +9,96 @@ A path is called a $S-T$-path, if the start vertex is in $S$ and the end
 vertex is in $T$.
 
 If $S = \{s\}$ and $T = \{t\}$ we also refer to the path as $s-t$-path
-instead of $\{s\}-\{t\}$-path-
+instead of $\{s\}-\{t\}$-path.
 \end{defn}
+
+\begin{defn}
+Two $S-T$-paths $P_1$ and $P_2$ are called
+\new{vertex disjoint}{knotendisjunkt} if $P_1$ and $P_2$ have no common
+vertices.
+
+Two $S-T$-paths are called internally vertex disjoint if they have no common
+vertices, except for the start and end vertices.
+
+Two $S-T$-paths are called \new{arc disjoint}{bogendisjunkt} if they have no
+arcs in common.
+\end{defn}
+\emph{Question:} How many vertex/arc disjoint paths exist between $S$ and
+$T$ resp. $s$ and $t$?
+
+\begin{defn} 
+A set $C \subset V$ \new{separates}{} $S$ from $T$ if every
+$S-T$-path intersects with $C$ ($C$ can intersect $S \cup T$). $C$ is called
+a \new{$S-T$-separator}{}. 
+\end{defn}
+
+\begin{thm}(Menger's Theorem, directed vertex disjoint version)\\
+Let $D=(V,A)$ be a digraph and $S,T \subset V$. Then, the maximum number of
+pairwise vertex disjoint $S-T$-paths equals the minimum size of a
+$S-T$-separator.
+\end{thm}
+
+\begin{proof}
+Clearly, the number of vertex disjoint paths cannot exceed the size of a
+$S-T$-separator $C$ (i.e. for $v \in C$, at most one path exists). We will
+show $\geq$ by induction on $|A|$. For $|A|=0$, the statement ist trivial.
+Now, let $k$ be the minimum size of a $S-T$-separator. Select $a=(u,v) \in
+A$ arbitrarely. If every $S-T$-separator in $D \setminus a$ has size $\geq
+k$, then by incduction $k$ vertex-disjoint paths exist in $D\setminus a$,
+and thus in $D$ as well.\\
+Thus, we can assume w.l.o.g that $D \setminus a $ has a $S-T$-separator $C$
+with $|C| \leq k-1$. Then $C\cup \{u\}$ and $C\cup \{v\}$ are
+$S-T$-separators in $D$ of size $k$.\\
+Now, every $S-(C\cup\{u\})$-separator $B$ of $D \setminus a$ has size at
+least $k$, since $B$ also separates $S$ from $T$ in $D$: every $S-T$-path in
+$D$ intersects $C\cup\{u\}$ and thus $P$ contains $S-(C\cup \{u\})$-subpath
+in $D\setminus a$. Therefore, the subpath and thus $P$ itself intersects
+$B$. By induction $D\setminus a$ has $k$ vertex disjoint
+$S-(C\cup\{u\})$-paths. Similarly there exist $k$ vertex disjoint
+$(C\cup\{v\})-T$-paths in $D \setminus a$. Since both path sets use all
+vertices in $C$, we can connect these $k-1$ $S-C$-paths with the $C-T$-paths.
+One more path in $D$ can be established by connecting the $S-u$-path with
+the $v-T$-path via arc $a=(u,v)$.
+\end{proof}
+
+\begin{defn}
+A set $U\subset V$ is called a \new{$s-t$-vertex cut}{} if $s,t \notin u$
+and every $s-t$-path intersects $U$.
+\end {defn}
+
+\begin{cor}
+Let $D=(V,A)$ be a digraph and $s,t$ two non-adjacent vertices. then the
+maximum number of \new{internally vertex disjoint}{} $s-t$-paths equals the
+minimum size of a $s-t$-vertex cut.
+\end{cor}
+\begin{proof}
+Let $D'=D\setminus s - t.$
+$S=N^+_D(s), \qquad T=N_D^-(t)$. Apply %TODO Thm 14.4
+\end{proof} 
+
+\begin{defn}
+A arc set $C\subset A$ define a \new{$s-t$-cut}{$s-t$-Schnitt} if a subset
+$U\subset V, s \in U, t \notin U$ with $\delta^+(U)\subset C$.
+\end{defn}
+
+\begin{cor}(Menger's Theorem, directed arc version)
+let $D=(V,A)$ be a digraph with $s,t  \in V$. Then the maximum number of arc
+disjoint $s-t$-paths equals the minimum size of a $s-t$-cut.
+\end{cor}
+\begin{proof}
+Übungsblatt
+\end{proof}
+
+\emph{Question:} How to find arc disjoint $s-t$-paths?
+\emph{Answer:}Given $D$ a digrpah and a path $P$, let us define $D/P$ as the
+digraph in which all arcs of $P$ are reversed.
+
+\begin{lstlisting}
+Initialize $D_0:=D, \qquad k=0$;
+WHILE $D_k$ contains a $s-t$-path $P_k$ DO
+	$D_{k+1}:=D_k/P_k$
+	$k:=k+1$
+ENDWHILE
+The reversed arcs in $D-k$ are $k-1$ arc disjoint $s-t$-paths.
+\end{lstlisting}
+Note: A $s-t$-path $P_k$ in $D_k$ can be found with e.g. Dijkstra. 
