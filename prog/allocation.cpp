@@ -8,17 +8,19 @@ void Allocation::load(const string& filename)
 {
 	ifstream file(filename);
 	
+	// skip "#max number of machines "
 	file.seekg(24);
 
 	file >> this->machines >> ws;
 	string line;
+	// skip column explanations
 	getline(file, line);
 	
-	int tmp;
-		
+	int tmp;		
 	for (int i = 0; i <= this->machines; i++)
 	{
 		vector<int> v;
+		// skip machine number
 		file >> ws >> tmp;
 		for (int j = 0; j < this->plants; j++)
 		{
