@@ -8,6 +8,7 @@
 
 #include "debug.h"
 #include "bipartite.h"
+#include "allocation.h"
 
 using namespace std;
 using namespace lemon;
@@ -39,4 +40,10 @@ int main()
 		}
 		cout << endl;
 	}
+	
+	cout << endl << "*** 3) ***" << endl;
+	
+	stringstream filename;
+	filename << "data_2/RescAllo1.txt";
+	Allocation a(filename.str(), 10);
 }
