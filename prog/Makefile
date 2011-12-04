@@ -4,6 +4,8 @@ OBJ1=graph.o debug.o dijkstra.o prim.o kruskal.o steiner.o
 OBJ2=debug.o bipartite.o allocation.o
 OBJR=
 
+VALGRIND=valgrind --leak-check=full --undef-value-errors=yes
+
 all: main_1.exe main_2.exe render.exe
 
 main_1.exe: main_1.cpp ${OBJ1}
@@ -23,5 +25,10 @@ render.exe: render.cpp ${OBJR}
 clean:
 	rm -rf *.o *.exe
 
+CUREXE=main_2.exe
+
 run: all
-	./main_2.exe
+	./${CUREXE}
+
+memtest: all
+	${VALGRIND} ./${CUREXE} > /dev/null
