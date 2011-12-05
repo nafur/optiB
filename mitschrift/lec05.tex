@@ -31,7 +31,7 @@ $D$ contains a negative weighted cycle if and only if one of the diagonal elemen
 \newcommand{\wii}[0]{w_{ii}}
 \newcommand{\wij}[0]{w_{ij}}
 
-Let $W^k$ be the matrix $W$ after iteration $k$, with $W^0$ being the initial matrix. By induction on $k = 0, ..., n$ we show that $W^k$ is the matrix of shortest path lengths with vertices $1, …, k$ as \emph{possible} internal vertices, provided $D$ does not contain a negative cycle on these vertices.
+Let $W^k$ be the matrix $W$ after iteration $k$, with $W^0$ being the initial matrix. By induction on $k = 0, ..., n$ we show that $W^k$ is the matrix of shortest path lengths with vertices $1, ..., k$ as \emph{possible} internal vertices, provided $D$ does not contain a negative cycle on these vertices.
 
 If $D$ has a negative cycle, then $\wii^k < 0$ for an $i \in \{ 1, ..., n\}$
 
@@ -43,7 +43,7 @@ It holds that $\wij^{k+1} = \min\{\wij^k, w_{i,k+1}^k + w_{k+1,j}^k\}$. Note tha
 
 $w_{i,k+1}^k$ is the minimal length of a $[i,k+1]$-path with $\{1, ..., k\}$ as allowed internal vertices. Similarly, $w_{k+1,j}^k$.
 
-Thus, $w_{i,k+1}^k+w_{k+1,j}^k$ is the minimal length of an $[i,j]$-path (not necessarily simple) containing $k+1$ (mandatory) and $\{ 1, ..., k \}$ (voluntary). If the shortest path from $i$ to $j$ using $\{1, …, k+1\}$ does not contain $k+1$, it only contains $\{1, … , k\}$ (voluntary) and, hence, $\wij^k$ is the right value.
+Thus, $w_{i,k+1}^k+w_{k+1,j}^k$ is the minimal length of an $[i,j]$-path (not necessarily simple) containing $k+1$ (mandatory) and $\{ 1, ..., k \}$ (voluntary). If the shortest path from $i$ to $j$ using $\{1, ..., k+1\}$ does not contain $k+1$, it only contains $\{1, ... , k\}$ (voluntary) and, hence, $\wij^k$ is the right value.
 
 What remains to show is that the connection of the $[i,k+1]$-path with the $[l+1,j]$-path is indeed a simple path.
 
@@ -98,5 +98,5 @@ Stated  otherwise, for every cut $B$, there exists a vertex set $W \subset V$ su
 	
 	(for the example graph on the board)
 	
-	The shortest $[s,t]$-path $P$ consists of arcs $a_1, ... a_k$ with arc $a_j$ contained in $(s,t)$-cuts $C_i$,  $i \in \{\sum_{l=1}^{j-1} c(a_l) + 1, …, \sum_{l=1}^j a(a_l)\}$: exactly $c(a)$ cuts.
+	The shortest $[s,t]$-path $P$ consists of arcs $a_1, ... a_k$ with arc $a_j$ contained in $(s,t)$-cuts $C_i$,  $i \in \{\sum_{l=1}^{j-1} c(a_l) + 1, ..., \sum_{l=1}^j a(a_l)\}$: exactly $c(a)$ cuts.
 \end{proof}	

@@ -61,14 +61,14 @@ For any subset $M$ of $E$ define the weight $\omega(M)$ of $M$ by \[
 
 \begin{lem}
 	Let $P \plainset{e_1, e_2, ..., e_r}$ be an $M$-augmenting path of minimal length.
-	If $M$ is extreme, then $M' = M \setminus \underbrace{\plainset{e_2, ..., e_{n-1}}}_{\in M} \cup \underbrace{\plainset{e_1, e_2, …, e_r}}_{\not \in M}$ is again extreme
+	If $M$ is extreme, then $M' = M \setminus \underbrace{\plainset{e_2, ..., e_{n-1}}}_{\in M} \cup \underbrace{\plainset{e_1, e_2, ..., e_r}}_{\not \in M}$ is again extreme
 \end{lem}
 
 \begin{proof}
 	Let $N$ be any extreme matching of size $|M| + 1$. As $|N| > |M|$, $M \cup N$
 	has a component $Q = \plainset{f_1, f_2, ..., f_q}$ that is an $M$-augmenting path.
 	As $P$ is a shortest $M$-augmenting path, we know $l(P) \leq l(Q)$. Moreover,
-	as $M^*=N\setminus \plainset{f_1, f_3, ..., f_q} \cup \plainset{f_2, …, f_{q-1}}$ 
+	as $M^*=N\setminus \plainset{f_1, f_3, ..., f_q} \cup \plainset{f_2, ..., f_{q-1}}$ 
 	is a matching of size $|M|$ and as $M$ is extreme, we know that $\omega(M^*) \leq \omega(M)$
 	Hence $\omega(N) = \omega(M^*) - l(Q) \leq \omega (M) - l(P) = \omega(M')$.
 	Hence $M'$ is extreme.
@@ -96,10 +96,10 @@ from extreme matching $M$ $(|M'| > |M|)$.
 
 \begin{proof}
 	Suppose $C$ is a directed circuit in $D$ with length $l(C) < 0$. We may assume 
-	$C=(u_0, w_1, u_1, ..., w_t, u_t)$ with $u_0=u_t$, $u_1, …, u_t \in U$ and 
-	$w_1, ..., w_t \in W$. Then $w_1u_1, …, w_tu_t$ belong to $M$ and the edges 
+	$C=(u_0, w_1, u_1, ..., w_t, u_t)$ with $u_0=u_t$, $u_1, ..., u_t \in U$ and 
+	$w_1, ..., w_t \in W$. Then $w_1u_1, ..., w_tu_t$ belong to $M$ and the edges 
 	$u_0w_1, ..., u_{t-1}w_t$ do not belong to $M$.
-	Then $M''=M\setminus \plainset{w_1u_1, ..., w_tu_t} \cup \plainset{u_0w_1, …, u_{t+1}w_t}$
+	Then $M''=M\setminus \plainset{w_1u_1, ..., w_tu_t} \cup \plainset{u_0w_1, ..., u_{t+1}w_t}$
 	matching of cardinality $|M''| = |M|$ with weight: $\omega(M'') = \omega(M) - l(C) > \omega(M)$.
 	This contradicts to $M$ being extreme.
 \end{proof}
