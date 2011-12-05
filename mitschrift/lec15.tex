@@ -1,0 +1,112 @@
+\begin{lec}[2011-12-05]\end{lec}
+\stepcounter{section}
+\section*{Flows in Networks}
+
+Consider the following problem:
+
+Let $D=(V,A)$ be a digraph with \emph{arc capacities} $c(a) \geq 0$ for all $a \in A$. How many paths can be established from $s$ to $t$ (for $s, t \in V$ and duplicates allowed) without having more than $c(a)$ paths via arc $a \in A$.
+
+If $c(a) = 1$ for all $a \in A$, we search for arc-disjoint paths and Menger's Theorem provides the answer.
+
+Instead of specifying the paths explicitly,  we can define values on the arcs stating the number of paths across that arc.
+
+\begin{defn}
+	A function $x: A \rightarrow \R$ (or vector $x \in \R^{|A|}$) is a \new{feasible $(s,t)$-flow}{zulässiger (s,t)-Fluss} if the following conditions are satisfied:
+	\begin{align}
+		\label{eq:capacityconstraints} 0 \leq x_a \leq c_a \; \forall a \in A\\
+		\label{eq:flowconservationconstraints}\sum\limits_{a \in \delta^+(v)}x_a = \sum\limits_{a \in \delta^-(v)}x_a
+	\end{align}
+	\eqref{eq:capacityconstraints} representing the \new{capacity constraints}{Kapazitätsbedingungen}, and \eqref{eq:flowconservationconstraints} representing the \new{flow conservation constraints}{Flusserhaltungsbedingungen}.
+	
+	The \new{$(s,t)$-flow-value}{Wert des $(s,t)$-Flusses} $x$ is 
+	\[
+		val(x):=\sum\limits_{a \in \delta^+(s)}x_a - \sum\limits_{a \in \delta^-(s)}x_a
+	\]
+	
+	The vertex $s$ is the \new{source/origin}{Quelle} and $t$ is the \new{target/sink/destination}{Senke/Ziel}.
+\end{defn} 
+
+\emph{Question} what is the maximum value of a $(s,t)$-flow?
+
+A $(s,t)$-cut $S \subseteq A$ interrupts every path from $s$ to $t$. The capacity of a cut $S$ is $\sum\limits_{a \in S} c_a =: c(S)$
+
+\begin{lem}
+	Let $W \subseteq V$.
+	
+	\begin{enumerate}
+		\item If $s \in W$, $t \not \in W$, then $ val(x) = \sum\limits_{a \in \delta^+(w)}x_a - \sum\limits_{a \in \delta^-(w)}x_a$ for every feasible $(s,t)$ flow $x$.
+		\item The maximum value of a $(s,t)$-flow is at most the minimum capacity of a $(s,t)$-cut.
+	\end{enumerate}
+\end{lem}
+\begin{proof}
+	\begin{enumerate}
+		\item By flow conservation constraint ($z$), it follows that 
+		\begin{align*}val(x) =& \sum\limits_{a \in \delta^+(s)}x_a - \sum\limits_{a \in \delta^-(s)}x_a + \sum\limits_{v \in W\setminus\plainset{s}}\left(\sum\limits_{a\in \delta^+(v)}x_a-\sum\limits_{a\in \delta^-(v)}x_a\right)\\
+		=& \sum\limits_{v \in W}\left(\sum\limits_{a\in \delta^+(v)}x_a-\sum\limits_{a\in \delta^-(v)}x_a\right) \\
+		=& \sum\limits_{a\in \delta^+(W)}x_a-\sum\limits_{a\in \delta^-(W)}x_a
+		\end{align*}
+		\item Let $\delta^+(W)$ be an arbitrary $(s,t)$-cut and $x$ a feasible $(s,t)$-flow. By \eqref{eq:capacityconstraints} and part (a) it holds that \begin{align*}
+			val(x) = \sum\limits_{a\in \delta^+(W)}x_a-\sum\limits_{a\in \delta^-(W)}x_a \leq \sum\limits_{a\in \delta^+(W)}c_a=c(\delta^+(W))
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+%15.3
+\begin{thm}[Max-Flow-Min-Cut-Theorem]
+Let $D=(V,A)$ be a digraph, $s,t \in V$ and $c: A \rightarrow \R_+$ a capacity function. The maximum value of a $(s,t)$-flow equals the minimum capacity of a $(s,t)$-cut:
+\begin{align*}
+	\max_{x \; (s,t)\text{-flow}}val(x) = \min_{(s,t)\text{-cut} \; S}c(S)
+\end{align*}
+\end{thm}
+
+\begin{proof}
+\begin{itemize}
+	\item If $c$ is integer, every arc $a \in A$ is replaced by $c_a$ parallel arcs of capacity one. Now the result follows from Menger's Theorem for arc-disjoint paths.
+	\item If $c$ is rational, then there exists a $N$ such that $N \cdot c_a$ is an integer for all $a \in A$. By this scaling, both the max flow and min cut are scaled with $N$ as well. Now, the results holds by the result of the integer case.
+	\item If $c$ is real valued, the result follows from continuity and compactness of $\Q$
+\end{itemize}
+\end{proof}
+
+%15.4
+\begin{cor}
+	If $c$ is integer, there exists an \emph{integer} maximum $(s,t)$-flow. For $c: A \rightarrow \Q$, there exists a combinatorial algorithm to determine a max $(s,t)$ flow: Ford-Fulkerson Algorithm
+\end{cor}
+%15.5
+\begin{defn}
+	Let $D = (V,A)$ be a digraph with arc capacities $c(a) \in \Q \; \forall a \in A, s,t \in V, s \not = t$ and $x$ a feasible $(s,t)$-flow in $D$. In an \emph{undirected} $[s,v]$-path $P$ we call an arc $(i,j)$ a \new{forward arc}{Vorwärtsbogen} if it is directed from $s$ to $v$ on the path, otherwise $(i,j)$ is a \new{backward-arc}{Rückwärtsbogen}.
+	
+	Path $P$ is called an \emph{augmenting $[s,v]$-path with respect to $(s,t)$-flow $x$} if $x_{ij} < c_{ij}$ for all forward arcs and $x_{ij} > 0$ for all backward arcs $(i,j)$.
+\end{defn}
+%15.6
+\begin{thm}
+A $(s,t)$-flow $x$ is maximum if and only if no augmenting $[s,t]$-path with respect to $x$ exists.
+\end{thm}
+
+\begin{proof}
+	If $P$ defined an augmenting $[s,t]$-path with respect to $x$, then let
+	\begin{align*}
+		\varepsilon := \min \begin{cases}
+			c_{ij}-x_{ij} & \text{ if $(i,j) \in P$ forward arc} \\
+			x_{ij} & \text{ if $(i,j) \in P$ backward arc}
+		\end{cases}
+	\end{align*}
+	Now define
+	\begin{align*}
+		\tilde x_{ij} := \min \begin{cases}
+			x_{ij} + \varepsilon &\text{ if $(i,j) \in P$ forward arc} \\
+			x_{ij} - \varepsilon &\text{ if $(i,j) \in P$ backward arc} \\
+			x_{ij} &\text{ if $(i,j) \in A\P$}
+		\end{cases}
+	\end{align*}
+	Clearly $\tilde x_{ij}$ defines a feasible $(s,t)$-flow. Moreover $val(\tilde x) = val(x) + \varepsilon$, hence $x$ was not maximum.
+	
+	Now , assume $x$ does not have an augmenting $[s,v]$-path. Then, let
+	\[
+		W:=\plainset{v\in V: \text{ there exists an augmenting $[s,t]$-path with respect to $x$}}
+	\]
+	Hence, $s \in W$ and $t \not \in W$ by assumption. To be more precise,
+	\begin{align*}
+		x_a = c_a \quad &\text{for all } a \in \delta^+(W) \text{ and} \\
+		x_a = 0 \quad & \text{for all } a \in \delta^-(W)
+	\end{align*}
+	It follows $val(x) = x ( \delta ^+(W))- X(\delta^-(W)) = c(delta^+(W))$. By lemma 15.2(b), $x$ is maximum.
+\end{proof}	
