@@ -21,15 +21,17 @@ For graph Problems, the running is expressed in the number of vertices $n=|V|$ a
 \end{xmp+}
 
 \begin{defn+}[Shortest paths in acyclic digraphs]
-A directed graph (digraph) $D=(V,A)$  is called \new{acyclic}{azyklisch} if it does not contain any \new{directed cycles}{}, i.e. a \new{chain}{Kette} $(v_0,a_1,v_1,a_2,v_2, ... a_k,v_k)$, $k \geq 0$, with $a_i(v_{i-1},v_i) \in A$ and $v_k = v_0$. In particular, D does not contain \new{antiparallel}{} arcs: if $(u,v)\in A$, $(v,u)\not \in A$. With $\delta_D^+(v)$ we denote the arcs leaving vertex v: 
+A directed graph (digraph) $D=(V,A)$  is called \new{acyclic}{azyklisch} if it does not contain any
+\new{directed cycles}{}, i.e. a \new{chain}{Kette} $(v_0,a_1,v_1,a_2,v_2, ... a_k,v_k)$, $k \geq 0$, with $a_i(v_{i-1},v_i) \in A$ and $v_k = v_0$. In particular, D does not contain
+\new{antiparallel}{entgegengesetzt} arcs: if $(u,v)\in A$, $(v,u)\not \in A$. With $\delta_D^+(v)$ we denote the arcs leaving vertex v: 
 \[ \delta_D^+(v) = \{(u,w) \in A: u = v\}\]
 similarly:
 \[\delta_D^-(v) = \{(u,w) \in A: w = v\}\]
 are the arcs entering v.
 
-The \new{outdegree}{} of $v$ is $\deg^+_D(v) = | \delta^+(v) |$ (assuming simple digraph)
+The \new{outdegree}{Ausgangsgrad} of $v$ is $\deg^+_D(v) = | \delta^+(v) |$ (assuming simple digraph)
 
-The \new{indegree}{} of $v$ is $\deg^-_D(v) = | \delta^-(v)|$
+The \new{indegree}{Eingangsgrad} of $v$ is $\deg^-_D(v) = | \delta^-(v)|$
 \end{defn+}
 
 \stepcounter{section}
@@ -42,7 +44,7 @@ The \new{indegree}{} of $v$ is $\deg^-_D(v) = | \delta^-(v)|$
 Does there exist a $[s,t]$-path at all?
 \end{qstn}
 \begin{thm}
-A digraph $D = (V, A)$ is acyclic, if and only if there exists a permutaion $\sigma : V \rightarrow \{ 1, .., n \}$ of the vertices such that $\deg^-_{D [v_1, ...,  v_n]} (v_i) = 0$ for all $i = 1, …, n$ with $v_i = \sigma^{-1}(i)$.
+A digraph $D = (V, A)$ is acyclic, if and only if there exists a permutaion $\sigma : V \rightarrow \{ 1, .., n \}$ of the vertices such that $\deg^-_{D [v_1, ...,  v_n]} (v_i) = 0$ for all $i = 1, ..., n$ with $v_i = \sigma^{-1}(i)$.
 \end{thm}
 \begin{proof}
 By induction:
@@ -51,14 +53,14 @@ For digraph with $| V |=1$, the statement is true. Assume the statement is true 
 If there does not exist a vertex with $\deg_D^-(v) = 0$, a directed cycle can be detected by following incoming arcs backwards until a vertex is repeated, a contradiction regarding the acyclic property of $D$.
 
 Hence, let $v$ be a vertex with $\deg^-_D(v)=0$. Set $v_1 = v$. The digraph $D - v_1$ has $n$ vertices and is acyclic, and thus has a permutation $(v_2, ..., v_{n+1})$ with
-\[ \deg^-_{D[v_i, ..., v_{n+1}]}(v_i) = 0 \qquad \forall i = 2, …, n+1 \]
+\[ \deg^-_{D[v_i, ..., v_{n+1}]}(v_i) = 0 \qquad \forall i = 2, ..., n+1 \]
 Now, $(v_1, ..., v_{n+1})$ is a permutation fulfilling the condition.
 
-In reverse, if there exists a permutation $(v1, ..., v_{n+1})$, $\deg^-_D(v_1) = 0$ and there cannot exist a directed cycle containing $v_1$. By induction, neither cycles containing $v_i, i = 2, …, n+1$ exist.
+In reverse, if there exists a permutation $(v1, ..., v_{n+1})$, $\deg^-_D(v_1) = 0$ and there cannot exist a directed cycle containing $v_1$. By induction, neither cycles containing $v_i, i = 2, ..., n+1$ exist.
 \end{proof}
 
 \begin{thm}
-A $[s,t]$-path exists in a acyclic Digraph $D = (V, A)$ if and only if in all permutations $\sigma: V \rightarrow \{ 1, ..., n\}$ with $\deg^-_{D[v_i, …, v_n]}(v_i) = 0$ for all $i = 1, …, n$, it holds that $\sigma(s) < \sigma(t)$.
+A $[s,t]$-path exists in a acyclic Digraph $D = (V, A)$ if and only if in all permutations $\sigma: V \rightarrow \{ 1, ..., n\}$ with $\deg^-_{D[v_i, ..., v_n]}(v_i) = 0$ for all $i = 1, ..., n$, it holds that $\sigma(s) < \sigma(t)$.
 \end{thm}
 \begin{proof}
 Assume there exists a permutation $\sigma$ with $\sigma(s) > \sigma(t)$. Since outgoing arcs only go to higher ordered vertices, there does not exist a path from $s$ to $t$ in $D$.

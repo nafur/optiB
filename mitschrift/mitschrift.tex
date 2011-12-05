@@ -34,7 +34,9 @@
 \pagestyle{mystyle}
 
 \definecolor{highlight}{cmyk}{0.8,0,0.38,0.34}
-\newcommand{\new}[2]{\newacronym{#1}{#2}{#1}\emph{\textcolor{highlight}{\gls{#1}}}}
+
+% \new{english}{deutsch}
+\newcommand{\new}[2]{\newacronym{acr:#1}{#1}{#2}\emph{\textcolor{highlight}{\gls{acr:#1}}}}
 
 \newtheoremstyle{numbered}
    {}
