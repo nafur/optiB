@@ -39,6 +39,89 @@
 
 \section{Aufgabe 1}
 
+Der Ford-Fulkerson-Algorithmus wählt einen flussvergrößernden Pfad per
+Tiefensuche. Dabei wird also ein beliebiger, flussvergrößernder Pfad
+gewählt. Betrachte nun den folgenden Ablauf von Ford-Fulkerson, wobei
+jeweils die (relevanten) Restkapazitäten angegeben sind.
+
+\begin{tikzpicture}[node distance=1.5cm, auto, baseline=-0.65ex]
+	\node (s) {$s$};
+	\node (a) [below right of=s] {$a$};
+	\node (b) [above right of=s] {$b$};
+	\node (t) [below right of=b] {$t$};
+	\path [->]
+		(s) edge [dashed] node [anchor=base, below left] {$k$} (a)
+		(s) edge node {$k$} (b)
+		(a) edge node [anchor=base, below right] {$k$} (t)
+		(b) edge [dashed] node {$k$} (t)
+		(a) edge [dashed] node {$1$} (b)
+	;
+\end{tikzpicture}
+$ \rightarrow $
+\begin{tikzpicture}[node distance=1.5cm, auto, baseline=-0.65ex]
+	\node (s) {$s$};
+	\node (a) [below right of=s] {$a$};
+	\node (b) [above right of=s] {$b$};
+	\node (t) [below right of=b] {$t$};
+	\path [->]
+		(s) edge node [anchor=base, below left] {$k-1$} (a)
+		(s) edge [dashed] node {$k$} (b)
+		(a) edge [dashed] node [anchor=base, below right] {$k$} (t)
+		(b) edge node {$k-1$} (t)
+		(b) edge [dashed] node {$1$} (a)
+	;
+\end{tikzpicture}
+$ \rightarrow $
+\begin{tikzpicture}[node distance=1.5cm, auto, baseline=-0.65ex]
+	\node (s) {$s$};
+	\node (a) [below right of=s] {$a$};
+	\node (b) [above right of=s] {$b$};
+	\node (t) [below right of=b] {$t$};
+	\path [->]
+		(s) edge [dashed] node [anchor=base, below left] {$k-1$} (a)
+		(s) edge node {$k-1$} (b)
+		(a) edge node [anchor=base, below right] {$k-1$} (t)
+		(b) edge [dashed] node {$k-1$} (t)
+		(a) edge [dashed] node {$1$} (b)
+	;
+\end{tikzpicture}
+$ \rightarrow ... \rightarrow $
+\begin{tikzpicture}[node distance=1.5cm, auto, baseline=-0.65ex]
+	\node (s) {$s$};
+	\node (a) [below right of=s] {$a$};
+	\node (b) [above right of=s] {$b$};
+	\node (t) [below right of=b] {$t$};
+	\path [->]
+		(s) edge [dashed] node [anchor=base, below left] {$1$} (a)
+		(s) edge node {$0$} (b)
+		(a) edge node [anchor=base, below right] {$0$} (t)
+		(b) edge [dashed] node {$1$} (t)
+		(b) edge [dashed] node {$1$} (a)
+	;
+\end{tikzpicture}
+$ \rightarrow $
+\begin{tikzpicture}[node distance=1.5cm, auto, baseline=-0.65ex]
+	\node (s) {$s$};
+	\node (a) [below right of=s] {$a$};
+	\node (b) [above right of=s] {$b$};
+	\node (t) [below right of=b] {$t$};
+	\path [->]
+		(s) edge node [anchor=base, below left] {$0$} (a)
+		(s) edge node {$0$} (b)
+		(a) edge node [anchor=base, below right] {$0$} (t)
+		(b) edge node {$0$} (t)
+		(a) edge node {$1$} (b)
+	;
+\end{tikzpicture}
+
+Die Kapazitäten der äußeren Kanten sind also nach zwei Schritten von $k$
+auf $k-1$ gesunken. Nach $2 \cdot k$ Schritten sind die Kapazitäten dieser
+Kanten von $k$ auf $0$ gesunken. Erst in diesem letzten Schritt existiert
+kein flussvergrößernder Pfad mehr. In jedem Schritt wird der Fluss um $1$
+erhöht und -- da der Fluss jedes flussvergrößernden Pfads im Beispiel durch 
+die mittlere Kante beschränkt ist -- daher möglicherweise $2 \cdot k$ Schritte
+durchgeführt.
+
 \section{Aufgabe 2}
 
 \section{Aufgabe 3}
