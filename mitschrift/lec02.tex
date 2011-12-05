@@ -3,17 +3,19 @@
 
 \begin{lec}[2011-10-13]\end{lec}
 
-\newglossaryentry{hello world}{description={this is my first entry}}
-
 \begin{defn}[connected]
 A graph is called \new{connected}{zusammenhängend} if there exists a [s,t]-Path between all pairs of vertices $s,t \in V$.
 \end{defn}
 
 \begin{defn}[forrest, tree, spanning, forest problem, minimum spanning tree]
-A \new{forest}{Wald} is a graph that does not contain a cycle (Kreis). A connected forest is called a \new{tree}{Baum}. A tree in a graph (as subgraph) is called \new{spanning}{aufspannend}, if it contains all vertices.
+A \new{forest}{Wald} is a graph that does not contain a cycle (Kreis). A connected forest is called a
+\new{tree}{Baum}. A tree in a graph (as subgraph) is called
+\new{spanning}{aufspannend}, if it contains all vertices.
 
-Given a graph $G=(V,E)$ with edge weights $c_e \in \mathbb{R}$ for all $e \in E$, the task to find a forest $W \subset E$ such that $c(W):=\sum\limits_{e\in W} $ is maximal, is called the \new{Maximum Forest Problem}{Problem des maximalen Waldes}. 
-The task to find a tree $T\subset E$ which spans $G$ and which weight $c(T)$ is minimal, is called the \new{Minimum Spanning Tree (MST) problem}{minimaler Spannbaum}.
+Given a graph $G=(V,E)$ with edge weights $c_e \in \mathbb{R}$ for all $e \in E$, the task to find a forest $W \subset E$ such that $c(W):=\sum\limits_{e\in W} $ is maximal, is called the
+\new{Maximum Forest Problem}{Problem des maximalen Waldes}. 
+The task to find a tree $T\subset E$ which spans $G$ and which weight $c(T)$ is minimal, is called the
+\new{Minimum Spanning Tree (MST) problem}{minimaler Spannbaum}.
 \end{defn}
 
 \begin{lem}

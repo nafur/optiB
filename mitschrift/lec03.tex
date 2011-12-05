@@ -21,15 +21,17 @@ For graph Problems, the running is expressed in the number of vertices $n=|V|$ a
 \end{xmp+}
 
 \begin{defn+}[Shortest paths in acyclic digraphs]
-A directed graph (digraph) $D=(V,A)$  is called \new{acyclic}{azyklisch} if it does not contain any \new{directed cycles}{}, i.e. a \new{chain}{Kette} $(v_0,a_1,v_1,a_2,v_2, ... a_k,v_k)$, $k \geq 0$, with $a_i(v_{i-1},v_i) \in A$ and $v_k = v_0$. In particular, D does not contain \new{antiparallel}{} arcs: if $(u,v)\in A$, $(v,u)\not \in A$. With $\delta_D^+(v)$ we denote the arcs leaving vertex v: 
+A directed graph (digraph) $D=(V,A)$  is called \new{acyclic}{azyklisch} if it does not contain any
+\new{directed cycles}{}, i.e. a \new{chain}{Kette} $(v_0,a_1,v_1,a_2,v_2, ... a_k,v_k)$, $k \geq 0$, with $a_i(v_{i-1},v_i) \in A$ and $v_k = v_0$. In particular, D does not contain
+\new{antiparallel}{entgegengesetzt} arcs: if $(u,v)\in A$, $(v,u)\not \in A$. With $\delta_D^+(v)$ we denote the arcs leaving vertex v: 
 \[ \delta_D^+(v) = \{(u,w) \in A: u = v\}\]
 similarly:
 \[\delta_D^-(v) = \{(u,w) \in A: w = v\}\]
 are the arcs entering v.
 
-The \new{outdegree}{} of $v$ is $\deg^+_D(v) = | \delta^+(v) |$ (assuming simple digraph)
+The \new{outdegree}{Ausgangsgrad} of $v$ is $\deg^+_D(v) = | \delta^+(v) |$ (assuming simple digraph)
 
-The \new{indegree}{} of $v$ is $\deg^-_D(v) = | \delta^-(v)|$
+The \new{indegree}{Eingangsgrad} of $v$ is $\deg^-_D(v) = | \delta^-(v)|$
 \end{defn+}
 
 \stepcounter{section}
