@@ -128,6 +128,21 @@ durchgeführt.
 
 \section{Aufgabe 4}
 
+\subsection{maximaler Fluss}
+Sei $f$ ein Fluss auf dem Netzwerk $(D, s, t)$ mit
+\begin{align*}
+f(s, v_1) &= 7 		& f(s, v_3) &= 3 	& f(s, v_5) &= 8 	& f(s, v_6) &= 2 \\
+f(v_1, v_2) &= 3 	& f(v_1, v_3) &= 4	& f(v_2, v_3) &= 1	& f(v_2, v_7) &= 0 \\
+f(v_2, t) &= 5		& f(v_3, v_4) &= 8	& f(v_3, v_7) &= 0	& f(v_4, t) &= 13 \\
+f(v_5, v_2) &= 3	& f(v_5, v_4) &= 5	& f(v_6, v_5) &= 0	& f(v_6, v_7) &= 2 \\
+f(v_7, t) &= 2
+\end{align*}
+und dem Betrag $20$. Der Fluss ist maximal, da alle eingehenden Kanten von $t$
+vollständig genutzt werden. Daraus ergibt sich direkt ein
+\subsection{minimaler Schnitt}
+Da, wie bereits gezeigt, die eingehenden Kanten von $t$ von $f$ vollständig
+genutzt werden, ist $\{s, v_1, ..., v_7\}, \{t\}$ ein minimaler Schnitt.
+
 \section{Aufgabe 5}
 
 \end{document}
