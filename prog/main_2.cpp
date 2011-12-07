@@ -6,9 +6,11 @@
 #include <lemon/list_graph.h>
 #include <lemon/lgf_reader.h>
 
+#include "graph.h"
 #include "debug.h"
 #include "bipartite.h"
 #include "allocation.h"
+#include "tsp.h"
 
 using namespace std;
 using namespace lemon;
@@ -16,6 +18,15 @@ using namespace lemon;
 int main()
 {
 	srand(time(NULL));
+
+	cout << endl << "*** 1) ***" << endl;
+	ListGraph g;
+	ListGraph::EdgeMap<int> weight(g);
+	readMatrix("data_2/Deutschland.txt", g, weight);
+	TSP tsp(g, weight);
+	int w = tsp.tsp();
+	cout << "TSP weight: " << w << endl;
+	
 
 	cout << endl << "*** 2) ***" << endl;
 	START_TIMER(tmr_bipartite)
