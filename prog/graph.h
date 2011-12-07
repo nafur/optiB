@@ -1,6 +1,8 @@
 #pragma once
 
 #include <lemon/list_graph.h>
+#include <lemon/lgf_reader.h>
+#include <lemon/lgf_writer.h>
 
 #include <iostream>
 #include <fstream>
@@ -51,3 +53,6 @@ struct cmpNode
 };
 
 void readTerminals(const string& filename, const ListGraph& g, set<ListGraph::Node>& terminals);
+void readMatrix(const string& filename, ListGraph& g, ListGraph::EdgeMap<int>& weight);
+void dumpGraph(const string& filename, const ListGraph& g, const ListGraph::EdgeMap<int>& weight);
+void dumpGraph(const string& filename, const ListGraph& g);
