@@ -61,3 +61,20 @@ void dumpGraph(const string& filename, const ListGraph& g)
 	ListGraph::EdgeMap<int> weight(g);
 	graphWriter(g, filename).edgeMap("weight", weight).run();
 }
+
+void dumpSubGraph(const string& filename, const ListGraph& g, const set<ListGraph::Edge>& edges)
+{
+	ListGraph sub;
+	ListGraph::EdgeMap<ListGraph::Edge> edgemap(g);
+	
+	GraphCopy<ListGraph, ListGraph> copy(g, sub);
+	copy.edgeRef(edgemap);
+	copy.run();
+	
+	for (ListGraph::EdgeIt e(g); e != INVALID; ++e)
+	{
+		if (edges.count(e) == 0) sub.erase(edgemap[e]);
+	}
+	
+	dumpGraph(filename, sub);
+}
