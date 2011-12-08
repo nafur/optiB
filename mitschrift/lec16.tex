@@ -37,7 +37,7 @@ A \emph{cost} of an augmenting cycle $C$ is defined as
 \]
 \end{defn}
 
-\begin{thm}
+\begin{thm}\label{thm:thm164}
 A feasible $(s,t)$-flow $x$ in $D$ with value $f$ has minimum cost if and
 only if no augmenting cycle $C$ w.r.t. $x$ with negative costs exists.
 \end{thm}
@@ -71,5 +71,88 @@ To proe the backward direction, we first describe the algorithmic procedure.
 \begin{defn}
 Given a $(s,t)$-flow $x$ with $val(x) = f$, we define the \emph{augmenting
 network} w.r.t. $x$ as follows: $N = (V, \overline{A}, \overline{C},
-\overline{w})$.
+\overline{w})$ with
+\begin{align*}
+\overline{A} &= A_1 \cup A_2 \\
+A_1 &= \{ ij \in A: x_{ij} < c_{ij} \} \\
+A_2 &= \{ ji: ij \in A, x_{ij} > 0 \}
+\end{align*}
+
+For $a \in A$, we denote by $a_1 \in A_1$ and / or $a_2 \in A_2$ the
+corresponding arcs in $A_1$ and $A_2$. If $a_1$ (or $a_2$) does not exist,
+we evaluate $x(a_1)$ (or $x(a_2)$) with zero.
+Further,
+\begin{align*}
+\overline{c}(\overline{a}) = ( c(a) - x(a) if \overline{a} = a_1, 
+x(a) if \overline{a} = a_2) \forall a \in A \\
+\overline{w}(\overline{a}) = ( w(a) if \overline{a} = a_1, 
+-w(a) if \overline{a} = a_2) \forall a \in A \\
+\end{align*}
 \end{defn}
+
+\begin{lem}
+Every augmenting cycle in $D$ corresponds with exactly one \emph{directed}
+cycle in $N$. The cost of both cycles are identical.
+\end{lem}
+\begin{proof}
+Exercise sheet.
+\end{proof}
+
+\begin{thm}
+The flow $x$ is cost minimal among all $(s,t)$-flows in $D$ of value $f$ if
+and only if no directed cycle in $N$ has negative cost.
+\end{thm}
+\begin{proof}
+$\Rightarrow$: analogue to Theorem~\ref{thm:thm164}.
+
+$\Leftarrow$: Assume $x$ is not cost minimal. Hence, there exists a
+$\tilde{x}$ with value $f$ and $w^T\tilde{x} < w^Tx$.
+Now define for $\overline{a} \in \overline{A}$ (w.r.t. $x$)
+\[
+	\overline{x}(\overline{a}) = ( max \{ 0, \tilde{x}(a) - x(a) \} if
+	\overline{a} = a_1 \in A_1, max \{0, x(a) - \tilde{x}(a)\} if
+	\overline{a} = a_2 \in A_2 )
+\]
+Thus it holds that $\overline{x}(a_1) - \overline{x}(a_2) = \tilde{x}(a) -
+x(a)$. Further, it holds that 
+\[
+	\overline{x}(a_1) \overline{w}(a_1) + \overline{x}(a_2) \overline{w}(a_2)
+	= w(a) ( \tilde{x}(a) - x(a) )
+\]
+and thus
+\[
+	\sum_{\overline{a} \in \overline{A}} \overline{w}(\overline{a})
+	\overline{x}(\overline{a}) = 
+	\sum_{a \in A} w(a) ( \tilde{x}(a) - x(a) ) = w^T \tilde{x} - w^Tx < 0
+\]
+
+Moreover, flow conservation holds for all $v \in V$:
+\begin{align*}
+	&\sum_{a \in \delta^+_N(v)} \overline{x}(a) - \sum_{a \in \delta^-_N(v)}
+	\overline{x}(a) \\
+	= &\sum_{a \in \delta^+_D(v)} \overline{x}(a_1) -
+	\overline{x}(a_2) - \sum_{a \in \delta^-_D(v)} \overline{x}(a_1) -
+	\overline{x}(a_2) \\
+	= &\sum_{a \in \delta^+(v)} \tilde{x}(a) - x(a) - \sum_{a \in
+	\delta^-(v)} \tilde{x}(a) - x(a) \\
+	= &\left( \sum_{a \in \delta^+(v)} \tilde{x}(a) - \sum_{a \in
+	\delta^-(v)} \tilde{x}(a) \right) - 
+	\left( \sum_{a \in \delta^+(v)} x(a) - \sum_{a \in
+	\delta^-(v)} x(a) \right) \\
+	= &( 0 - 0 if v \in V \setminus \{s,t\},
+	f - f = 0 if v = s,
+	-f + f = 0 if v = t )
+\end{align*}
+Thus $\overline{x}$ is a feasible flow of value $0$ and
+$\overline{w}^T\overline{x} < 0$.
+Since $\overline{x} \neq 0$ and flow conservation holds for all $v \in V$,
+$\overline{x}$ is a \new{circulation}{Zirkulation} and can be decomposed
+into flows $x_i$ defined on cycles $C_i$ ($i = 1, ..., k < |\overline{A}|$).
+With $\sum_{i=1}^k x_i(\overline{a}) = \overline{x}(\overline{a}) \forall
+\overline{a} \in \overline{A}$.
+
+For at least one cycle $C_j$ it must hold that $\overline{w}^T x_j < 0$,
+otherwise $\overline{w}^T \overline{x} \geq 0$. Then the vector $x_j$
+defines an augmenting cycle with negative cost.
+Contradiction.
+\end{proof}
