@@ -7,6 +7,18 @@
 #include <lemon/euler.h>
 #include <list>
 #include <iostream>
+#include <cassert>
+
+int TSP::degree(const ListGraph& g, const ListGraph::Node& n, const set<ListGraph::Edge>& edges, const ListGraph::NodeMap<ListGraph::Node>& mapping)
+{
+	int deg = 0;
+	for (set<ListGraph::Edge>::iterator it = edges.begin(); it != edges.end(); ++it)
+	{
+		if (mapping[g.u(*it)] == n) deg++;
+		if (mapping[g.v(*it)] == n) deg++;
+	}
+	return deg;
+}
 
 /**
 	perform christofides approximation
@@ -27,36 +39,41 @@ int TSP::tsp()
 
 	// calculate mst
 	Prim p(this->g, this->weight);
-	int pw = p.prim();
-	cout << "MST weight: " << pw << endl;
+	p.prim();
 	
 	// copy subgraph induced by vertices with odd degree
 	ListGraph matchg;
 	ListGraph::EdgeMap<ListGraph::Edge> edgemap(this->g);
+	ListGraph::NodeMap<ListGraph::Node> nodemap(this->g);
 	ListGraph::EdgeMap<int> matchw(matchg);
 	
 	GraphCopy<ListGraph, ListGraph> copy(this->g, matchg);
 	copy.edgeRef(edgemap);
+	copy.nodeRef(nodemap);
 	copy.edgeMap(this->weight, matchw);
 	copy.run();
 	
-	for (ListGraph::NodeIt n(matchg); n != INVALID; ++n)
+	ListGraph::Node node;
+	for (ListGraph::NodeIt n(matchg); n != INVALID; )
 	{ // erase nodes with even degree
-		if (countIncEdges(matchg, n) % 2 == 0) matchg.erase(n);
+		if (this->degree(this->g, n, *p.mst, nodemap) % 2 == 0)
+		{
+			node = n;
+			++n;
+			matchg.erase(node);
+		}
+		else ++n;
 	}
+	
 	for (ListGraph::EdgeIt e(matchg); e != INVALID; ++e)
 	{ // convert max matching to min matching
 		matchw[e] = 1000 - matchw[e];
 	}
-	cout << "Queued for matching: " << countNodes(matchg) << endl;
-	
 	// calculate matching on remaining nodes
 	MaxWeightedMatching<ListGraph, ListGraph::EdgeMap<int>> m(matchg, matchw);
 	m.init();
 	m.start();
 	m.run();
-	
-	cout << "Matching size: " << m.matchingSize() << endl;
 	
 	ListGraph eulerg;
 	ListGraph::EdgeMap<ListGraph::Edge> eulermap(eulerg);
@@ -76,35 +93,41 @@ int TSP::tsp()
 		}
 		if (p.mst->count(eulermap[e]) == 0) eulerg.erase(e);
 	}
-	cout << "Eulergraph has " << countEdges(eulerg) << " edges" << endl;
-	cout << "Eulergraph has " << countNodes(eulerg) << " nodes" << endl;
 	
-	// TODO: this graph has no eulerian cycle... something is wrong in the code above
-	dumpGraph("data_2/deutschland.lgf", eulerg);
+	dumpGraph("data_2/Deutschland_Euler.lgf", eulerg);
 	
 	// iterate over eulerian cycle
 	int weight = 0;
 	EulerIt<ListGraph> e(eulerg);
-//	ListGraph::Node last = eulerg.u(e);
-//	ListGraph::Node first = eulerg.u(e);
+	ListGraph::Node last = eulerg.u(e);
+	ListGraph::Node first = eulerg.v(e);
+	++e;
+	if ((eulerg.u(e) == first) || (eulerg.v(e) == first))
+	{
+		ListGraph::Node tmp = last;
+		last = first;
+		first = tmp;
+	}
+	ListGraph::Node skip = last;
+	
 	for (; e != INVALID; ++e)
 	{
-		cout << "from " << eulerg.id(eulerg.u(e)) << " to " << eulerg.id(eulerg.v(e)) << endl;
-		visited[eulerg.u(e)] = true;
+		ListGraph::Node cur;
+		visited[last] = true;
+		if (eulerg.u(e) == last) cur = eulerg.v(e);
+		else cur = eulerg.u(e);
+//		cout << "from " << eulerg.id(last) << " to " << eulerg.id(cur) << endl;
 		
-/*		if (! visited[eulerg.v(e)])
+		if (! visited[cur])
 		{
-			ListGraph::Edge edge = findEdge(this->g, eulernodemap[eulerg.v(e)], eulernodemap[last]);
-			if (edge == INVALID) edge = findEdge(this->g, eulernodemap[last], eulernodemap[eulerg.v(e)]);
-			if (edge == INVALID)
-			{
-				cout << "something weird happend" << endl;
-			}
+			ListGraph::Edge edge = findEdge(this->g, eulernodemap[last], eulernodemap[cur]);
+			assert(edge != INVALID);
 			this->edges->insert(edge);
 			weight += this->weight[edge];
-			last = eulerg.v(e);
+			skip = cur;
 		}
-*/	}
+		last = cur;
+	}
 	
 	return weight;
 }

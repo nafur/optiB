@@ -11,6 +11,8 @@ struct TSP
 	private:
 		const ListGraph& g;
 		const ListGraph::EdgeMap<int>& weight;
+		
+		int degree(const ListGraph& g, const ListGraph::Node& n, const set<ListGraph::Edge>& edges, const ListGraph::NodeMap<ListGraph::Node>& mapping);
 	
 	public:
 		TSP(const ListGraph& graph, const ListGraph::EdgeMap<int>& weight):
