@@ -1,0 +1,75 @@
+\begin{lec}[2011-12-08]\end{lec}
+\stepcounter{section}
+\section*{Minimum Cost Flows}
+
+\begin{defn}
+Let $D = (V, A)$ be a digraph with arc capacities $c(a) \geq 0$ for all $a
+\in A$ and cost coefficients $w(a)$ for all $a \in A$. Let $s, t \in V$.
+
+Consider all $(s, t)$-flows of value $f$. The \new{Minimum Cost Flow (MCF)
+Problem}{Minimaler Kosten Netzwerkflussproblem} consists of finding a
+$(s,t)$-flow $x$ with $val(x) = f$ and cost $\sum_{a \in A} w(a) x_a$
+minimum among all $(s,t)$-flows of value $f$.
+\end{defn}
+
+The MCF Problem can be formulated as linear program (later more) and special
+network-simplex algorithms exist to solve the problem in polynomial time.
+Alternatively several combinatorial algorithms exist.
+
+\begin{defn}
+Let $x$ be a feasible $(s,t)$-flow in $D$ and let $C$ be a (not necessarily
+directed) cycle in $D$. The cycle $C$ can be orientated in two possible ways
+(clockwise or counterclockwise). Given an orientation of $C$, \emph{forward
+arcs} on $C$ are directed along the orientation, \emph{backwards arcs} opposite.
+
+A cycle $C$ is called \emph{augmenting} w.r.t. $x$ if there exists an
+orientation of $X$ such that
+\begin{align*}
+x_a < c_a & \text{for all forward arcs } a \in C \\
+x_a > 0	& \text{for all backward arcs } a \in C
+\end{align*}
+\end{defn}
+
+\begin{defn}
+A \emph{cost} of an augmenting cycle $C$ is defined as
+\[
+\sum_{a \in C: forward} w_a - \sum_{a \in c: backward} w_a
+\]
+\end{defn}
+
+\begin{thm}
+A feasible $(s,t)$-flow $x$ in $D$ with value $f$ has minimum cost if and
+only if no augmenting cycle $C$ w.r.t. $x$ with negative costs exists.
+\end{thm}
+\begin{proof}
+only $\Rightarrow$, $\Leftarrow$ later.
+
+Let $\sum w(a) x_a$ be minimum. Assume that there exists an augmenting cycle
+with negative cost. We define
+\[
+	\varepsilon = \min ( c_{ij} - x_{ij} if (i,j) \in C forward ; x_{ij} if
+	(i,j) \in C backward )
+\]
+and 
+\[
+	\tilde{x}_{ij} = ( x_{ij} + \varepsilon if (i,j) \in C forward, 
+	x_{ij} - \varepsilon if (i,j) \in C backward,
+	x_{ij} if (i,j) \in A \setminus C
+	)
+\]
+Now, $\tilde{x}$ is a feasible $(s,t)$-flow with $val(\tilde{x}) = val(x) =
+f$ and cost
+\[
+	\sum_{a \in A} w(a) \tilde{x}_a = \sum_{a \in A} w(a) x_a + \varepsilon
+	\left( \sum_{a \in C: foward} w(a) - \sum_{a \in C: backward} w(a) \right)
+	< \sum_{a \in A} w(a) x_a
+\]
+
+To proe the backward direction, we first describe the algorithmic procedure.
+\end{proof}
+
+\begin{defn}
+Given a $(s,t)$-flow $x$ with $val(x) = f$, we define the \emph{augmenting
+network} w.r.t. $x$ as follows: $N = (V, \overline{A}, \overline{C},
+\overline{w})$.
+\end{defn}
