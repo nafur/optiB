@@ -35,7 +35,8 @@ int Allocation::allocate()
 {
 	// make table for dynamic programming
 	vector<vector<int> > f;
-	f.resize(this->machines + 1); for (vector<vector<int> >::iterator it = f.begin(); it != f.end(); ++it)
+	f.resize(this->machines + 1);
+	for (vector<vector<int> >::iterator it = f.begin(); it != f.end(); ++it)
 		it->resize(this->plants);
 
 	// initialize last plant
