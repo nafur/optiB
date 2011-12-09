@@ -138,6 +138,19 @@ int main()
 	STOP_TIMER(tmr_rescallo)
 	
 	cout << endl << "*** 4) ***" << endl;
+	cout << endl;
+	cout << "*** a) ***" << endl;
+	cout << "A solution for the TSP is always a spanning tree with one additional edge." << endl;
+	cout << "Therefore, the weight of a MST plus the shortest remaining edge is lower then the one of a TSP tour." << endl;
+	cout << endl;
+	cout << "For the second relaxation, a similar argument holds: A solution for the TSP" << endl;
+	cout << "is always a 1-Tree (a 1-Tree is a graph consisting of a spanning tree on the" << endl;
+	cout << "graph without some arbitrary node plus two edges incident to this node)." << endl;
+	cout << "As we always take the smallest 1-Tree, it's weight is lower than the one of a TSP tour." << endl;
+	cout << endl;
+	cout << "*** b) ***" << endl;
+	cout << "We'll run the second heuristic multiple times and take a random node each time..." << endl;
+	
 	START_TIMER(tmr_tsp_relax)
 	int files[] = {15, 75, 150};
 	for (int i=0; i<3; i++)
@@ -151,11 +164,20 @@ int main()
 		
 		TSPRelaxation tsp(g, weight);
 		cout << "1st lower bound for TSP" << files[i] << " is " << tsp.mstPlusOne() << endl;
-		int val = tsp.mstOnSubgraph();
-		int num = 0;
+		int val = 0, num = 0;
 		for (; num * num < countNodes(g); num++)
-			val = min(val, tsp.mstOnSubgraph());
+			val = max(val, tsp.mstOnSubgraph());
 		cout << "2nd lower bound for TSP" << files[i] << " is " << val << " from " << num << " tries" << endl;
 	}
 	STOP_TIMER(tmr_tsp_relax)
+	
+	cout << endl;
+	cout << "*** c) ***" << endl;
+	cout << "While the second relaxation always yields a higher (and thereby better) bound," << endl;
+	cout << "it get's less better when the graph grows larger." << endl;
+	cout << "While the result is 15% to 37% better on the smallest graph," << endl;
+	cout << "the gain on the largest graph is only about 1.5% to 2.5%." << endl;
+	cout << endl;
+	
+	return 0;
 }
