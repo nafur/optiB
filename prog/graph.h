@@ -12,6 +12,7 @@
 using namespace std;
 using namespace lemon;
 
+// needed to put edges in priority queue
 struct cmpEdge
 {
 	ListGraph::Edge e;
@@ -32,6 +33,7 @@ struct cmpEdge
 	}
 };
 
+// needed to put nodes in priority queue
 struct cmpNode
 {
 	ListGraph::Node n;
@@ -52,7 +54,11 @@ struct cmpNode
 	}
 };
 
+// special read helper
 void readTerminals(const string& filename, const ListGraph& g, set<ListGraph::Node>& terminals);
 void readMatrix(const string& filename, ListGraph& g, ListGraph::EdgeMap<int>& weight);
+
+// dump graphs to lgf format
 void dumpGraph(const string& filename, const ListGraph& g, const ListGraph::EdgeMap<int>& weight);
 void dumpGraph(const string& filename, const ListGraph& g);
+void dumpSubGraph(const string& filename, const ListGraph& g, const set<ListGraph::Edge>& edges);

@@ -41,6 +41,8 @@ int TSP::tsp()
 	Prim p(this->g, this->weight);
 	p.prim();
 	
+	dumpSubGraph("data_2/Deutschland_MST.lgf", this->g, *p.mst);
+	
 	// copy subgraph induced by vertices with odd degree
 	ListGraph matchg;
 	ListGraph::EdgeMap<ListGraph::Edge> edgemap(this->g);
@@ -84,14 +86,19 @@ int TSP::tsp()
 	copy2.nodeCrossRef(eulernodemap);
 	copy2.edgeCrossRef(eulermap);
 	copy2.run();
-
-	for (ListGraph::EdgeIt e(eulerg); e != INVALID; ++e)
+	
+	list<ListGraph::Edge> edges;
+	for (ListGraph::EdgeIt e(eulerg); e != INVALID; ++e) edges.push_back(e);
+	
+	for (list<ListGraph::Edge>::iterator it = edges.begin(); it != edges.end(); ++it)
 	{ // copy edges in matching
-		if (m.matching(edgemap[eulermap[e]]))
+	
+		ListGraph::Edge cur = edgemap[eulermap[*it]];
+		if (m.matching(cur))
 		{
-			eulerg.addEdge(eulerg.u(e), eulerg.v(e));
+			eulerg.addEdge(eulerg.u(*it), eulerg.v(*it));
 		}
-		if (p.mst->count(eulermap[e]) == 0) eulerg.erase(e);
+		if (p.mst->count(eulermap[*it]) == 0) eulerg.erase(*it);
 	}
 	
 	dumpGraph("data_2/Deutschland_Euler.lgf", eulerg);
