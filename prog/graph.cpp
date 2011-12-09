@@ -78,3 +78,20 @@ void dumpSubGraph(const string& filename, const ListGraph& g, const set<ListGrap
 	
 	dumpGraph(filename, sub);
 }
+
+void dumpSubGraph(const string& filename, const ListGraph& g, const set<ListGraph::Node>& nodes)
+{
+	ListGraph sub;
+	ListGraph::NodeMap<ListGraph::Node> nodemap(g);
+	
+	GraphCopy<ListGraph, ListGraph> copy(g, sub);
+	copy.nodeRef(nodemap);
+	copy.run();
+	
+	for (ListGraph::NodeIt n(g); n != INVALID; ++n)
+	{
+		if (nodes.count(n) == 0) sub.erase(nodemap[n]);
+	}
+	
+	dumpGraph(filename, sub);
+}

@@ -62,3 +62,4 @@ void readMatrix(const string& filename, ListGraph& g, ListGraph::EdgeMap<int>& w
 void dumpGraph(const string& filename, const ListGraph& g, const ListGraph::EdgeMap<int>& weight);
 void dumpGraph(const string& filename, const ListGraph& g);
 void dumpSubGraph(const string& filename, const ListGraph& g, const set<ListGraph::Edge>& edges);
+void dumpSubGraph(const string& filename, const ListGraph& g, const set<ListGraph::Node>& nodes);
