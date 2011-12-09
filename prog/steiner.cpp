@@ -72,11 +72,12 @@ int Steiner::steiner(const set<ListGraph::Node> terminals)
 		{ // walk through path
 			cur = (*dijk[u]->pred)[cur];
 			if (smapper.count(cur) == 0) smapper[cur] = this->s->addNode();
-			// add edge to graph
-			// TODO: prevent adding of multiple edges between same nodes
-			// actually not sure if this happens, but I think so :-)
-			ListGraph::Edge e = this->s->addEdge(smapper[last], smapper[cur]);
-			(*this->sweight)[e] = (*dijk[u]->dist)[last] - (*dijk[u]->dist)[cur];
+			// add edge to graph, if not already existing
+			if (findEdge(*this->s, smapper[last], smapper[cur]) == INVALID)
+			{
+				ListGraph::Edge e = this->s->addEdge(smapper[last], smapper[cur]);
+				(*this->sweight)[e] = (*dijk[u]->dist)[last] - (*dijk[u]->dist)[cur];
+			}
 			last = cur;
 		}
 		while (cur != u);
