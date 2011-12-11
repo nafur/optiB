@@ -1,0 +1,106 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage[ngerman]{babel}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{listings}
+%\usepackage{fullpage}
+
+\lstset{numbers=left, basicstyle=\ttfamily, numberstyle=\tiny, mathescape=true} %listing style für code
+
+%\usetikzlibrary{positioning, trees, snakes}
+%\usetikzlibrary{automata, positioning, arrows, calc}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex}
+%\setlength{\headheight}{30pt}
+\addtolength{\textwidth}{2in}
+\addtolength{\textheight}{1.5in}
+\addtolength{\hoffset}{-1in}
+\addtolength{\voffset}{-0.75in}
+\pagestyle{fancy}
+
+% Kopfzeile
+\lhead{Optimierung B}
+\chead{Übung 8}
+\rhead{Niklas Fischer 298418 \\ Gereon Kremer 288911}
+
+% Fußzeile
+\lfoot{}
+\cfoot{Seite \thepage{}}
+\rfoot{}
+
+\renewcommand{\thesection}{}
+\renewcommand{\thesubsection}{(\alph{subsection})}
+
+\begin{document}
+
+\section{Aufgabe 1}
+
+\section{Aufgabe 2}
+
+\section{Aufgabe 3}
+
+\section{Aufgabe 4}
+
+\subsection*{}
+Konstruiere einen Graphen $G = (V, E)$, für den ein Min-Cost-Flow das
+Problem löst. Sei $B$ die Menge der Bahnhöfe und $Z$ die Menge der (der
+offensichtlichen, natürlichen Ordnung unterliegenden) Uhrzeiten
+eines Tages. Sei nun $X$ die Menge der Zughalte, also
+$X \subseteq B \times Z$ und $F \subseteq X \times X$ die Menge der Fahrten
+mit minimaler Anzahl Waggons $W: F \rightarrow \mathbb{N}$. Aus der
+Anwendung ergibt sich, dass für jede Fahrt $(x_1, x_2)$ die Uhrzeit von
+$x_1$ kleiner als die von $x_2$ sein sollte. Dies ist aber in der
+Modellierung nicht nötig -- unser Verfahren ist also auch für Züge mit
+Überlichtgeschwindigkeitsantrieben gerüstet :-).
+
+Als ausgezeichnete Mengen verwenden wir ausserdem $X_-$ und $X_+$ als Mengen
+der zeitlich ersten und letzten Halte an jedem Bahnhof.
+\begin{align*}
+X_- &= \{ (b, z) \in X \mid \not\exists (b, z_2) \in X: z_2 < z \} \\
+X_+ &= \{ (b, z) \in X \mid \not\exists (b, z_2) \in X: z_2 > z \} \\
+\end{align*}
+Ausserdem definieren wir $next$ als die Abbildung eines Halts auf den
+nächsten Halt am selben Bahnhof. Formal:
+\[
+	next(b, z) = (b, z_2) \text{ so dass } z_2 > z 
+		\wedge \not\exists z': (b, z') \in X \wedge z < z' < z_2
+\] 
+
+Nun konstruieren wir den Graphen $G$ sowie die zu den Kanten gehörenden
+Kapazitäten und Kosten $c, w: E \rightarrow \mathbb{N}$ und den Wert des zu suchenden
+Flusses $x$.
+\begin{align*}
+V = & \{s, t\} \cup X \\
+E = & \{ (s, t) \} \\
+	& \cup \{ (s, (b, z)) \mid (b, z) \in X_- \} \\
+	& \cup \{ ((b, z), t) \mid (b, z) \in X_+ \} \\
+	& \cup \{ ((b, z), next(b, z)) \mid (b, z) \in X \} \\
+	& \cup F_1 = \{ ((b_1, z_1), (b_2, z_2)) \mid ((b_1, z_1), (b_2, z_2)) \in F \} \\
+	& \cup F_2 = \{ ((b_1, z_1), (b_2, z_2)) \mid ((b_1, z_1), (b_2, z_2)) \in F \}
+\end{align*}
+
+$F_1$ und $F_2$ bilden hier parallele Kanten. Diese können durch Einfügen
+eines Zwischenknotens in alle Kanten aus $F_2$ in normale Kanten überführt
+werden. Aus Gründen der Übersichtlichkeit werden wir dies hier nicht tun.
+
+Als $x$ wählen wir $\sum_{f \in F} W(f)$, also die Summe aller Waggons, die
+in allen Fahrten mindestens bewegt werden sollen.
+
+Für $c(e)$ gilt:
+\begin{align*}
+c(e) &= W(e) & e \in F_1 \\
+c(e) &= x & \text{ sonst}
+\end{align*}
+Für $w(e)$ gilt:
+\begin{align*}
+w(e) &= 1 & e \in \{ (s, (b, z)) \mid (b, z) \in X_- \} \\
+w(e) &= -x & e \in F_1 \\
+w(e) &= 0 & \text{ sonst}
+\end{align*}
+
+\end{document}
