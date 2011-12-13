@@ -145,13 +145,14 @@ int TSP::tsp()
 	
 	for (list<ListGraph::Edge>::iterator it = edges.begin(); it != edges.end(); ++it)
 	{ // copy edges in matching
-	
+		if (p.mst->count(eulermap[*it]) == 0) eulerg.erase(*it);
+
 		ListGraph::Edge cur = edgemap[eulermap[*it]];
+		if (! matchg.valid(cur)) continue;
 		if (m.matching(cur))
 		{
 			eulerg.addEdge(eulerg.u(*it), eulerg.v(*it));
 		}
-		if (p.mst->count(eulermap[*it]) == 0) eulerg.erase(*it);
 	}
 	
 	dumpGraph("data_2/Deutschland_Euler.lgf", eulerg);
