@@ -77,9 +77,6 @@ int TSP::tsp()
 	Prim p(this->g, this->weight);
 	p.prim();
 	
-	// dump mst to file
-	dumpSubGraph("data_2/Deutschland_MST.lgf", this->g, *p.mst);
-	
 	// copy subgraph induced by vertices with odd degree: create copy, run GraphCopy
 	ListGraph matchg;
 	ListGraph::EdgeMap<ListGraph::Edge> edgemap(this->g);
@@ -137,8 +134,6 @@ int TSP::tsp()
 			eulerg.addEdge(eulerg.u(*it), eulerg.v(*it));
 		}
 	}
-	
-	dumpGraph("data_2/Deutschland_Euler.lgf", eulerg);
 	
 	// find best eulerian path
 	ListGraph::Node best;
