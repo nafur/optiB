@@ -27,7 +27,7 @@
 	Furterh, we may assume w.l.o.g (o.B.d.A) that $G$ is connected, otherwise the
 	result follows by induction on the components of $G$.
 	
-	Case 1:\newline
+	Case 1: \\
 	There exists a vertex $v$ that is matched in all maximum matches (like in the 
 	bipartite case). Thus $\nu (G-V) = \nu (G)-1$ and by induction there exists
 	a subset $U'\subseteq V-v$ with $\nu (G-V) = \frac{1}{2}(|V\setminus \plainset{v}|+ |U'|-o(G-v-U'))$
@@ -37,12 +37,12 @@
 					 &\leq \min_{T \subseteq V}\frac12(|V|+|T| -O(G-T))
 	\end{align*}
 	
-	Case 2:\newline
+	Case 2: \\
 	There does \emph(not) exist a vertex matched in all maximum matchings. So for 
 	all $v \in V$, there exists a maximum matching without $v$. Then, in particular
 	$\nu(G)<\frac12|V|$. We will show that there exists in this case a matching 
 	of size $\frac12(|V|-1)$. By this, we have proven the theorem (set $U=\emptyset$).
-	\newline
+
 	If there does not exist a matching of size $\frac12(|V|-1)$, then for every
 	matching $M$, there exist two vertices $u$ and $v$ such that both are not 
 	matched. Among all maximum matchings, select a triple $(M,u,v)$ for which 
@@ -55,20 +55,21 @@
 	exists a vertex $t$ on the shortest path from $u$ to $v$. Not that $t$ is 
 	matched in $M$, otherwise $\dist(u,t)<\dist(u,v)$; a contradition.	For $t$ 
 	there exist other maximum matchings not covering $t$. Choose $N$ such that 
-	$|M \cap N|$ is maximal. \newline
+	$|M \cap N|$ is maximal.
+	
 	Also, $u$ and $v$ are covered by $N$, since otherwise $N$ would have a pair
 	$(t,u)$ (or $(t,v)$) of unmatched vertices with $\dist(u,t) < \dist (u,v)$ 
-	(respectively $\dist(t,v) < \dist(u,v)$)\newline	
+	(or $\dist(t,v) < \dist(u,v)$, respectively).
+	
 	Since $|M| = |N|$, there must be a second vertex $x\neq t$ which is not
 	covered by $N$, but covered by $M$. Let $e=\plainset{x,y} \in M$. Then $y$ is
 	also covered by $N$, otherwise $N$ could be extended by $\plainset{x,y}$, 
 	contradiction to maximality of $|N|$. Let $f=\plainset{y,z}\in N$. Now
 	replace $N$ by $N \setminus \plainset f \cup \plainset e$. The new matching 
-	has one more edge in common with $M$, contradiction. \newline
+	has one more edge in common with $M$, contradiction.
+	
 	Hence, a maximum matching cannot mis two or more vertices. Thus $\nu (G) = 
 	\frac12(|V|-1)$
-	
-
 	
 \end{proof}
 
@@ -88,7 +89,7 @@
 	Homework
 \end{proof}
 
-\subsection*{Edmond's Matching Algorithm (the blossom shrinking algorithm) 1965}
+\subsection*{Edmond's Matching Algorithm (blossom shrinking algorithm) 1965}
 	Again we are looking for $M$-augmenting paths. In bipartite graphs we just have 
 	to find a shortest path in the orientation of $G$ by $M$. 
 	
