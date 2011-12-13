@@ -27,38 +27,21 @@ int TSP::processEulerian(const ListGraph& eulerg, const ListGraph::NodeMap<ListG
 	// last always contains last node on cycle, cur the current one
 	// edges from EulerIt are not directed, so we have to find out which is the first and which the second one
 	int weight = 0;
-	EulerIt<ListGraph> e(eulerg, start);
 	ListGraph::NodeMap<bool> visited(eulerg);
-	ListGraph::Node last = eulerg.u(e);
-	ListGraph::Node first = eulerg.v(e);
-	++e;
-	if ((eulerg.u(e) == first) || (eulerg.v(e) == first))
-	{ // second edge incident to node that was assumed to be first one, swap them
-		ListGraph::Node tmp = last;
-		last = first;
-		first = tmp;
-	}
-	// insert the first edge
-	ListGraph::Edge edge = findEdge(this->g, eulernodemap[first], eulernodemap[last]);
-	this->edges->insert(edge);
-	visited[first] = true;
-
-	// start node of next edge to be inserted (skip refers to the fact, that already visited nodes between skip and cur are skipped...)
+	ListGraph::Node last = start;
 	ListGraph::Node skip = last;
 	
 	// walk the eulerian cycle
-	for (; e != INVALID; ++e)
+	for (EulerIt<ListGraph> e(eulerg, start); e != INVALID; ++e)
 	{
 		ListGraph::Node cur;
 		visited[last] = true;
 		if (eulerg.u(e) == last) cur = eulerg.v(e);
 		else cur = eulerg.u(e);
 		// cur is the new node now, last the previous one and skip the last one that was not visited before
-//		cout << "from " << eulerg.id(last) << " to " << eulerg.id(cur) << endl;
 		
 		if (! visited[cur])
 		{ // cur is visited for the first time, thus create edge from skip to cur
-//			cout << "inserting " << eulerg.id(skip) << " to " << eulerg.id(cur) << endl;
 			ListGraph::Edge edge = findEdge(this->g, eulernodemap[skip], eulernodemap[cur]);
 			assert(edge != INVALID); // just to be sure, we have had an error here...
 			this->edges->insert(edge);
@@ -68,7 +51,7 @@ int TSP::processEulerian(const ListGraph& eulerg, const ListGraph::NodeMap<ListG
 		last = cur;
 	}
 	// insert last edge (not done in the loop, as first node was marked as visited
-	this->edges->insert(findEdge(this->g, eulernodemap[skip], eulernodemap[first]));
+	this->edges->insert(findEdge(this->g, eulernodemap[skip], eulernodemap[start]));
 	
 	return weight;
 }
@@ -172,5 +155,6 @@ int TSP::tsp()
 		assert(this->edges->size() == (unsigned int)countNodes(eulerg));
 	}
 	
+	this->edges->clear();
 	return this->processEulerian(eulerg, eulernodemap, best, true);
 }
