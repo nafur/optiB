@@ -48,12 +48,14 @@ int main()
 	cout << "\tThe refactoring of the eulerian cycle only decreases the weight" << endl;
 	cout << endl;
 	
+	START_TIMER(tmr_tsp)
 	ListGraph g;
 	ListGraph::EdgeMap<int> weight(g);
 	readMatrix("data_2/Deutschland.txt", g, weight);
 	TSP tsp(g, weight);
 	int w = tsp.tsp();
 	cout << "result has weight " << w << endl;	
+	STOP_TIMER(tmr_tsp)
 
 	cout << endl << "*** 2) ***" << endl;
 	cout << endl;
