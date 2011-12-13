@@ -161,12 +161,14 @@ int TSP::tsp()
 	int min = numeric_limits<int>::max();
 	for (ListGraph::NodeIt n(eulerg); n != INVALID; ++n)
 	{
+		this->edges->clear();
 		int res = this->processEulerian(eulerg, eulernodemap, n, false);
 		if (min > res)
 		{
 			min = res;
 			best = n;
 		}
+		assert(this->edges->size() == (unsigned int)countNodes(eulerg));
 	}
 	
 	return this->processEulerian(eulerg, eulernodemap, best, true);
