@@ -31,3 +31,17 @@ void dump(const Dijkstra& d, const ListGraph& g)
 	}
 	cout << "finished dump" << endl;
 }
+
+void dump(const vector<vector<int> >& data)
+{
+	cout << "dumping table " << &data << endl;
+	for (vector<vector<int> >::const_iterator it = data.begin(); it != data.end(); ++it)
+	{
+		for (vector<int>::const_iterator it2 = it->begin(); it2 != it->end(); ++it2)
+		{
+			cout << *it2 << ", ";
+		}
+		cout << endl;
+	}
+	cout << "finished dump" << endl;
+}
