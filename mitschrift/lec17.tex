@@ -1,0 +1,88 @@
+\begin{lec}[2012-12-12]\end{lec}
+\stepcounter{section}
+
+\subsection*{Complexity Theory (Komplexitätstheorie)}
+
+A \new{problem}{Problem} is a general question, where several parameters are left open. A \new{solution}{Lösung} consists of answers for those parameters. A problem is defined by a description of all its parameters and which properties require an answer. A \new{problem instance}{Probleminstanz} is a specific input where all known parameters are explicitly given. 
+
+The question "What is the shortest travelling salesman tour in a graph?" is a \emph{problem}, whereas the question "What is the shortest travelling salesman tour in bier127.tsp?" is a \emph{problem instance} of the earlier problem. The known parameters are the number of cities and the distance matrix. The parameters left open are the follow-up city for every city.
+
+In general, we denote a problem as $\Pi$, whereas an instace of problem $\Pi$ is denoted by $I \in \Pi$.
+
+An \new{algorithm}{Algorithmus} \emph{solves} a problem $\Pi$ if for every problem instance $I \in \Pi$, the algorithm finds a solution. The aim of designing algorithms is to develop procedures to fnd a solution for any problem instance that is as \emph{"efficient"} as possible, in particular efficient regarding \emph{time} and \emph{memory} requirements.
+
+There exist two types of problems: problems that can be answered by "yes" or "no" and those that ask to find an object with certain properties.
+"Does there exist a solution to the TSP with the value at most $K$?" can be answered by "yes" or "no". Of course, the answer "yes" should be verifiable with a tour of length $\leq K$; an answer "no" should also be guaranteed.
+
+For yes/no problems, we do not have to distinguish between \emph{solution} and \emph{optimal solution}.
+
+The \new{time complexity}{Zeitkomplexität} (respectively the \new{memory complexity}{Speicherkomplexität}) of an algorithm depends in general on the \emph{"size"} of the problem instance, for example the \emph{amount} of input data.
+
+The \emph{encoding} of a problem instance is of critical importance. Integers are \emph{binary encoded}. The binary encoding of nonnegative integer $n$ requires $\lceil \log_2(n+1) \rceil$ bits. One more bit is required for the sign of an integer. The \new{coding length}{Codierungslänge} $<n>$ is the number of bits required to encode $n$.
+\[
+	<n>:=\lceil \log_2(n+1) \rceil + 1
+\]
+A rational number $r = \frac pq$ has coding length $<r> := <p> + <q>$.
+The coding length of a vector $x \in \Q^n$ is $<x>:= \sum\limits_{i=1}^n<x_i> \leq n \cdot \max<  x_i >$ and of a matrix $A \in \Q^{n \times n}$ is $<A> := \sum\limits_{i=1}^m\sum\limits_{j=1}^n<a_{ij}> \leq m \cdot n \cdot\max< a_{ij} >$.
+
+Data structures to encode graphs and digraphs will be discussed in the next lecture.
+
+The total number of bits required to describe a problem instance is called the \emph{coding length} or \new{input length}{Eingabelänge} $<I>$ of $I$.
+
+\begin{xmp+}
+	The Knapsack problem has input length \[
+		<I> = <c> + <a> + <b> = 2 \cdot n \cdot \max<c_i, a_i> + <b>
+	\]
+\end{xmp+}
+
+To execute an algorithm and to compute its running time and memory requirement depending on the input length of a problem instance, we need a so-called \emph{computing model}: a \emph{Turing-machine} or \emph{RAM-machine} are two examples (see exercise sheet).
+	
+The algorithm first reads the data of a problem instance and uses for this $<I>$ bits. Further bits are required to compute the solution. The \new{memory requirement}{Speicherbedarf} of algorithm $A$ to solve $I$ is the number of bits that are used at least once during the execution of $A$.
+
+\begin{xmp+}
+	Knapsac dynamic programming \[
+		f(k,b) = \max \plainset{f(k-1,b), f(k-1, b-a_k) + c_k}
+	\]. Only $2 \cdot b$ numbers hare to be kept for the computations.
+\end{xmp+}
+
+The \new{running time}{Laufzeit} of $A$ to solve $I$ is the number of elementary operations which $A$ requires until the end of the procedure. \new{Elementary operations}{elementare Operationen} are
+\begin{itemize}
+	\item reading, writing, and deleting
+	\item adding, subtracting, multiplying, dividing and comparing
+\end{itemize}
+of rational (integer) numbers. Here, we estimate each operation with respect to the maximum numbers involved.
+
+The function $f_A:\N\rightarrow\N$ defined by
+\[
+	f_A(n) := \max_{I \in \Pi \text{ with } <I> \leq n} \plainset{\text{running time of $A$ to solve $I$}}
+\] is called the \new{running time function}{Laufzeitfunktion} of $A$.
+
+The function $S_A:\N\rightarrow\N$ defined by
+\[
+	f_A(n) := \max_{I \in \Pi \text{ with } <I> \leq n} \plainset{\text{memory requirement of $A$ to solve $I$}}
+\] is called the \new{memory function}{Speicherbedarfsfunktion} of $A$.
+
+\begin{xmp+}
+	\begin{tabular}{c|c|c}
+	\emph{Examples:} & Knapsack DP & TSP DP \\
+	\hline
+	Inputlength & $(2n+1)<b>$ & $<n>+n^2 max<c_{ij}$ \\
+	Runningtime & $\O (n\cdot b)$ & $2^{n-2}(n-1)-(n-2)$ \\
+	\end{tabular}
+\end{xmp+}
+
+The algorithm A has \new{polynomial running time}{polynomielle Laufzeit} (short: A is a polynomial algorithm if there exists a polynomial $p:\N \Leftarrow \N $ with $f_A(n) \leq p(n) \: \forall \: n \in \N.$ If $p$ is a polynomial of degree $k$, we call $f_A$ of order $n^k$ and write $f_A= O(n^k)$. Algorithm A has polynomial memory requirements if there exists a polynomial $q:\N \Leftarrow \N$ such that $s_A(n) \leq q(n) \: \forall \: n \in \N$.
+
+\emph{Example} Given a sequence of number $ a_i\in \N, \dots, a_k \in \N$, determine the largest value
+Algorithm:
+\begin{lstlisting}
+max:=0
+FOR i=1 TO $k$ DO
+	IF $a_i >$ max THEN max:=$a_i$
+\end{lstlisting}
+Inputlength: $k \cdot max<a_j> \leq n$
+
+Running time: $f_A(n)=\frac n {max<a_i>} \leq n$
+				polynomial $p(n)=5n+1 $
+				
+Memory: $s_A(n)=2 max<a_i> \leq n$
