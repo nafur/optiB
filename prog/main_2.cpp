@@ -48,12 +48,20 @@ int main()
 	cout << "\tThe refactoring of the eulerian cycle only decreases the weight" << endl;
 	cout << endl;
 	
+	START_TIMER(tmr_tsp)
 	ListGraph g;
 	ListGraph::EdgeMap<int> weight(g);
 	readMatrix("data_2/Deutschland.txt", g, weight);
 	TSP tsp(g, weight);
 	int w = tsp.tsp();
 	cout << "result has weight " << w << endl;	
+	STOP_TIMER(tmr_tsp)
+	
+	cout << "printing the hamilton cycle is disabled. enable it in the code at line " << (__LINE__+1) << endl << endl;
+	/* // print approximation
+	for (set<ListGraph::Edge>::iterator it = tsp.edges->begin(); it != tsp.edges->end(); ++it)
+		cout << g.id(g.u(*it)) << " -- " << g.id(g.v(*it)) << endl;
+	*/
 
 	cout << endl << "*** 2) ***" << endl;
 	cout << endl;
@@ -134,6 +142,12 @@ int main()
 		filename << "data_2/RescAllo" << i << ".txt";
 		Allocation a(filename.str(), 10);
 		cout << "Maximum profit for instance " << i << ": " << a.allocate() << endl;
+		cout << "Distribution over plants is: ";
+		for (vector<int>::iterator it = a.distribution->begin(); it != a.distribution->end(); ++it)
+		{
+			cout << *it << ", ";
+		}
+		cout << endl;
 	}
 	STOP_TIMER(tmr_rescallo)
 	
@@ -163,11 +177,13 @@ int main()
 		readMatrix(filename.str(), g, weight);
 		
 		TSPRelaxation tsp(g, weight);
-		cout << "1st lower bound for TSP" << files[i] << " is " << tsp.mstPlusOne() << endl;
+		int val1 = tsp.mstPlusOne();
+		cout << "1st lower bound for TSP" << files[i] << " is " << val1 << endl;
 		int val = 0, num = 0;
 		for (; num * num < countNodes(g); num++)
 			val = max(val, tsp.mstOnSubgraph());
 		cout << "2nd lower bound for TSP" << files[i] << " is " << val << " from " << num << " tries" << endl;
+		cout << "2nd bound is about " << ((double)val / (double)val1 * 100 - 100) << " % better..." << endl;
 	}
 	STOP_TIMER(tmr_tsp_relax)
 	

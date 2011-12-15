@@ -73,8 +73,10 @@ Initialize:
 	$\Omega := \plainset{\plainset{v}, v \in V}$,
 	$\Pi(\plainset{v}):=0$
 As long as $M$ is not perfect in $G \setminus \Omega$ iterate as follows
-     a) Select $\alpha$ maximal such that 
-		$\Pi(U) - \alpha \geq 0 \forall U \in \Omega, |U| \geq \varepsilon, U \in odd(F)$, $\Pi(U) + \alpha \geq 0 \forall U \in \Omega, |U| \geq \varepsilon,  U \in even(F)$, and $\sum\limits_{U\in \Omega \cap odd(F): e \in \delta(U)} (\Pi(u)-\alpha) + \sum\limits_{U\in \Omega \cap even(F): e \in \delta(U)} (\Pi(u)-\alpha) \leq w(e) \forall e \in E$
+    a) Select $\alpha$ maximal such that 
+		$\Pi(U) - \alpha \geq 0 \forall U \in \Omega, |U| \geq \varepsilon, U \in odd(F)$,
+		$\Pi(U) + \alpha \geq 0 \forall U \in \Omega, |U| \geq \varepsilon,  U \in even(F)$ and
+		$\sum\limits_{U\in \Omega \cap odd(F): e \in \delta(U)} (\Pi(u)-\alpha) + \sum\limits_{U\in \Omega \cap even(F): e \in \delta(U)} (\Pi(u)-\alpha) \leq w(e) \forall e \in E$
 	Reset $\Pi(U):=\Pi(U)-\alpha$ for $U \in odd(F)$ and $\Pi(U):=\Pi(U)+\alpha$ for $U \in even(F)$
 	The new $\Pi$ fullfills $\text{\ref{eq:12.2.1}}$ and in addition either of the following holds:
 	i)  $\exists e \in G \setminus \Omega$ with $w_\Pi(e)=0$ such that $e$ intesects with $even(F)$ but not with $odd(F)$

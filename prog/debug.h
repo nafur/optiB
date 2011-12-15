@@ -3,6 +3,7 @@
 #include <iostream>
 #include <set>
 #include <ctime>
+#include <vector>
 
 #include "dijkstra.h"
 
@@ -19,3 +20,4 @@ void dump(const ListGraph& g, const ListGraph::EdgeMap<int>& weight);
 //void dump(ListGraph::NodeMap<int>& map);
 //void dump(set<ListGraph::Node>& set);
 void dump(const Dijkstra& d, const ListGraph& g);
+void dump(const vector<vector<int> >& data);

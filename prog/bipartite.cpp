@@ -15,15 +15,10 @@ bool Bipartite::colorDFS(const ListGraph::Node& node)
 		
 		if (oCol == 0)
 		{
-//			cout << "coloring node " << this->g.id(other) << " with " << nextCol << endl;
 			(*this->classes)[other] = nextCol;
 			if (! this->colorDFS(other)) return false;
 		}
-		else if ( oCol != nextCol)
-		{
-//				cout << "coloring node " << this->g.id(other) << " with " << nextCol << " failed!" << endl;
-				return false;
-		}
+		else if ( oCol != nextCol) return false;
 	}
 	return true;
 }
@@ -38,12 +33,7 @@ bool Bipartite::bipartite()
 	for (ListGraph::NodeIt n(this->g); n != INVALID; ++n)
 	{ // start with no colors
 		(*this->classes)[n] = 0;
-		
-		int i = this->g.id(n);
-		if (i==12 || i==33 || i==18 || i==68 || i==53 || i==37 || i==54 || i==50 || i==45 || i==65 || i==24) nodes.insert(n);
 	}
-	
-	dumpSubGraph("data_2/graph1_subgraph.lgf", this->g, nodes);
 	
 	for (ListGraph::NodeIt n(this->g); n != INVALID; ++n)
 	{

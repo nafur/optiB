@@ -88,8 +88,9 @@ Stated  otherwise, for every cut $B$, there exists a vertex set $W \subset V$ su
 \end{thm}
 
 \begin{proof}
-	We define $(s, t)$-cuts $C_i = \delta^+(v_i)$ with $V_i=\{v \in V: \exists \text{$(s,v)$-path with $c(P)\leq i-1$}\}$
+	We define $(s, t)$-cuts $C_i = \delta^+(v_i)$ with
 	\begin{align*}
+		v_i & = \{v \in V: \exists \text{$(s,v)$-path with $c(P)\leq i-1$}\} \\
 		v_1 & = \{s\} \\
 		v_2 & = \{5,3,4\} \\
 		v_3 & = \{5,2,3,4\} \\
