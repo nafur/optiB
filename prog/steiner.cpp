@@ -2,8 +2,7 @@
 
 #include "debug.h"
 #include "dijkstra.h"
-#include "prim.h"
-#include "kruskal.h"
+#include "mst.h"
 
 #include <cassert>
 
@@ -51,7 +50,7 @@ int Steiner::steiner(const set<ListGraph::Node> terminals)
 	}
 	
 	// compute mst
-	Prim mst(intermediate, iweight);
+	MST mst(intermediate, iweight);
 	mst.prim();
 //	Kruskal mst(intermediate, iweight);
 //	mst.kruskal();

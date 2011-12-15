@@ -7,19 +7,19 @@
 using namespace std;
 using namespace lemon;
 
-struct Prim
+struct MST
 {
 	private:
 		const ListGraph& g;
 		const ListGraph::EdgeMap<int>& weight;
 		
 	public:
-		Prim(const ListGraph& graph, const ListGraph::EdgeMap<int>& weight):
+		MST(const ListGraph& graph, const ListGraph::EdgeMap<int>& weight):
 			g(graph),
 			weight(weight),
 			mst(0)
 			{}
-		~Prim()
+		~MST()
 		{
 			if (this->mst != 0) delete this->mst;
 		}
@@ -27,5 +27,6 @@ struct Prim
 		set<ListGraph::Edge>* mst;
 		
 		// returns weight of mst
+		int kruskal();
 		int prim();
 };

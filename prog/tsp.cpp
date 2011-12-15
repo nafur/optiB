@@ -1,6 +1,6 @@
 #include "tsp.h"
 
-#include "prim.h"
+#include "mst.h"
 #include "graph.h"
 #include <lemon/matching.h>
 #include <lemon/core.h>
@@ -74,8 +74,8 @@ int TSP::tsp()
 	this->edges = new set<ListGraph::Edge>();
 
 	// calculate mst
-	Prim p(this->g, this->weight);
-	p.prim();
+	MST mst(this->g, this->weight);
+	mst.prim();
 	
 	// copy subgraph induced by vertices with odd degree: create copy, run GraphCopy
 	ListGraph matchg;
@@ -91,7 +91,7 @@ int TSP::tsp()
 	ListGraph::Node node;
 	for (ListGraph::NodeIt n(matchg); n != INVALID; )
 	{ // erase nodes with even degree
-		if (this->degree(this->g, n, *p.mst, nodemap) % 2 == 0)
+		if (this->degree(this->g, n, *mst.mst, nodemap) % 2 == 0)
 		{ // just removing the node that the iterator is pointing at puts iterator in undefined state
 			node = n;
 			++n;
@@ -125,7 +125,7 @@ int TSP::tsp()
 	
 	for (list<ListGraph::Edge>::iterator it = edges.begin(); it != edges.end(); ++it)
 	{ // copy edges in matching
-		if (p.mst->count(eulermap[*it]) == 0) eulerg.erase(*it);
+		if (mst.mst->count(eulermap[*it]) == 0) eulerg.erase(*it);
 
 		ListGraph::Edge cur = edgemap[eulermap[*it]];
 		if (! matchg.valid(cur)) continue;

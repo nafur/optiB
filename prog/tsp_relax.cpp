@@ -1,6 +1,6 @@
 #include "tsp_relax.h"
 
-#include "prim.h"
+#include "mst.h"
 #include <limits>
 #include <cstdlib>
 
@@ -13,15 +13,15 @@
 int TSPRelaxation::mstPlusOne()
 {
 	// calculate mst
-	Prim p(this->g, this->weight);
-	int w = p.prim();
+	MST mst(this->g, this->weight);
+	int w = mst.prim();
 	
 	// minimum edge found
 	int min = numeric_limits<int>::max();
 	for (ListGraph::EdgeIt e(this->g); e != INVALID; ++e)
 	{
 		// edge is in mst, so do not take it
-		if ((*p.mst).count(e) != 0) continue;
+		if ((*mst.mst).count(e) != 0) continue;
 		// edge is shorter than shortest found yet
 		if (this->weight[e] < min) min = this->weight[e];
 	}
@@ -62,8 +62,8 @@ int TSPRelaxation::mstOnSubgraph()
 	}
 	
 	// calculate mst
-	Prim p(g, weight);
-	int w = p.prim();
+	MST mst(g, weight);
+	int w = mst.prim();
 	
 	// search for two shortest edges incident to the removed node
 	int mins[] = {numeric_limits<int>::max(), numeric_limits<int>::max()};

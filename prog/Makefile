@@ -1,7 +1,7 @@
 CXX=g++ -Wall -Werror -pedantic -g -std=c++0x ${OPTIMIZE}
 
-OBJ1=graph.o debug.o dijkstra.o prim.o kruskal.o steiner.o
-OBJ2=graph.o debug.o bipartite.o allocation.o tsp.o prim.o tsp_relax.o
+OBJ1=graph.o debug.o dijkstra.o mst.o steiner.o
+OBJ2=graph.o debug.o bipartite.o allocation.o tsp.o mst.o tsp_relax.o
 OBJR=
 
 VALGRIND=valgrind --leak-check=full --undef-value-errors=yes
