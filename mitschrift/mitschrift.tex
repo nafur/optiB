@@ -19,10 +19,9 @@
 
 \setlength{\headheight}{12.5pt}
 
-\newcommand{\tocsection}[1]{
-\section*{#1}
-\addcontentsline{toc}{section}{#1}
-}
+\newcommand{\tocsection}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+\newcommand{\tocsubsection}[1]{\subsection*{#1}\addcontentsline{toc}{subsection}{#1}}
+\newcommand{\tocsubsubsection}[1]{\subsubsection*{#1}\addcontentsline{toc}{subsubsection}{#1}}
 
 % \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 % \renewcommand{\sectionmark}[1]{\markright{#1}{}}

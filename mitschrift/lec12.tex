@@ -1,7 +1,7 @@
 \begin{lec}[2011-11-24]\end{lec}
 \stepcounter{section}
 
-\section*{Weighted Matchings in general graphs}
+\tocsubsection{Weighted Matchings in general graphs}
 Instead of a maximum weighted matching, we search for a minimum weighted perfect matching. Without loss of generallity we may assume that $G$ contains at least one perfect matching: construct a new graph $H$ by copying $G$, add $n=|V(G)|$ new vertices\todo{insert figure NIKLAS 1}, each one adjacent to one vertex of $G$, an add a clique on the new vertices. All new edges have weight zero. To turn a maximum weight perfec matching into a minimum weight perfect matching, we define new weights  \[w'(e):=W-w(e) \quad\text{with}\quad W = \max_{e\in E} w(e) \]
 %12.1
 \begin{lem}
@@ -65,7 +65,7 @@ We will assume that $\plainset{v} \in \Omega$ for all $v \in V$. As a consequenc
 \] This in the end $w_\Pi(e)=0$ for all $e \in N$. Further, leth $G \setminus \Omega$ be the graph with all $U \in \Omega^{max}$ shrunken (with $U$ as shrunken vertex). Thus  $G \setminus \Omega$ has vertex set $\Omega^{max}$ and $U,W \in \Omega^{max}$ are adjacent if and only if there exist $u \in U$, $w \in W$ with $\plainset{u,w} \in E$. Finally, we only consider collections $\Omega$ such that for all $U\in \Omega$ with $|U| \geq 3$, the graph $H_U$ contains a Hamilton cycle $C_U$ with edges $e$ having $w_\Pi(e) = 0$. Hence $H_U$ is the graph obtaind by shrinking all inclusionwise minimal subsets in $G[U]$ \label{rel:12.2.2}
 \end{proof}
 
-\section*{Edmonds' Minimum Weighted Perfect Matching Algorithm}
+\tocsubsubsection{Edmonds' Minimum Weighted Perfect Matching Algorithm}
 \begin{lstlisting}
 Initialize:
 	$M:=\emptyset$, 

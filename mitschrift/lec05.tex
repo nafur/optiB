@@ -1,6 +1,6 @@
 \begin{lec}[2011-10-24]\end{lec}
 
-\subsubsection*{Shortest paths between all pairs of vertices}
+\tocsubsection{Shortest paths between all pairs of vertices}
 
 Solution 1: Apply Moore-Bellman or Dijkstra to all vertices $i$ as starting vertex
 
@@ -15,9 +15,6 @@ $w_{ii}$ is the length of the shortest directed cycle containing $i$
 $p_{ij}$ is the predecessor of $j$ on the shortest $[i,j]$-path (cycle)
 
 $W =(w_{ij}) $ is the \new{shortest path length matrix}{???}
-
-%\setcounter{section}{5}
-%\setcounter{subsection}{0}
 
 \stepcounter{section}
 
@@ -53,7 +50,7 @@ If this cycle is not negatively weighted, then path $\bar K$ is shorter and $\wi
 If this cycle is negatively weighted, $w_{k+1,k+1}^k<0$ (the cycle only contains internal vertices from $\{1, ..., k\}$) and algorithm would have stopped earlier.
 \end{proof}
 
-\subsection*{Min-Max-Theorems for combinatorial Optimization Problems}
+\tocsection{Min-Max-Theorems for combinatorial Optimization Problems}
 
 From "Optimierung A": Duality of linear programs
 
