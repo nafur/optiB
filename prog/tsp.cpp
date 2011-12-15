@@ -3,9 +3,11 @@
 #include "mst.h"
 #include "graph.h"
 #include <lemon/matching.h>
+#include <lemon/connectivity.h>
 #include <lemon/core.h>
 #include <lemon/euler.h>
 #include <list>
+#include <vector>
 #include <limits>
 #include <iostream>
 #include <cassert>
@@ -152,4 +154,115 @@ int TSP::christofides()
 	
 	this->edges->clear();
 	return this->processEulerian(eulerg, eulernodemap, best, true);
+}
+
+/**
+	lets just take some hamilton cycle
+	then take any two edges and check if it would be better to connect the nodes differently
+*/
+int TSP::edgeSwapping()
+{
+	// get some hamilton cycle
+	ListGraph g;
+	ListGraph::NodeMap<ListGraph::Node> map(this->g);
+	ListGraph::NodeMap<ListGraph::Node> xmap(g);
+	ListGraph::EdgeMap<int> w(g);
+	
+	GraphCopy<ListGraph, ListGraph> copy(this->g, g);
+	copy.nodeRef(map).nodeCrossRef(xmap).run();
+	
+	ListGraph::EdgeIt e(g);
+	while (e != INVALID)
+	{
+		ListGraph::Edge edge = e;
+		++e;
+		g.erase(edge);
+	}
+	
+	ListGraph::NodeIt n(this->g);
+	ListGraph::Node first = n;
+	ListGraph::Node last = first;
+	for (++n; n != INVALID; ++n)
+	{
+		ListGraph::Edge edge = g.addEdge(map[last], map[n]);
+		w[edge] = this->weight[findEdge(this->g, last, n)];
+		last = n;
+	}
+	ListGraph::Edge edge = g.addEdge(map[last], map[first]);
+	w[edge] = this->weight[findEdge(this->g, last, first)];
+	
+	int changed = 1;
+	
+	while (changed > 0) {	
+		changed = 0;
+		for (ListGraph::EdgeIt e1(g); e1 != INVALID;)
+		{
+			ListGraph::Node nodes[4] = { g.u(e1), g.v(e1), g.u(e1), g.v(e1) };
+			ListGraph::Edge e1c = e1;
+			++e1;
+			
+			for (ListGraph::EdgeIt e2(g); e2 != INVALID;)
+			{
+				nodes[2] = g.u(e2);
+				nodes[3] = g.v(e2);
+				ListGraph::Edge e2c = e2;
+				++e2;
+			
+				if (g.u(e1c) == g.u(e2c)) continue;
+				if (g.u(e1c) == g.v(e2c)) continue;
+				if (g.v(e1c) == g.u(e2c)) continue;
+				if (g.v(e1c) == g.v(e2c)) continue;
+				
+				int ref = 	this->weight[findEdge(this->g, xmap[nodes[0]], xmap[nodes[1]])] + 
+							this->weight[findEdge(this->g, xmap[nodes[2]], xmap[nodes[3]])];
+				int chg1 = 	this->weight[findEdge(this->g, xmap[nodes[0]], xmap[nodes[2]])] + 
+							this->weight[findEdge(this->g, xmap[nodes[1]], xmap[nodes[3]])];
+				int chg2 = 	this->weight[findEdge(this->g, xmap[nodes[0]], xmap[nodes[3]])] + 
+							this->weight[findEdge(this->g, xmap[nodes[1]], xmap[nodes[2]])];
+				if (chg1 < ref)
+				{
+					g.erase(e1c);
+					g.erase(e2c);
+					ListGraph::Edge tmp1 = g.addEdge(nodes[0], nodes[2]);
+					ListGraph::Edge tmp2 = g.addEdge(nodes[1], nodes[3]);
+					if (connected(g))
+					{
+						changed++;
+						break;
+					}
+					g.erase(tmp1);
+					g.erase(tmp2);
+					e1c = g.addEdge(nodes[0], nodes[1]);
+					e2c = g.addEdge(nodes[2], nodes[3]);
+				}
+				if (chg2 < ref)
+				{
+					g.erase(e1c);
+					g.erase(e2c);
+					ListGraph::Edge tmp1 = g.addEdge(nodes[0], nodes[3]);
+					ListGraph::Edge tmp2 = g.addEdge(nodes[1], nodes[2]);
+					if (connected(g))
+					{
+						changed++;
+						break;
+					}
+					g.erase(tmp1);
+					g.erase(tmp2);
+					e1c = g.addEdge(nodes[0], nodes[1]);
+					e2c = g.addEdge(nodes[2], nodes[3]);
+				}
+			}
+		}
+	}
+	
+	int res = 0;
+	for (ListGraph::EdgeIt e(g); e != INVALID; ++e)
+	{
+		ListGraph::Edge edge = findEdge(this->g, xmap[g.u(e)], xmap[g.v(e)]);
+		res += this->weight[edge];
+	}
+	
+	cerr << "loop has finished with " << countEdges(g) << " edges" << endl;
+	
+	return res;
 }

@@ -54,7 +54,8 @@ int main()
 	readMatrix("data_2/Deutschland.txt", g, weight);
 	TSP tsp(g, weight);
 	int w = tsp.christofides();
-	cout << "result has weight " << w << endl;	
+	int w2 = tsp.edgeSwapping();
+	cout << "result has weight " << w << " or " << w2 << endl;	
 	STOP_TIMER(tmr_tsp)
 	
 	cout << "printing the hamilton cycle is disabled. enable it in the code at line " << (__LINE__+1) << endl << endl;
