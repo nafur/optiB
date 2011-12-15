@@ -19,6 +19,11 @@
 
 \setlength{\headheight}{12.5pt}
 
+\newcommand{\tocsection}[1]{
+\section*{#1}
+\addcontentsline{toc}{section}{#1}
+}
+
 % \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 % \renewcommand{\sectionmark}[1]{\markright{#1}{}}
   
@@ -101,6 +106,9 @@
 \setlength{\parskip}{0.25em}
 
 \begin{document}
+
+\tableofcontents
+\newpage
 
 \input{lec02}
 \input{lec03}
