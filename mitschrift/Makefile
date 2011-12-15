@@ -6,7 +6,7 @@ mitschrift.pdf: $(wildcard *.tex)
 	pdflatex --halt-on-error mitschrift.tex
 
 clean:
-	rm -rf *.acn *.acr *.alg *.aux *.glo *.ist *.log *.out *.glg *.ilg *.ind *.xdy
+	rm -rf *.acn *.acr *.alg *.aux *.glo *.ist *.log *.out *.glg *.ilg *.ind *.toc *.xdy
 
 superclean: clean
 	rm -rf *.pdf

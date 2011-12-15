@@ -17,5 +17,6 @@ lemon
 *.png
 *.pyc
 *.swp
+*.toc
 *.xdy
 DEADJOE
