@@ -51,12 +51,12 @@ Konstruiere einen Graphen $G = (V, E)$, für den ein Min-Cost-Flow das
 Problem löst. Sei $B$ die Menge der Bahnhöfe und $Z$ die Menge der (der
 offensichtlichen, natürlichen Ordnung unterliegenden) Uhrzeiten
 eines Tages. Sei nun $X$ die Menge der Zughalte, also
-$X \subseteq B \times Z$ und $F \subseteq X \times X$ die Menge der Fahrten
-mit minimaler Anzahl Waggons $W: F \rightarrow \mathbb{N}$. Aus der
+$X \subseteq B \times Z$ und $F \subseteq X \times X$ die in dem Fahrplan 
+gegebene Menge der Fahrten, wobei die minimale Anzahl Waggons
+$W: F \rightarrow \mathbb{N}$ eingehalten werden muss.
+Aus der
 Anwendung ergibt sich, dass für jede Fahrt $(x_1, x_2)$ die Uhrzeit von
-$x_1$ kleiner als die von $x_2$ sein sollte. Dies ist aber in der
-Modellierung nicht nötig -- unser Verfahren ist also auch für Züge mit
-Überlichtgeschwindigkeitsantrieben gerüstet :-).
+$x_1$ kleiner als die von $x_2$ sein sollte.
 
 Als ausgezeichnete Mengen verwenden wir ausserdem $X_-$ und $X_+$ als Mengen
 der zeitlich ersten und letzten Halte an jedem Bahnhof.
@@ -76,31 +76,28 @@ Kapazitäten und Kosten $c, w: E \rightarrow \mathbb{N}$ und den Wert des zu suc
 Flusses $x$.
 \begin{align*}
 V = & \{s, t\} \cup X \\
-E = & \{ (s, t) \} \\
+E = & \quad \{ (s, t) \} \\
 	& \cup \{ (s, (b, z)) \mid (b, z) \in X_- \} \\
 	& \cup \{ ((b, z), t) \mid (b, z) \in X_+ \} \\
 	& \cup \{ ((b, z), next(b, z)) \mid (b, z) \in X \} \\
-	& \cup F_1 = \{ ((b_1, z_1), (b_2, z_2)) \mid ((b_1, z_1), (b_2, z_2)) \in F \} \\
-	& \cup F_2 = \{ ((b_1, z_1), (b_2, z_2)) \mid ((b_1, z_1), (b_2, z_2)) \in F \}
+	& \cup F_1 \\
 \end{align*}
+mit
+\[
+	F_1:=\{ ((b_1, z_1), (b_2, z_2)) \mid ((b_1, z_1), (b_2, z_2)) \in F \}
+\]
+	%& \cup F_2 = \{ ((b_1, z_1), (b_2, z_2)) \mid ((b_1, z_1), (b_2, z_2)) \in F \}
 
-$F_1$ und $F_2$ bilden hier parallele Kanten. Diese können durch Einfügen
-eines Zwischenknotens in alle Kanten aus $F_2$ in normale Kanten überführt
-werden. Aus Gründen der Übersichtlichkeit werden wir dies hier nicht tun.
-
-Als $x$ wählen wir $\sum_{f \in F} W(f)$, also die Summe aller Waggons, die
-in allen Fahrten mindestens bewegt werden sollen.
-
-Für $c(e)$ gilt:
+Für $c(e)$ gelte:
 \begin{align*}
-c(e) &= W(e) & e \in F_1 \\
-c(e) &= x & \text{ sonst}
+	c(e) = \infty \quad \forall e \in E
 \end{align*}
 Für $w(e)$ gilt:
 \begin{align*}
-w(e) &= 1 & e \in \{ (s, (b, z)) \mid (b, z) \in X_- \} \\
-w(e) &= -x & e \in F_1 \\
-w(e) &= 0 & \text{ sonst}
+w(e) &= \begin{cases}
+	1 \text{\quad für } e \in \{ (s, (b, z)) \mid (b, z) \in X_- \} \\
+	0 \text{\quad sonst}
+\end{cases}
 \end{align*}
 
 \end{document}

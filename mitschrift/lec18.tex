@@ -4,11 +4,119 @@
 \subsection*{Complexity Theory -- P, NP, NP-completeness}
 
 Dynamic Programming Algorithms solve knapsack in pseudopolynomial time
-(depends on input, not on size of input, but also not in the exponent) and
+(b depends on input, not on size of input, but also not in the exponent) and
 TSP in exponential time.
 
 \begin{qstn}
 Do there exist polynomial time algorithms for knapsack and/or TSP?
 \end{qstn}
 
+\begin{itemize}
+\item Dijkstra for shortes path is polynomial time
+\item Algorithm for min-Cost-flow is polynomial time
+\end{itemize}
 
+What is the difference between those problems?
+
+%18.2
+\begin{defn}
+A \new{decision problem}{Entscheidungsproblem} is a problem with exactly two possible answers: \emph{yes} and \emph{no}.
+\end{defn}
+
+We restrict ourselves to decision problems with solution algorithms that have \emph{finite} running time.
+
+\begin{defn}
+The class of all decision problems for which there exists a polynomial time algorithm is denoted by $\poly$.
+\end{defn}
+
+The decision problem "does $G$ have a cycle?" belongs to $\poly$ (a polytime algorithm might be: determine all connnected components, and check for each connected component whether the number of edges is at least the number of vertices).
+
+For the decision problem "does $G$ have a Hamilton cycle?" it is until today unclear whether it belons to $\poly$.
+
+To distinguish between these problems (without knowing wethere they belong to $\poly$) we define a second class of problems: $\npoly$ - \new{nondeterministic polynomial}{nichtdeterministisch polynomiell}
+
+Informally speaking, adecision problem $\Pi$ belongs to $\npoly$ if a \new{certificate(solution)}{Zertifikat(Lösung)} of a "yes" answer for the problem instance $I \in \Pi$ can be verified in polynomial-time. here a certificate means a proof of answering yes.
+
+\begin{xmp+}
+The problem "Hamilton cycle in G" belons to $\npoly$ because its certificate is a sequence of $n$ vertices such that $v_i v_{i+1} \in E (i=1, \dots, n-1)$ and $v_n v_1 \in E$. Verification implies checking the existence of all edges, which can be done in polytime.
+\end{xmp+}
+
+%Def 18.3
+\begin{defn}
+A decision problem $\Pi$ belongs to the class $\npoly$ if
+\begin{enumerate}
+\item for every problem instance $I \in \Pi$ with answer "yes" an object $Q$ (certificate) exists, which allows the verification of the "yes" answer.
+\item there exists an algorithm to verify on the basis of $Q$ the answer "yes" in time polynomial in $<I>$ (thus only in the encoding length of $I$, not $Q$)
+\end{enumerate}
+
+Hence, both "does $G$ have a cycle" and "does $G$ have a hamilton cycle" belong to $\npoly$ since $Q$ in these cases is a sequence of vertices, constituting a (Hamilton) cycle.
+\end{defn}
+
+\begin{xmp+}
+"Is $n \in \Z$ the product of two integers $\neq 1$" (Is $n$ not prime) is in $\npoly$ since given $a,b \neq 1$ the correctness of an "yes" answer on the basis fo $a,b$ can be verified by a single multiplication.
+\end{xmp+}
+
+What about "Does $G$ \emph{not} have a Hamilton cycle?" or equivalently, what about the "no" answer of "Does $G$ have a Hamilton cycle?". this much more difficult to verify. $\Rightarrow \npoly$ is not "symmetric".
+
+If a "no" answer can be verified in polynomial time with an object $Q$, the problem belongs to the class co-$\npoly$.
+
+Stating the above differently 
+\[
+	\Pi_1:=\condset{G}{G \text{ is a graph and has a perfect matching}}
+\]
+belongs to $\npoly$ since
+\[
+	\Pi_1':=\condset{(G,M)}{\text{$G$ is a graph and $M$ is a perfect matching in $G$}}
+\]
+belongs to $\poly$.
+
+$\Pi_1$ also belongs to co-$\npoly$ since the problem
+\begin{align*}
+	\Pi_1'':=\{ & (G,W): \; \text{$G$ is a graph and $W$ is a subset of the vertex set of $G$ such} \\ & \text{that $G$-$W$ has more than $|W|$ odd components}\}
+\end{align*}
+belongs to $\poly$.
+
+A \new{non demterministic algorithm}{undeterministischer Algorithmus} solves a problem by guessing a solution (object) and then verifies (in polynomial time) the correctness of the solution.
+
+%18.4
+\begin{lem}
+	$\poly \subseteq \npoly$
+\end{lem}
+
+\begin{proof}
+	For $\Pi\in\poly$ we have a polynomial time algorithm to compute the solution. Hence, we can also verify this solution with the algorithm.
+\end{proof}
+
+%18.5
+\begin{lem}
+	$\poly\subseteq\text{co-}\npoly$
+\end{lem}
+%18.6
+\begin{cor}
+	$\poly \subseteq \npoly \cap \conpoly$.
+\end{cor}
+Wether $\poly = \npoly$ is one of the millenium problems (\$ 1M)
+If $\npoly \neq \conpoly$, then $\poly \neq \conpoly$
+
+\begin{defn}
+	Let $\Pi$ and $\tilde \Pi$ be two decision problems. A \new{polynomial transformation}{Polynomielle Reduktion} of $\Pi$ to $\tilde\Pi$ is a polynomial algorithm which constructs from a problem instance $I \in \Pi$ a problem instance $\tilde I \in \tilde \Pi$ such that the answer of $I$ is "yes" if and only if the answer of $\tilde I$ is "yes".
+\end{defn}
+
+Note if $\tilde \Pi$ is solvable in polynomial time, then also $\Pi$:
+
+TSP of size n $\xrightarrow{poly}$ Shortest Path of size $poly(n)$
+$\xrightarrow{poly}$ Dijkstra of size $poly(poly(n)) = poly(n)$ $\xrightarrow{yes / no}$ TSP.
+
+\begin{defn}
+	A decision problem $\Pi$ is called \new{NP-complete}{NP-vollstandig} if
+	\begin{itemize}
+		\item $\Pi \in \npoly$
+		\item every other problem in $\npoly$ can be polynomially transformed to $\Pi$
+	\end{itemize}
+\end{defn}
+
+Note, if $\npoly$-complete problem $\Pi$ is polynomial time solveable, then all problems in $\npoly$ can be solved in polynomial time
+
+in such a case, $\poly = \npoly$
+
+the most difficult problems in $\npoly$-complete problems (if they exist?)
