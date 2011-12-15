@@ -28,5 +28,5 @@ struct TSP
 		
 		set<ListGraph::Edge>* edges;
 		
-		int tsp();
+		int christofides();
 };

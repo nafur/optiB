@@ -53,7 +53,7 @@ int main()
 	ListGraph::EdgeMap<int> weight(g);
 	readMatrix("data_2/Deutschland.txt", g, weight);
 	TSP tsp(g, weight);
-	int w = tsp.tsp();
+	int w = tsp.christofides();
 	cout << "result has weight " << w << endl;	
 	STOP_TIMER(tmr_tsp)
 	

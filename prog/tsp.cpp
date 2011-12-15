@@ -68,7 +68,7 @@ int TSP::processEulerian(const ListGraph& eulerg, const ListGraph::NodeMap<ListG
 	* iterate over euler tour
 		- replace edges using already visited nodes inbetween by a direct edge
 */
-int TSP::tsp()
+int TSP::christofides()
 {
 	if (this->edges != 0) delete this->edges;
 	this->edges = new set<ListGraph::Edge>();
