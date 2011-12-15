@@ -1,7 +1,8 @@
-\setcounter{lecture}{1}
+\begin{lec}[2011-10-13]\end{lec}
+\setcounter{lecture}{2}
 \setcounter{section}{2}
 
-\begin{lec}[2011-10-13]\end{lec}
+\tocsection{Graph basics}
 
 \begin{defn}[connected]
 A graph is called \new{connected}{zusammenhängend} if there exists a [s,t]-Path between all pairs of vertices $s,t \in V$.
@@ -53,7 +54,7 @@ A tree $G=(V,E)$ with maximum degree $\Delta$ has at least $\Delta$ vertices of 
 If $G=(V,E)$ whith $|V| \geq 2$ has $|E|< |V|-1, G$ is not connected.
 \end{lem}
 
-\section*{Algorithm MST}
+\tocsection{MST and Shortest Path Algorithms}
 $min_{x \in X} = -max_{x \in X} -c(x)$ \sout{maximal forest}\\
 X spanning trees\\
 $min_{x \in X} + (n-1)D= -max_{x \in X} -c(x) (n-1)D =max_{x\in X} \sum \underbrace{D-C_{ij}x_{ij}}_{\geq 0 if D \geq max_{ij \in E} c_{ij}}$

@@ -74,7 +74,7 @@ How do we find the shortest $[s, t]$-path if it exists?
 To simplify notation, let $V = \{1, ..., n\}, s=1, t=n$ and $(i, j) \in A \Rightarrow i < j$.
 Let $D(i)$ be the distance from $i$ to $n$ and $NEXT(i)$ be the next vertex on the shortest path from $i$ to $n$.
 
-\subsubsection*{Bellman's Algorithm}
+\tocsubsection{Bellman's Algorithm}
 \begin{lstlisting}
 $	D(i) = \{ \infty: i<n and NEXT(i) = NIL, 0: i = n \}$
 FOR $i = n-1$ DOWNTO $1$ DO

@@ -1,7 +1,6 @@
 \begin{lec}[2011-11-21]\end{lec}
 \stepcounter{section}
 
-\section*{Edmonds' Matching Algroithm}
 Let $G$ be a graph, $M$ a matching in $G$ and $W$ the set of unmatched vertices.
 A $M$-augmenting path is a $M$-alternating $W$-$W$ chain of positive length 
 where all vertices are distinct.
@@ -38,7 +37,7 @@ if $v_0, ..., v_{t-1}$ are dstinct, $v_0$ is not matched in $M$ and $v_t = v_0$
 	If $i$ is even, then we extend $Q$ with $v_{i-1}, v_{i-2}, ..., v_0$.
 	The resulting path is a $M$-augmenting path in $G$
 \end{proof}
-\section*{Edmonds' Algorithm}
+\tocsubsubsection{Edmonds' Algorithm}
 Input: Mathing $M$ with set $W \subseteq V$ of unmatched vertices
 Output: Mathing $N$ with $|N| = |M| + 1$ or a certificate that $M$ is a
 maximum matching.
@@ -113,7 +112,8 @@ How do we find a $M$-alternating $W$-$W$ chain?
 	\end{align*}
 	By Tutte-Berge-Formula, $M$ is a maximum matching.
 \end{proof}
-\section*{Construction of an $M$-alternating forest}
+
+\tocsubsubsection{Construction of an $M$-alternating forest}
 Intialization: $F:=M$. Choose for every vertex $v \in V$ an edge $e_v = vu$ with $u \in W$ (if possible).
 
 Iterate: Find $v \in even(F) \cup free(F)$ for which $e_v=vu$ exists. \newline

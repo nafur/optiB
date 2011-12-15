@@ -1,7 +1,7 @@
 \begin{lec}[2011-11-25]\end{lec}
 \stepcounter{section}
 
-\section*{The Traveling Salesman Problem}
+\tocsection{The Traveling Salesman Problem}
 
 \begin{defn}
 A (directed) cycle (path) with $|V|$ (resp. $|V|-1$) edges is called a
@@ -76,7 +76,7 @@ Stirling formula tells us:
 The pratical running time of the algorithm can be reduced significantly by a good solution value (upper bound):
 all values $C(S, k) >$ upper bound can be ignored for further computations.
 
-\subsection*{SpanningTree heuristic}
+\tocsubsection{SpanningTree heuristic}
 A TSP tour is a set of $|V|$ edges \sout{building a cycle} connecting all vertices.
 Instead, I might search for a relaxation, the minimum spanning tree plus one edge.
 Stated otherwise, the MST is a lower bound on the TSP tour.
