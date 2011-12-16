@@ -94,7 +94,7 @@ A $(s,t)$-flow $x$ is maximum if and only if no augmenting $[s,t]$-path with res
 		\tilde x_{ij} := \min \begin{cases}
 			x_{ij} + \varepsilon &\text{ if $(i,j) \in P$ forward arc} \\
 			x_{ij} - \varepsilon &\text{ if $(i,j) \in P$ backward arc} \\
-			x_{ij} &\text{ if $(i,j) \in A\P$}
+			x_{ij} &\text{ if $(i,j) \in A$}
 		\end{cases}
 	\end{align*}
 	Clearly $\tilde x_{ij}$ defines a feasible $(s,t)$-flow. Moreover $val(\tilde x) = val(x) + \varepsilon$, hence $x$ was not maximum.
