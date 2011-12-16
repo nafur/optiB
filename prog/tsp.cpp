@@ -157,12 +157,18 @@ int TSP::christofides()
 }
 
 /**
-	lets just take some hamilton cycle
-	then take any two edges and check if it would be better to connect the nodes differently
+	edge swapping heuristic
+	
+	start with some hamilton cycle (we'll take the result of christofides)
+	take a pair of edges, try to connect the nodes differently
+	terminate, if no pair of edges can be improved further
 */
 int TSP::edgeSwapping()
 {
-	// get some hamilton cycle
+	if (this->edges != 0) delete this->edges;
+	this->edges = new set<ListGraph::Edge>();
+	
+	// copy graph and remove edges
 	ListGraph g;
 	ListGraph::NodeMap<ListGraph::Node> map(this->g);
 	ListGraph::NodeMap<ListGraph::Node> xmap(g);
@@ -179,73 +185,75 @@ int TSP::edgeSwapping()
 		g.erase(edge);
 	}
 	
-	ListGraph::NodeIt n(this->g);
-	ListGraph::Node first = n;
-	ListGraph::Node last = first;
-	for (++n; n != INVALID; ++n)
+	// start with a good approximation, so copy result of christofides
+	this->christofides();
+	for (set<ListGraph::Edge>::iterator it = this->edges->begin(); it != this->edges->end(); ++it)
 	{
-		ListGraph::Edge edge = g.addEdge(map[last], map[n]);
-		w[edge] = this->weight[findEdge(this->g, last, n)];
-		last = n;
+		ListGraph::Edge edge = g.addEdge(map[this->g.u(*it)], map[this->g.v(*it)]);
+		w[edge] = this->weight[*it];
 	}
-	ListGraph::Edge edge = g.addEdge(map[last], map[first]);
-	w[edge] = this->weight[findEdge(this->g, last, first)];
 	
+	// try to swap edges until no changes are done
 	int changed = 1;
-	
-	while (changed > 0) {	
+	while (changed > 0)
+	{
 		changed = 0;
 		for (ListGraph::EdgeIt e1(g); e1 != INVALID;)
-		{
+		{ // for all edges
 			ListGraph::Node nodes[4] = { g.u(e1), g.v(e1), g.u(e1), g.v(e1) };
 			ListGraph::Edge e1c = e1;
 			++e1;
 			
 			for (ListGraph::EdgeIt e2(g); e2 != INVALID;)
-			{
+			{ // and all edge combination
 				nodes[2] = g.u(e2);
 				nodes[3] = g.v(e2);
 				ListGraph::Edge e2c = e2;
 				++e2;
-			
+				
+				// edges are adjacent, so skip it
 				if (g.u(e1c) == g.u(e2c)) continue;
 				if (g.u(e1c) == g.v(e2c)) continue;
 				if (g.v(e1c) == g.u(e2c)) continue;
 				if (g.v(e1c) == g.v(e2c)) continue;
 				
+				// ref is current weight of the connections
 				int ref = 	this->weight[findEdge(this->g, xmap[nodes[0]], xmap[nodes[1]])] + 
 							this->weight[findEdge(this->g, xmap[nodes[2]], xmap[nodes[3]])];
+				// there are two other possible connections
 				int chg1 = 	this->weight[findEdge(this->g, xmap[nodes[0]], xmap[nodes[2]])] + 
 							this->weight[findEdge(this->g, xmap[nodes[1]], xmap[nodes[3]])];
 				int chg2 = 	this->weight[findEdge(this->g, xmap[nodes[0]], xmap[nodes[3]])] + 
 							this->weight[findEdge(this->g, xmap[nodes[1]], xmap[nodes[2]])];
 				if (chg1 < ref)
-				{
+				{ // if this one would be better, try it
 					g.erase(e1c);
 					g.erase(e2c);
 					ListGraph::Edge tmp1 = g.addEdge(nodes[0], nodes[2]);
 					ListGraph::Edge tmp2 = g.addEdge(nodes[1], nodes[3]);
 					if (connected(g))
-					{
+					{ // if graph is still connected, apply the change
 						changed++;
 						break;
 					}
+					// otherwise, undo the changes
 					g.erase(tmp1);
 					g.erase(tmp2);
 					e1c = g.addEdge(nodes[0], nodes[1]);
 					e2c = g.addEdge(nodes[2], nodes[3]);
 				}
 				if (chg2 < ref)
-				{
+				{ // if this one would be better, try it
 					g.erase(e1c);
 					g.erase(e2c);
 					ListGraph::Edge tmp1 = g.addEdge(nodes[0], nodes[3]);
 					ListGraph::Edge tmp2 = g.addEdge(nodes[1], nodes[2]);
 					if (connected(g))
-					{
+					{ // if graph is still connected, apply the change
 						changed++;
 						break;
 					}
+					// otherwise, unto the changes
 					g.erase(tmp1);
 					g.erase(tmp2);
 					e1c = g.addEdge(nodes[0], nodes[1]);
@@ -255,14 +263,15 @@ int TSP::edgeSwapping()
 		}
 	}
 	
+	// produce actual results...
 	int res = 0;
+	this->edges->clear();
 	for (ListGraph::EdgeIt e(g); e != INVALID; ++e)
 	{
 		ListGraph::Edge edge = findEdge(this->g, xmap[g.u(e)], xmap[g.v(e)]);
+		this->edges->insert(edge);
 		res += this->weight[edge];
 	}
-	
-	cerr << "loop has finished with " << countEdges(g) << " edges" << endl;
 	
 	return res;
 }
