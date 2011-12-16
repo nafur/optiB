@@ -29,7 +29,7 @@ int main()
 	cout << "approximation...)" << endl;
 	cout << endl;
 	cout << "Therefore, we implement a heuristic to find a hamiltonian cycle that is as" << endl;
-	cout << "short as possible. To be exact, we implement the Christofides-Heuristic." << endl;
+	cout << "short as possible. To be exact, we implement an enhanced Christofides-Heuristic." << endl;
 	cout << "The idea of this one is as follows:" << endl;
 	cout << "\tTake a MST of the graph" << endl;
 	cout << "\tTake all nodes, that have odd degree within the MST" << endl;
@@ -47,15 +47,23 @@ int main()
 	cout << "\tThe matching has at least half the weight of a MST" << endl;
 	cout << "\tThe refactoring of the eulerian cycle only decreases the weight" << endl;
 	cout << endl;
+	cout << "Our enhancement is as follows:" << endl;
+	cout << "\tTake a hamilton cycle (obtained by using christofides)" << endl;
+	cout << "\tCompare a pair of edges an try to connect them differently:" << endl;
+	cout << "\t\tIf the edges are (u,v), (s,t), try edges (u,s), (v,t) or (u,t), (v,s) instead" << endl;
+	cout << "\t\tIf one of these alternatives is shorter than the original one and the graph" << endl;
+	cout << "\t\tis still connected, apply the change" << endl;
+	cout << "\tUntil a iteration over all combinations of edges yields no new changes" << endl;
+	cout << "This enhancement has polynomial runtime of at most O(m^3)" << endl;
+	cout << "In this case, only 2 iterations are needed and the length of the cycle is decreased by about 10%." << endl;
 	
 	START_TIMER(tmr_tsp)
 	ListGraph g;
 	ListGraph::EdgeMap<int> weight(g);
 	readMatrix("data_2/Deutschland.txt", g, weight);
 	TSP tsp(g, weight);
-	int w = tsp.christofides();
-	int w2 = tsp.edgeSwapping();
-	cout << "result has weight " << w << " or " << w2 << endl;	
+	int w = tsp.edgeSwapping();
+	cout << "result has weight " << w << endl;	
 	STOP_TIMER(tmr_tsp)
 	
 	cout << "printing the hamilton cycle is disabled. enable it in the code at line " << (__LINE__+1) << endl << endl;
