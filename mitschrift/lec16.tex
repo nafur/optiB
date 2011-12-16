@@ -22,11 +22,11 @@ directed) cycle in $D$. The cycle $C$ can be orientated in two possible ways
 (clockwise or counterclockwise). Given an orientation of $C$, \emph{forward
 arcs} on $C$ are directed along the orientation, \emph{backwards arcs} opposite.
 
-A cycle $C$ is called \emph{augmenting} w.r.t. $x$ if there exists an
+A cycle $C$ is called an \new{augmenting cycle}{augmentierender Kreis} w.r.t. $x$ if there exists an
 orientation of $X$ such that
 \begin{align*}
-x_a < c_a & \text{for all forward arcs } a \in C \\
-x_a > 0	& \text{for all backward arcs } a \in C
+x_a < c_a & \text{ for all forward arcs } a \in C \\
+x_a > 0	& \text{ for all backward arcs } a \in C
 \end{align*}
 \end{defn}
 
@@ -69,8 +69,8 @@ To proe the backward direction, we first describe the algorithmic procedure.
 \end{proof}
 
 \begin{defn}
-Given a $(s,t)$-flow $x$ with $val(x) = f$, we define the \emph{augmenting
-network} w.r.t. $x$ as follows: $N = (V, \overline{A}, \overline{C},
+Given a $(s,t)$-flow $x$ with $val(x) = f$, we define the \new{augmenting
+network}{augmentierendes Netzwerk} w.r.t. $x$ as follows: $N = (V, \overline{A}, \overline{C},
 \overline{w})$ with
 \begin{align*}
 \overline{A} &= A_1 \cup A_2 \\
@@ -83,10 +83,16 @@ corresponding arcs in $A_1$ and $A_2$. If $a_1$ (or $a_2$) does not exist,
 we evaluate $x(a_1)$ (or $x(a_2)$) with zero.
 Further,
 \begin{align*}
-\overline{c}(\overline{a}) = ( c(a) - x(a) if \overline{a} = a_1, 
-x(a) if \overline{a} = a_2) \forall a \in A \\
-\overline{w}(\overline{a}) = ( w(a) if \overline{a} = a_1, 
--w(a) if \overline{a} = a_2) \forall a \in A \\
+\overline{c}(\overline{a}) = &
+	\begin{cases}
+		c(a) - x(a) & \text{if } \overline{a} = a_1 \\
+		x(a) & \text{if } \overline{a} = a_2
+	\end{cases} & \forall a \in A \\
+\overline{w}(\overline{a}) = &
+	\begin{cases}
+		 w(a) & \text{if } \overline{a} = a_1 \\
+		-w(a) & \text{if }\overline{a} = a_2
+	\end{cases}   & \forall a \in A
 \end{align*}
 \end{defn}
 
