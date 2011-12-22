@@ -67,9 +67,9 @@ int main()
 	STOP_TIMER(tmr_tsp)
 	
 	cout << "printing the hamilton cycle is disabled. enable it in the code at line " << (__LINE__+1) << endl << endl;
-	/* // print approximation
+	/*// print approximation
 	for (set<ListGraph::Edge>::iterator it = tsp.edges->begin(); it != tsp.edges->end(); ++it)
-		cout << g.id(g.u(*it)) << " -- " << g.id(g.v(*it)) << endl;
+		cout << g.id(g.u(*it))+1 << " -- " << g.id(g.v(*it))+1 << endl;
 	*/
 
 	cout << endl << "*** 2) ***" << endl;
@@ -116,7 +116,7 @@ int main()
 		{
 			cout << "yes, it is!" << endl;
 			cout << "printing color classes is disabled. enable it in the code at line " << (__LINE__+1) << endl << endl;
-			/* //print color classes
+			/*//print color classes
 			for (ListGraph::NodeIt n(g); n != INVALID; ++n)
 				cout << "Node " << g.id(n)+1 << " has color " << (*b.classes)[n] << endl;
 			*/
