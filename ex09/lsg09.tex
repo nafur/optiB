@@ -23,6 +23,8 @@
 \addtolength{\voffset}{-0.75in}
 \pagestyle{fancy}
 
+\newcommand{\tvs}{\textvisiblespace}
+
 % Kopfzeile
 \lhead{Optimierung B}
 \chead{Übung 9}
@@ -43,6 +45,49 @@
 \section{Aufgabe 2}
 
 \section{Aufgabe 3}
+
+Betrachte den Lauf für eine beliebige Eingabe der Länge $n$.
+Sei $\alpha_i$ mit $i \in \mathbb{Z}$ das Zeichen an der $i$ten Bandposition.
+Sei $\delta_k$ die $k$te Transitionsregel.
+Der Unterstrich markiert die aktuelle Bandposition.
+
+
+Die TM startet in $q_0$ auf einer beliebigen Eingabe
+\[ \texttt{$q_0$\tvs\$INPUT\$\tvs} \]
+Solange das aktuelle Zeichen kein Blank-Symbol ist,
+geht die TM nach rechts, ohne etwas zu verändern ($\delta_1$, $\delta_2$).
+
+Hat die TM das Ende des Wortes erreicht, so erscheint das erste Blanksymbol:
+\[ \texttt{\tvs\$INPUT\$$q_0$\tvs} \]
+Die TM wechselt nun nach $q_1$, schreibt ein \# und geht nach rechts:
+\[ \texttt{\tvs\$INPUT\$\#$q_1$\tvs} \]
+Ein Blank: Sie wechselt nach $q_2$, schreibt eine 1 und geht nach rechts:
+\[ \texttt{\tvs\$INPUT\$\#1$q_2$\tvs} \]
+Ein Blank: Sie bleibt in $q_2$ und schreibt eine $0$:
+\[ \texttt{\tvs\$INPUT\$\#1$q_2$0} \]
+Eine $0$: Sie wechselt nach $q_3$ und geht nach rechts:
+\[ \texttt{\tvs\$INPUT\$\#10$q_3$\tvs} \]
+Ein Blank: Sie schreibt eine $1$, wechselt nach $q_4$ und geht nach rechts:
+\[ \texttt{\tvs\$INPUT\$\#101$q_4$\tvs} \]
+Ein Blank: Sie wechselt nach $q_1$, schreibt eine $0$ und geht nach links:
+\[ \texttt{\tvs\$INPUT\$\#10$q_1$10\tvs} \]
+Eine $1$: Sie geht nach rechts:
+\[ \texttt{\tvs\$INPUT\$\#101$q_1$0\tvs} \]
+Eine $0$: Sie geht nach rechts und wechselt nach $q_5$:
+\[ \texttt{\tvs\$INPUT\$\#1010$q_5$\tvs} \]
+Ein Blank: Sie schreibt eine $1$:
+\[ \texttt{\tvs\$INPUT\$\#1010$q_5$1} \]
+Eine $1$: Sie wechselt nach $q_6$ und geht nach rechts:
+\[ \texttt{\tvs\$INPUT\$\#10101$q_6$}\tvs \]
+Ein Blank: Sie wechselt nach $q_3$ und schreibt eine $0$:
+\[ \texttt{\tvs\$INPUT\$\#10101$q_3$}0 \]
+Eine $0$: Sie wechselt nach $q_F$ und geht nach rechts:
+\[ \texttt{\tvs\$INPUT\$\#101010$q_F$}\tvs \]
+
+Die Endkonfiguration der TM ist also für jedes Eingabewort die folgende:
+Sie endet im Zustand $q_F$, an die Eingabe wurden die Zeichen
+\texttt{\#101010} angehängt und der Lesekopf befindet sich beim ersten Blank
+hinter diesen Zeichen.
 
 \section{Aufgabe 4}
 
