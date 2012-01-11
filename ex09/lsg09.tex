@@ -12,7 +12,7 @@
 \lstset{numbers=left, basicstyle=\ttfamily, numberstyle=\tiny, mathescape=true} %listing style für code
 
 %\usetikzlibrary{positioning, trees, snakes}
-%\usetikzlibrary{automata, positioning, arrows, calc}
+\usetikzlibrary{automata, positioning, arrows, calc}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex}
@@ -43,6 +43,88 @@
 \section{Aufgabe 1}
 
 \section{Aufgabe 2}
+\subsection{}
+Sei $\varphi$ eine Formel in 3-KNF mit Literalen $L$ und $k$ Klauseln und habe die Form
+\[ \varphi = (x_{11} \vee x_{12} \vee x_{13}) \wedge (x_{21} \vee x_{22} \vee x_{23}) ... \]
+Dabei sind $x_{ij} \in \{ l, \neg l \mid l \in L \}$.
+
+Sei nun $G(\varphi) = (V, E, K = 2 k + |L|)$ ein Graph mit 
+\[ V = \{ l, \neg l \mid L \in L \} \cup \{ x_{ij} \} \]
+-- wobei die Knoten aus $L$ \emph{Literalknoten} und die Knoten $x_{ij}$ \emph{Klauselknoten} heißen --
+und
+\[ E = \{ (x_{i1},x_{i2}), (x_{i1},x_{i3}), (x_{i2},x_{i3}) \mid i = 1 ... k \} \cup \{ (L(x_{ij}),x_{ij}) \} \]
+wobei $L(x_{ij})$ das Literal (oder die Negation des Literals) von $x_{ij}$ darstellt.
+Die $i$ Dreiecke aus Klauselknoten nennen wir \emph{Cluster}.
+
+Auf $G(\varphi)$ muss ein VertexCover der Größe $K$ gefunden werden.
+
+Für die Formel $\varphi = (\neg b \vee a \vee \neg c) \wedge (\neg d \vee c \vee d)$ ergibt sich also der Graph
+
+\begin{tikzpicture}[auto, node distance=1.5cm]
+\node (at) [state] {$a$};
+\node (af) [state, right of=at] {$\neg a$};
+\node (bt) [state, below of=at] {$b$};
+\node (bf) [state, right of=bt] {$\neg b$};
+\node (ct) [state, below of=bt] {$c$};
+\node (cf) [state, right of=ct] {$\neg c$};
+\node (dt) [state, below of=ct] {$d$};
+\node (df) [state, right of=dt] {$\neg d$};
+
+\node (x11) [state, right of=af] {$x_{11}$};
+\node (x12) [state, above right of=x11] {$x_{12}$};
+\node (x13) [state, below right of=x11] {$x_{13}$};
+\node (x21) [state, right of=df] {$x_{21}$};
+\node (x22) [state, above right of=x21] {$x_{22}$};
+\node (x23) [state, below right of=x21] {$x_{23}$};
+
+\path [-]
+	(at) edge (af) (bt) edge (bf) (ct) edge (cf) (dt) edge (df)
+	(x11) edge (x12) (x12) edge (x13) (x13) edge (x11)
+	(x21) edge (x22) (x22) edge (x23) (x23) edge (x21)
+	(x11) edge (bf) (x12) edge [bend right] (at) (x13) edge (cf)
+	(x21) edge (df) (x22) edge [bend left] (ct) (x23) edge [bend left] (dt)
+;
+\end{tikzpicture}
+
+Behauptung: \texttt{VertexCover} hat auf $G(\varphi)$ genau dann eine Lösung, wenn $\varphi$ erfüllbar ist (\texttt{3-SAT} hat eine Lösung).
+
+Beweis: \\
+$\Leftarrow$:
+
+Wir konstruieren ein Vertex Cover $W \subseteq V$ der Größe $K$.
+Seien $L_1$ die Literale, denen in der Lösung von 3-Sat der Wahrheitswert wahr zugewiesen wird.
+Dann sind alle $l \in L_1$ auch in $W$.
+Wähle nun aus jeder 3-Clique, die eine Klausel beschreibt, zwei beliebige Knoten, so dass der verbleibende mit einem bereits markierten Literal-Knoten verbunden ist.
+So ein Knoten muss existieren, da mindestens ein Literal (oder eine Negation eines Literals) in einer Klausel wahr sein muss, ein Knoten also mit einem bereits markierten Knoten verbunden sein muss.
+
+$\Rightarrow$:
+
+Beobachtung: Jedes Vertex Cover in $G(\varphi)$ muss mindestens einen Literalknoten jedes Literals sowie mindestens zwei Klauselknoten enthalten.
+Ein Vertex Cover der Größe $K = 2k + |L|$ enthält somit genau einen Literalknoten jedes Literals sowie genau zwei Klauselknoten jedes Dreiecks.
+Seien nun $L_1$ die Literalknoten des Vertex Covers und wie in $\Leftarrow$ die Menge der Literale mit dem Wahrheitswert wahr.
+Die entsprechende Formel $\varphi$ ist dann erfüllbar, da jedem Literal ein Wahrheitswert zugewiesen ist und jede Klausel erfüllbar ist:
+Jede Klausel enthält genau einen Knoten, der nicht im Vertex Cover enthalten ist, dessen Kante mit einem Literalknoten aber abgedeckt ist.
+Der inzidente Literalknoten muss daher im Vertex Cover enthalten sein, das zum Klauselknoten gehörende Literal also wahr sein.
+\hfill{} \qed{}
+
+\subsection{}
+Behauptung: $C \subseteq V$ ist genau dann ein \texttt{VertexCover}, wenn $I = V \setminus C$ ein \texttt{IndependentSet} ist.
+
+Aus der Behauptung folgt sofort die Äquivalenz der Problem hinsichtlich NP-Vollständigkeit.
+
+Beweis: \\
+$\Rightarrow$:
+
+Ist $C \subseteq V$ ein Vertex Cover, so sind alle Kanten des Graphen zu mindestens einem Knoten in $C$ adjazent.
+Somit gibt es keine Kante, die zu zwei Knoten aus $I = V \setminus C$ adjazent ist.
+Also gibt es keine zwei inzidenten Knoten in $I$.
+
+$\Leftarrow$:
+
+Ist $I \subseteq V$ ein Independent Set, so existiert keine Kante im Graphen zwischen zwei Knoten in $I$.
+Jede Kante ist somit zu mindestens einem Knoten in $C = V \setminus I$ adjazent.
+Also deckt $C$ alle Kanten ab.
+\hfill{}\qed{}
 
 \section{Aufgabe 3}
 
