@@ -173,4 +173,51 @@ hinter diesen Zeichen.
 
 \section{Aufgabe 4}
 
+Sei $G = (V, E)$ der Graph mit $V = \{ v_i \mid i = 1 ... n \}$ und 
+$W = \sum_{i = 1}^n w_i$.
+
+Beobachtungen: \\
+Ist $G$ ein Pfad mit $n$ Knoten, so gibt es nur $n-2$
+(sinnvolle) Knoten, die in $V'$ enthalten sein können: Alle bis auf die
+Endknoten. \\
+Das Partitionieren entspricht dem Aufteilen des Pfades in ($k+1$) Abschnitte. \\
+Weiterhin kann ein zusätzlicher Knoten in $V'$ nie von Nachteil
+sein, o.B.d.A. wird $V'$ also stets $k$ Knoten enthalten.
+
+Algorithmus:
+Seien $x_j \in \{ 1, ..., n \}$ die $k$ Positionen der Knoten in $V'$ und
+bezeichne $sum(i)$ die Summe der Kantengewichte aller Kanten im $i$ten
+Abschnitt. Ein Abschnitt (oder seine Summe) heißt \emph{maximal}, falls kein
+Abschnitt Kanten mit größerem Gesamtgewicht hat.
+
+\begin{lstlisting}[language=Python]
+$x_i$ = i # fuer alle i
+while $sum(1)$ nicht maximal:
+	j = maximaler Abschnitt
+	if $x_j$ - $x_{j-1}$ == 1:
+		return $x_i$
+	$x_{j-1}$ = $x_{j-1}$ + 1
+	compare($x_i$)
+\end{lstlisting}
+
+Bei der ersten Partitionierung sind die ersten $k$ Abschnitt minimal (je nur
+eine Kante), der Rest ist im letzten Abschnitt enthalten.
+
+Nun wird der maximale Abschnitt verkleinert, indem die erste Kante dieses
+Abschnitts in den vorherigen Abschnitt verschoben wird.
+Hat der maximale Abschnitt nur eine Kante, so ist die aktuelle
+Partitionierung optimal: Kleiner als die größte Kante kann es nicht werden.
+
+Sobald der erste Abschnitt maximal ist, kann die Partitionierung nicht mehr
+besser werden. Die beste Partitionierung wurde somit bereits betrachtet und
+ist unter den mittels \texttt{compare} miteinander verglichenen.
+
+Da jeder der $k < n$ Schnitte maximal $n-k$ mal verschoben werden kann,
+werden maximal $k \cdot (n-k) < n^2$ Schritte durchgeführt.
+
+Die optimale Partitionierung muss betrachtet worden sein, da in jedem
+Schritt versucht wird, die Zielfunktion -- den Wert des maximalen Abschnitts
+-- zu verkleinern und am Ende eine besserer Zielwert nicht mehr erreicht
+werden kann.
+
 \end{document}
