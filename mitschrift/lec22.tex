@@ -73,5 +73,84 @@ smaller submatrix. Thus $\overline{A}$ is TU if and only if $A$ is TU.
 By Corollary 22.4, $P$ is integer.
 
 For the reverse, assume that $A$ is not TU.
+Then, there exists a $r \times r$ submatrix $B$ with $\det(B) \not\in
+\{-1,0,1\}$ and $r \leq \min\{n,m\}$.
+W.l.o.g. let $B = (a_{ij})_{1 \leq i,j \leq r}$.
+
+Since $B$ is non-singular, $B^{-1}$ exists. By integrality of $A$, $\det(B)$
+is integer and $\det(B) \cdot \det(B^{-1}) = 1$, $\det(B^{-1}) \not\in \Z$.
+Thus $B^{-1}$ has at least one column $j$ with a non-integer entry: 
+$B^{-1} e_j \not\in \Z^r$.
+
+We construct $b' \in \Z^r$ as follows. Find $y \in \Z^r$ such that $B^{-1}
+e_j + y \geq 0$ and define $b' = (b_1', \dots, b_r') = B ( B^{-1} e_j + y) =
+e_j + B y \in \Z^r$.
+
+But the unique solution to $Bz=b'$ is $z = B^{-1}e_j+y \not\in \Z^r$. \\
+ Now extend $z$ as $\overline{x}:=\begin{pmatrix} z \\ 0 \end{pmatrix} \not \in
+\Z^n$ and define for $j=r+1,\dots,m, \; b_j \in \Z$ such that $a_j
+\overline{x} < b_j$, e.g. $b_j = \lceil a_j \overline{x} \rceil +1$. Then $\overline b
+:=(b_1', \dots, b_r', b_{r+1}, \dots, b_m) \in \Z^m.$ \\
+Further $\overline x \geq 0$ and $A \overline x $, hence $\overline x \in
+\{x \in \R^n \mid Ax \leq \overline b \}$ with he first $r$ rows satisfied
+with equality. Since $\det(B) \neq 0$, these rows are linearly independent. By
+LP theory it follows that $\overline x$ is a vertex of $P$, but $\overline x
+$ ist non-integer, a contradiction.
 \end{proof}
 
+\begin{tikzpicture}[auto, node distance=2cm]
+	\node (q1) [state]{$1$};
+	\node (q2) [state, below right of=q1]{$2$};
+	\node (q3) [state, below left of =q1]{$3$};
+	\path [-]
+		(q1) edge (q2) (q1) edge (q3) (q2) edge (q3)
+	;
+\end{tikzpicture}
+
+\begin{tabular}{c|ccc|c}
+	  & 1 & 2 & 3 & \\
+	  \hline
+	1 & 1 & 1 & 0 & $\in R_1$\\
+	2 & 1 & 0 & 1 & $\in R_2$ \\
+	3 & 0 & 1 & 1 & $\in R_3$ \\
+\end{tabular}
+not TU by Hoffman.
+	
+A bipartite graph $G=(S \cup T, E)$ looks like
+\begin{tabular}{c|c|ccc|}
+  		& $s_1$ & 1 & & 1 \\
+$R_1$ 	& $s_2$ & & & \\
+		& $\vdots$ & & 1 & \\
+\hline
+  		& $t_1$ & 1 & & 1 \\
+$R_2$ 	& $t_2$ & & & \\
+		& $\vdots$ & & 1 & \\
+\end{tabular}
+
+\begin{defn}
+Let $D=(V,A)$ be a digraph. The $V \times A $ incidence matrix $M$ of $D$ is
+defined by 
+$M_{V,a}:=\begin{cases}
+			+1 & \text{if } a=(v,w) \text{ for some } w \in V\\
+			-1 & \text{if } a=(w,v) \text{ for some } w \in V\\
+			0 & \text{otherwise}
+		\end{cases}
+$
+\end{defn}
+
+\begin{tikzpicture}[auto, node distance=2cm]
+	\node (q1) [state]{$1$};
+	\node (q2) [state, below right of=q1]{$2$};
+	\node (q3) [state, below left of =q1]{$3$};
+	\path [->]
+		(q1) edge (q2) (q2) edge (q3) (q3) edge (q1)
+	;
+\end{tikzpicture}
+$\Rightarrow$
+\begin{tabular}{c|ccc|c}
+	  & 1 & 2 & 3 & \\
+	  \hline
+	1 & 1 & 0 & -1 & $\in R_1$\\
+	2 & -1 & 1 & 0 & $\in R_2$ \\
+	3 & 0 & -1 & 1 & $\in R_3$ \\
+\end{tabular}
