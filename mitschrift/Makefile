@@ -10,3 +10,6 @@ clean:
 
 superclean: clean
 	rm -rf *.pdf
+
+keepCompiling:
+	iwatch -e modify -c make -t ".*(tex|cls)" .
