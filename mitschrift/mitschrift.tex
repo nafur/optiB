@@ -4,6 +4,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{cmbright}
 \usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{forloop}
 \usepackage{amsmath}
 \usepackage{enumerate}
 \usepackage{amssymb}
@@ -112,26 +114,11 @@
 \tableofcontents
 \newpage
 
-\input{lec02}
-\input{lec03}
-\input{lec04}
-\input{lec05}
-\input{lec06}
-\input{lec07}
-\input{lec08}
-\input{lec09}
-\input{lec10}
-\input{lec11}
-\input{lec12}
-\input{lec13}
-\input{lec14}
-\input{lec15}
-\input{lec16}
-\input{lec17}
-\input{lec18}
-\input{lec19}
-\input{lec20}
-\input{lec21}
+\newcounter{lecnum}
+% for all lectures from 2 to 22...
+\forloop{lecnum}{2}{\value{lecnum} < 23}{
+	\input{lec\ifnum\value{lecnum}<10 0\fi\arabic{lecnum}}
+}
 
 \newpage
 
