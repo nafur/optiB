@@ -1,0 +1,77 @@
+\begin{lec}[2012-01-12]\end{lec}
+\stepcounter{section}
+
+\begin{qstn}
+How should $A$ resp. $b$ look like to have
+\[
+	\max \{ c^T x \mid A x \leq b, x \in \Z^n \} = \max \{ c^T x \mid Ax \leq b, x \geq 0 \}
+\]
+\end{qstn}
+Answer (partly):
+A should be a \new{totally unimodular}{total unimodular} matrix.
+
+\begin{defn}
+A matrix $A$ is totally unimodular (TUM) if every $k \times k$ submatrix of
+$A$ has determinant equal to $-1$, $0$ or $1$.
+In particular, every entry of $A$ has to be $-1$,$0$ or $1$.
+\end{defn}
+
+% slides for ILPs
+
+\begin{thm}
+Let $A$ be a TU $m \times n$ matrix and let $b \in \Z^m$.
+Then every vertex of the polyhedron $P = \{ x \in \R^n \mid A x \leq b \}$
+is integer.
+\end{thm}
+\begin{proof}
+Let $z$ be a vertex of $P$ and define $A_z$ as the submatrix of $A$
+consisting of the rows $a_i$ of $A$ with $a_i z = b_i$. From linear
+programming theory, it follows that $z$ is a vertex of $P$ if and only if
+$rang(A_z) = n$.
+
+Consequently, $A_z$ contains a non-singular $n \times n$ submatrix $A'$.
+Let $b'$ be the corresponding subvector of $b$.
+By definition, $A'z=b'$ and accordingly, $z = (A')^{-1} b'$.
+
+From TU of $A$, it follows that $|\det(A')| = 1$ and all entries of
+$(A')^{-1}$ are integer (Cramer's rule). Since $b \in \Z^n$, it follows $z
+\in \Z^n$.
+\end{proof}
+
+\begin{defn}
+A polyhedron $P$ is \new{integer}{ganzzahlig} if for all $c \in \R^n$ with
+$\max\{ c^T x \mid x \in P \}$ finite the maximum is attained by an integer
+vector $x$.
+
+Stated otherwise, if $P = \{ x \mid Ax \leq b \}$ with $A$ a matrix of rang
+$n$, then $P$ is integer if and only if all vertices of $P$ are integer.
+\end{defn}
+
+\begin{cor}
+If $A$ is TU and $b \in \Z^m$, then $P = \{ x \mid Ax\leq b \}$ is integer.
+\end{cor}
+
+\begin{thm}[Hoffman-Kruskal, 1956]
+Let $A$ be an integer $m \times n$ matrix.
+Then $A$ is TU if and only if for all $b \in \Z^m$, $P = \{x \mid Ax \leq b,
+x \geq 0\}$ is integer.
+\end{thm}
+\begin{proof}
+To prove the forward direction, we define \\
+$\overline{A} = \begin{pmatrix} A \\ -\I \end{pmatrix}$ with $\I$ the $n
+\times n$ identity matrix and $\overline{b} = \begin{pmatrix} b \\ 0
+\end{pmatrix}$.
+Then $P = \{ x \mid \overline{A} x \leq \overline{b} \}$.
+
+Every square submatrix of $\overline{A}$ consists of a part of the identity
+matrix and a part of $A$. To compute the determinant, we perform a Laplacian
+expansion along the rows of the identity part.
+
+Hence, the determinant equals either zero or plus/minus the determinant of a
+smaller submatrix. Thus $\overline{A}$ is TU if and only if $A$ is TU.
+% todo: fix reference
+By Corollary 22.4, $P$ is integer.
+
+For the reverse, assume that $A$ is not TU.
+\end{proof}
+
