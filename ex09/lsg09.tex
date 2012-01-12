@@ -12,7 +12,7 @@
 \lstset{numbers=left, basicstyle=\ttfamily, numberstyle=\tiny, mathescape=true} %listing style für code
 
 %\usetikzlibrary{positioning, trees, snakes}
-\usetikzlibrary{automata, positioning, arrows, calc}
+\usetikzlibrary{automata, positioning, arrows, calc, topaths}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex}
@@ -41,6 +41,139 @@
 \begin{document}
 
 \section{Aufgabe 1}
+\subsection{}
+Wir abstrahieren zunächst ein wenig und modellieren einen Hypergraphen, in
+dem jede Kante zu genau drei Knoten adjazent ist. Anschließend werden wir
+die Knoten so auf drei Teilmengen verteilen, dass sich Mengen wie für ein
+3D-Matching gefordert ergeben und jede Kante einen Knoten in der Teilmenge
+hat.
+
+Sei eine 3-SAT-Formel $\varphi$ mit $n$ Variablen $x_i$ und $k$ Klauseln
+gegeben. $N_+(x_i)$ bezeichne die Anzahl der Vorkommen von $x_i$ in
+$\varphi$, $N_-(x_i)$ entsprechend die Anzahl der Vorkommen von $\neg x_i$.
+Zudem sei $N(x_i) = \max\{ N_+(x_i), N_-(x_i) \}$.
+
+Der gesamte Graph hat zunächst die folgenden Knoten:
+\[
+	V = \{ t_{i1},t_{i2}, f_{i1},f_{i2}, i_{i1},\dots, i_{i4} \mid i = 1,\dots, n\}
+	\cup \{ c_i, c_i' \mid i = 1,\dots, k \}
+	\cup \{ d_{i1},d_{i1}',d_{i2},d_{i2}' \mid i = 1,\dots, n \}
+\]
+
+Wir modellieren nun einen Teilgraphen, der für eine Variable $x_i$ aus
+der 3-SAT-Formel erzwingt, dass $x_i$ entweder wahr oder falsch ist.
+Hier ist der Graph für $N(x_i) = 2$ gegeben.
+
+\begin{tikzpicture}[auto, node distance=1.5cm]
+
+\node (ti1) [state] {$t_{i1}$};
+\node (ii1) [state, below of=ti1] {$i_{i1}$};
+\node (ii2) [state, right of=ii1] {$i_{i2}$};
+\node (ii3) [state, below of=ii1] {$i_{i3}$};
+\node (ii4) [state, right of=ii3] {$i_{i4}$};
+\node (ti2) [state, below of=ii4] {$t_{i2}$};
+\node (fi1) [state, left of=ii3] {$f_{i1}$};
+\node (fi2) [state, right of=ii2] {$f_{i2}$};
+
+\begin{scope}[fill opacity=0.15]
+\filldraw[fill=black] ($(ti1)+(0,0.75)$)
+	to[out=180,in=180] ($(ii1)+(0,-0.75)$)
+	to[out=0,in=270] ($(ii2)+(0.75,0)$)
+	to[out=90,in=0] ($(ti1)+(0,0.75)$);
+	
+\filldraw[fill=black] ($(ti2)+(0,-0.75)$)
+	to[out=180,in=270] ($(ii3)+(-0.75,0)$)
+	to[out=90,in=180] ($(ii4)+(0,0.75)$)
+	to[out=0,in=0] ($(ti2)+(0,-0.75)$);
+	
+\filldraw[fill=black] ($(fi1)+(-0.75,0)$)
+	to[out=90,in=180] ($(ii1)+(0,0.75)$)
+	to[out=0,in=90] ($(ii3)+(0.75,0)$)
+	to[out=270,in=270] ($(fi1)+(-0.75,0)$);
+
+\filldraw[fill=black] ($(fi2)+(0.75,0)$)
+	to[out=90,in=90] ($(ii2)+(-0.75,0)$)
+	to[out=270,in=180] ($(ii4)+(0,-0.75)$)
+	to[out=0,in=270] ($(fi2)+(0.75,0)$);
+\end{scope}
+\end{tikzpicture}
+
+Für $N(x_i) = j$ werden allgemein $2 \cdot j$ solcher Dreiecke in einem Ring
+verbunden, wobei jedes zweite einen $t$-Knoten (true), die anderen
+entsprechend $f$-Knoten (false) erhält.
+
+In einem Maxmimum Matching können nun entweder alle Kanten mit $t$-Knoten
+oder alle Kanten mit $f$-Kanten gewählt werden.
+Im ersten Fall ist der Wert der Variablen $i$ falsch im zweiten wahr.
+
+Nun betrachten wir die Klauseln.
+Sei $c_i = \{x_a, \neg x_b, x_c\}$ eine Klausel ($x_a \vee \neg x_b \vee
+x_c$).
+Wir modellieren einen Teilgraphen, der im Falle eines Maximum Matchings
+erzwingt, dass eine Klausel erfüllt ist.
+
+\begin{tikzpicture}[auto, node distance=1.5cm]
+
+\node (ta1) [state] {$t_{a1}$};
+\node (ci) [state, right of=ta1] {$c_i$};
+\node (ci2) [state, right of=ci] {$c_i'$};
+\node (fb1) [state, below of=ci] {$f_{b1}$};
+\node (tc1) [state, right of=ci2] {$t_{c1}$};
+
+\begin{scope}[fill opacity=0.15]
+\filldraw[fill=black] ($(ta1)+(-0.75,0)$)
+	to[out=90,in=180] ($(ci)+(0,0.75)$)
+	to[out=0,in=90] ($(ci2)+(0.75,0)$)
+	to[out=270,in=0] ($(ci)+(0,-0.75)$)
+	to[out=180,in=270] ($(ta1)+(-0.75,0)$);
+
+\filldraw[fill=black] ($(ci)+(-0.75,0)$)
+	to[out=90,in=180] ($(ci2)+(0,0.75)$)
+	to[out=0,in=90] ($(tc1)+(0.75,0)$)
+	to[out=270,in=0] ($(ci2)+(0,-0.75)$)
+	to[out=180,in=270] ($(ci)+(-0.75,0)$);
+	
+\filldraw[fill=black] ($(ci)+(-0.75,0)$)
+	to[out=90,in=90] ($(ci2)+(0.75,0)$)
+	to[out=270,in=0] ($(fb1)+(0,-0.75)$)
+	to[out=180,in=270] ($(ci)+(-0.75,0)$);
+
+\end{scope}
+\end{tikzpicture}
+
+Die beiden Klauselknoten $c_i$ und $c_i'$ können nur dann abgedeckt werden,
+wenn eine der drei Kanten gewählt wird, gleichzeitig kann nur eine der drei
+gewählt werden. Wird eine der drei gewählt, so ist damit gleichzeitig einer
+der äußeren Knoten des Teilgraphen für die Variable abgedeckt, so dass dort
+nur die Kanten mit $f$-Knoten (für $a$ und $c$) oder $t$-Knoten (für $b$)
+gewählt werden können.
+
+Es bleibt noch zu zeigen, dass die Knoten auf drei disjunkte Teilmengen
+aufgeteilt werden können, so dass alle Kanten Knoten aus jeder Teilmenge
+enthalten.
+
+Sei die folgende Aufteilung gegeben:
+\begin{align*}
+X &= \{ c_i \mid i = 1, \dots, k \} \cup \{ i_{ij} \mid i=1,\dots,n, j=1,3,\dots,2 \cdot N(x_i) - 1 \} \\
+Y &= \{ c_i' \mid i = 1, \dots, k \} \cup \{ i_{ij} \mid i=1,\dots,n, j=2,4,\dots,2 \cdot N(x_i) \} \\
+Z &= \{ t_{ij}, f_{ij} \mid i = 1,\dots,n, j = 1,\dots,N(x_i) \} \\
+\end{align*}
+$X,Y,Z$ bilden eine Partition aller Knoten und jede der oben angegeben
+Kanten hat je genau einen Knoten in jeder Teilmenge.
+
+Durch diese Konstruktion können nun genau $k + \sum_{i=1}^n N(x_i)$ Kanten
+für das Matching gewählt werden.
+
+Ein Maximum Matching auf dem Graphen definiert somit, welche Variable
+welchen Wahrheitswert hat und definiert für jede Klausel genau ein Literal,
+das wahr ist.
+
+Anhand einer Lösung für 3-SAT wiederum können sofort die entsprechenden
+Kanten gewählt werden: Ist eine Variable wahr, werden die $f$-Knoten gewählt
+und andersrum, für jede Klausel wird eine der Literale mit dem Wahrheitswert
+true ausgewählt.
+
+\subsection{}
 
 \section{Aufgabe 2}
 \subsection{}
@@ -160,11 +293,11 @@ Eine $0$: Sie geht nach rechts und wechselt nach $q_5$:
 Ein Blank: Sie schreibt eine $1$:
 \[ \texttt{\tvs\$INPUT\$\#1010$q_5$1} \]
 Eine $1$: Sie wechselt nach $q_6$ und geht nach rechts:
-\[ \texttt{\tvs\$INPUT\$\#10101$q_6$}\tvs \]
+\[ \texttt{\tvs\$INPUT\$\#10101$q_6$\tvs} \]
 Ein Blank: Sie wechselt nach $q_3$ und schreibt eine $0$:
 \[ \texttt{\tvs\$INPUT\$\#10101$q_3$}0 \]
 Eine $0$: Sie wechselt nach $q_F$ und geht nach rechts:
-\[ \texttt{\tvs\$INPUT\$\#101010$q_F$}\tvs \]
+\[ \texttt{\tvs\$INPUT\$\#101010$q_F$\tvs} \]
 
 Die Endkonfiguration der TM ist also für jedes Eingabewort die folgende:
 Sie endet im Zustand $q_F$, an die Eingabe wurden die Zeichen
