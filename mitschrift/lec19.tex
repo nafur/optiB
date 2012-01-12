@@ -1,0 +1,119 @@
+\begin{lec}[2011-12-19]\end{lec}
+\stepcounter{section}
+
+Complexity classes:
+
+\begin{tabular}{l|r}
+	$\poly$ & polynomial-time solveable decision problems \\
+	$\npoly$ & nondeterministic polytime solveable dicision problems \\
+	$\npoly$-complete & every other problem in $\npoly$ can be polynomially transformed (reduced) to it and it is in $\npoly$ itslef.
+\end{tabular}
+
+\begin{rem}
+	If $\Pi$ can be polynomiall tranformed to $\Pi'$ and $\Pi'\in \poly$, then also $\Pi \in \poly$.
+\end{rem}
+
+%19.1
+\begin{cor}
+	If $\Pi \in \npoly$, $\Pi'$ is $\npoly$-complete, and there exists a polynomial time transformation form $\Pi'$ to $\Pi$, then $\Pi$ is $\npoly$-complete as well.
+\end{cor}
+\begin{proof}
+Since $\Pi'$ is $\npoly$-complete, every problem in $\npoly$ can be polynomially transformed to $\Pi'$. A second poly. transformed from $\Pi'$ to $\Pi$ yields a polynomial transformation from every problem in $\npoly$ to $\Pi$. In addition, if $\Pi \in \npoly$, both conditions are fulfilled
+\end{proof}
+
+%19.2
+\begin{defn}
+A \new{boolean expression}{Boolescher Ausdruck} is a logical concatenation of true/false variables $x_1, x_2, ..., x_n$. Given two boolean expressions $v$ and $w$, also 
+	\begin{align*}
+	 v \underset{\text{or}}\vee w &, \\
+	 v \underset{\text{and}}\wedge w& \text{ and } \\
+	 \underset{\text{not}}\neg v& 
+	\end{align*}
+	are boolean expressions. The \new{satisfiability problem (SAT)}{Erfüllbarkeitsproblem} requestes an assignment of true/false (1/0) to the variables such that the boolean expression $f(x_1, ..., x_n)$ equals true.
+\end{defn}
+
+
+
+\begin{xmp+}
+	\begin{align*}
+		x_2=T, x_3=F,x_5=F\\
+		((x_2\wedge x_3)\vee \neg(x_3 \vee x_5))\wedge x_2
+		&= ((T \wedge F) \vee \neg (F \vee F))\wedge T \\
+		&= (F \vee T) \wedge T \\
+		&= T \wedge T = T
+	\end{align*}
+\end{xmp+}	
+
+The following rules hold: \begin{align*}
+	0 \wedge 0 = 0 \wedge 1 = 1 \wedge 0 = 0, 1 \wedge 1 = 1,\\
+	0\vee 0 = 0, 0 \vee 1 = 1 \vee 0 = 1\vee 1=1,\\
+	\neg 0 = 1, \neg 1 = 0, (0) = 0, (1) = 1
+\end{align*}
+
+%19.3
+\begin{thm}[Cook's Theorem, 1971]
+	The Satisfiability Problem SAT is $\npoly$-complete.
+\end{thm}
+\begin{proof}
+	See Schr\"yver's lecture notes, pages 105-107
+	
+	SAT $\rightarrow$ 3-SAT $\rightarrow$ EXACT COVER $\rightarrow$ DIRECTED HAMILTONIAN CYCLE $\rightarrow$ UNDIRECTED HAMILTONIAN CYCLE $\rightarrow$ TSP
+\end{proof}
+
+%19.4
+\begin{defn}
+Let $K \in \Z_+$. Let $B_1$ be the set of boolean expressions involving one variable: $x_1, \neg x_1, x_2, \neg x_2, ...,x_n, \neg x_n$ the \new{literals}{Literale}.
+
+Let $B_2$ be the set of boolean expressionsof the form $(w_1 \vee w_2 \vee ... \vee v_k)$ with $w_i \in B_1$ and $1 \leq k \leq K$, the \new{clauses}{Klauseln}
+
+Let $B_3$ be the set of boolean expressions of the form $(w_1 \wedge w_2 \wedge ... \wedge v_k)$ with $w_i \in B_2$ and $1 \leq k \leq K$. A boolean expression $f(x_1, x_2, ..., x_n)\in B_3$ is \new{satisfiable}{erfüllbar} if an assignment $x_i:=\alpha_i\in\plainset{0,1}$ exists such that $f(\alpha_1, \alpha_2, ..., \alpha_n) = 1$.
+
+The \new{K-SAT Problem}{K-SAT Problem} is defined as: Given $f \in B_3$, is $f$ satisfiable? (Every clause of $f$ has at most $K$ literals)
+\end{defn}
+
+%19.4
+\begin{cor}
+The 3-SAT Problem is $\npoly$-complete.
+\end{cor}
+\begin{proof}
+	Since SAT $\in \npoly$, also 3-SAT$\in \npoly$. We give a polynomial time transformation from SAT to 3-SAT.
+	
+Define a variable $Y_g$ for every subexpression $g$ of $f$ ($f$ instance of SAT), i.e. every part of $f$ that is a boolean boolean expression again.
+Now $f$ is satisfiable if and only if the following system is satisfiable: 
+\begin{align*}
+	Y_g = Y_{g'} \vee Y_{g''} & \text{ if } g = g' \vee g'' \\
+	Y_g = Y_{g'} \vee Y_{g''}& \text{ if } g = g' \vee g'' \\
+	Y_g = \neg Y_{g'}& \text{ if } g = \neg g'
+	Y_f = 1 &
+\end{align*}
+The equality $Y_g = Y_{g'} \vee Y_{g''}$ can also be written as 
+\[
+	Y_{g} \vee \neg Y_{g'} = 1, \neg Y_g \vee Y_{g'} \vee Y_{g''} = 1 \text{ or } (Y_g\vee\neg Y_{g'})\wedge(Y_g\vee \neg Y_{g''}) \wedge(\neg Y_g \vee Y_{g'} \vee Y_{g''}) = 1 \]. Similarly $Y_g=Y_{g'}\wedge Y_{g''}$ can be written as \[
+	(\neg Y_g \vee Y_{g'}) \wedge (\neg Y_g \vee Y_{g''}) \wedge (Y_g \vee \neg Y_{g'} \vee Y_{g''}) = 1
+\]
+The expression $Y_G = \neg Y_{g'}$ equals \[
+	(Y_g \vee Y_{g'}) \wedge (\neg Y_g \vee \neg Y_{g'}) = 1
+\]
+All expressions above has at most $K=3$ literals and thus belong to $B_2$. They all have to be satisfied simultaneously. Thus, $f$ is satisfied if and only if this 3-SAT instance is satisfied.
+
+The transformation is polynomial since only $O(n^2)$ subexpressions exist, where $n$ is the number of literals in $f$.
+\end{proof}
+
+%19.6
+\begin{defn}
+	The \new{Exact Cover}{exakte Überdeckung} problem is defined as follows: given a collection $\mathcal C$ of subsets of a finite set $X$, does there exist a subcollection of $\mathcal C$ that partitions $X$, that means every element of $X$ is in exactly one subset of the subcollection.
+\end{defn}
+
+\begin{thm}
+	EXACT COVER is $\npoly$-complete.
+\end{thm}
+
+\begin{proof}
+	EXACT COVER $\in \npoly$ since a solution $(Y_1, ..., Y_l)$ with $Y_i \in \mathcal C$ can be verified easily. 
+	
+	We reduce 3-SAT to EXACT COVER in polynomial time. Let $f=w_1 \wedge ... \wedge w_k$ with $w_i \in B_2$ ($K=3$) and $x_1, ..., x_m$ the veriables of a 3-SAT instance.
+	
+	Define a bipartite graph $G$ two color classes: the $\plainset{w_1, ..., w_k}$ and the variables $\plainset{x_1, ..., x_m}$. An edge $\plainset{w_i, x_j}$ exists if and only if literal $x_j$ or $\neg x_j$ is part of clause $w_i$. Hence, every verte $w_i$ has degree $\leq 3$. Let $X$ be the set of all vertices \emph{and} edges.
+	
+	Further, let $\mathcal C = \mathcal C' \cup \mathcal C''$ with $\mathcal C'$ being the collection of all sets of the form $\plainset{w_i} \cup E'$ with $E'$ being a nonempty subset of the edges adjacent to $w_i$ (for every $w_i$ at most 7 subsets $E'$ exist).
+\end{proof}

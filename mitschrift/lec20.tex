@@ -1,0 +1,59 @@
+\begin{lec}[2011-12-22]\end{lec}
+
+\begin{proof} %proof of thm 19.7
+\todo{der Beweis}
+\end{proof}
+
+
+\stepcounter{section}
+\begin{thm}
+Directed Hamiltonian Cycle (DHC) is $\npoly$-complete
+\end{thm}
+\begin{proof}
+	Verifying whether a sequence of vertices includes a DHC can be done in polynomial time. Hence, the problem is a member of $\npoly$.
+	
+ Next, we reduce EXACT COVER to DHC. Let $\mathcal C=\plainset{C_1, ..., C_m}$ the collection of subsets of a ground set $\mathcal X = \plainset{x_1, ..., x_k}$.
+ 
+ We construct a digraph $D=(V,A)$ with $V = \plainset{r_0, ..., r_m} \cup \plainset{s_0, ..., s_k} \cup T$ ($T$ is to be defined).
+ 
+ For $i = 1, ..., m$, let $C_i = \plainset{x_1, ..., x_{i_t}}$. Construct the following digraph:
+
+\todo{Graphen von Valentina einfügen}
+
+The orange vertices are either between $r_{i-1}$ and $r_i$ in a Hamilton Cycle or between $s_{i_l-1}$ and $s_{i_l}$ for $l = 1, ..., t$. Finally add the arcs $(r_m, s_0$ and $(s_k, r_0)$. Hence, the overall graph looks like:
+
+\todo{Graphen von Valentina einfügen}
+
+Thus, $s_k$ has only one outgoing arc $(s_k, r_0)$, $s_0$ has only one incoming arc $(r_m, s_0)$ and from $s_i$ to $s_j$ we have to use 3 vertices from $T$ corresponding to a subset $C_j$ with $x_{i+1}\in \mathcal C_j$. In such cases $(r_{j-1}, r_j)$ hasve to be used on the path from $r_0$ to $r_m$. Since only one subset of $T$ can be used from $s_i$ to $s_{i+1}$, all other sets $C_k$ with $x_{i+1} \in C_k$ have to be visited on the path from $r_{k-1}$ to $r_k$ implying that all $x \in C_k$ are visited this way.
+
+Now, on the one hand, if there exists a subcollection $\plainset{C_{j1},...,C_{jk}}$ which partitions $ \mathcal X$, then the path between $S_{i-1}$, and $s_i$ choose $(r_{j-1}· r_j)$ as part of the Hamilton cycle, and for all $C_j \not\in B$ follow the path via the orange vertices from $r_{j-1}$ to $r_j$. Then, all vertices are visited exactly once, hence the digraph is Hamiltonian.
+
+On the other and, if there exists a Hamilton cycle $D$, $B$ can be constructed by selecting $C_j$ if $(r_{j-1},rj)$ is part of the cycle and otherwise not. In summary there exists an EXACT COVER if and only if $D$ is Hamiltonian. And the reduction is polynomial.
+
+\end{proof}
+
+%20.2
+\begin{thm}
+UNDIRECTED HC is $\npoly$-complete.
+\end{thm}
+
+\begin{proof}
+	We reduce DHC to UHD. Let $D$ be a digraph. Replace every vertex $v$ by three vertices $v'$, $v'$, and $v'''$. Construct edges $\plainset{v',v''}$ and $\plainset{v'', v'''}$.	Further, replace $(v,w)$ by $\plainset{v',v'''}$.
+	
+	$G$ is Hamiltonian if and only if $D$ is Hamiltonian can be easily verified.
+\end{proof}
+
+\tocsubsection{TSP}
+
+INPUT: A complete graph $G = (V,E)$, a length function $l$ on $E$ and a rational $r$.
+
+FIND: Does there exists a Hamiltonian cycle with length $\leq r$?
+
+\begin{thm}
+	TSP is $\npoly$-complete.
+\end{thm}
+
+\begin{proof}
+	Let $G = (V,E)$ be an instance of UHC. Define $G'$ as complete graph on vertex set $V$. Let $l(e):=0$ for all $e\in E$ and $l(e):=1$ for edges $e\not \in E$. Then $G$ is Hamiltonian, if and only if $G'$ has a Hamilton cycle of length $\leq 0$.
+\end{proof}
+

@@ -1,0 +1,67 @@
+\begin{lec}[2012-01-09]\end{lec}
+
+HAPPY NEW YEAR!!
+
+\begin{defn}
+	A problem $\Pi$ for which it is unknown to be in \npoly can be reduced polynomially to $\Pi$ is called \new{NP-hard}{NP-schwer}. The optimization versions of \npoly-complete problems are \npoly-hard: most times it is unknown whether an optimal solution can be verified in polynomial time.
+	Special cases of \npoly-complete problems are sometimes solveable in polynomial time. For example, Undirected Hamilton Cycle is polynomail solveable if $G$ is complete, if $\Delta(G) \leq 2$, or $\delta(G) \leq \frac n2$ ($n\geq 3$, see Graphentheorie I)
+
+	What do the shortest path, the maximum flow problem, the minimum cut proble, the min cost flow problem, the matching problem and Min Spanning Tree have in common, whereas TSP, Knapsack, and Independent Set (all \npoly-complete) do not have?
+
+	\begin{qstn}
+		Do they have a common property? Does there exist a unifying solution algorithm for these problems?
+	\end{qstn}
+
+	Answer: Jein. Yes and No. Most of the above (but matching only in bipartite graphs, Mininmal Spanning Tree not at all) can be solved as Linear Programming (LP) problems
+\end{defn}
+\stepcounter{section}
+\tocsubsection{Linear Programming (LP) crash course (Optimierung A)}
+\begin{itemize}
+	\item Vector $x \in \R^n$ of \emph{variables} (unknowns)
+	\item Contraints (Nebenbedingungen) are described by a matrix $A \in \R^{m \times m}$ and a vector $b \in \R^m: Ax\leq b$ ($m$ linear constraints)
+	\item Objective (Zielfunktion): $c^Tx$ with $c \in R^n$ objective coefficients vector
+	\item LP (in standard form):
+	\[(LP): \begin{cases}
+		\max_{\begin{matrix}\text{subject to s.t.} \\ Ax \leq b \\ x \geq 0\end{matrix}}c^Tx
+		\end{cases}
+	\]
+	\item $P = \condset{x\in \R^n}{Ax \leq b, x\geq 0}$ is the \emph{fesible region} and defines a \emph{polyhedron}(Polyeder)
+	\item Every non-vertex (nicht-Ecke) $x \in P$ can be written as convex combination of vertices $x^1,\dots,x^k \in P: \\
+	x=\sum\limits_{i=1}^k \lambda^i x^i , \sum\limits_{i=1}^k \lambda^i =1, \qquad \lambda^i \geq 0, \: i=1,\dots,k$ 
+	\item for every objective $c^Tx$, there exists at least one vertex $i$ with $c^Tx^i \geq c^Tx \:\forall \: x \in P$.
+	\item The LP can be solved by a sophisticated sequence of vertices of $P$:\\
+	Phase 1: find a vertex of $P. x^{(a)}=0$ (for example)\\
+	Phase 2: As long as there exists a neighboring vertex $x$ of $x^{(i)}$ with $c^Tx > c^Tx^{(i)}$ define $x^{(i+1)}:=x$ and set $i:=i+1$.\\
+	This method is known as the \emph{Simplex Algorithm}(Dantzig, 1947)
+	\item The Simplex Algorithm requires (in theory) exponentially iterations to find an optimal solution: not a polynomial time algorithm.
+	\item \new{Interior Point Methods}{Innere Punktmethoden} follow a path through the interior of the polyhedron and either end up at the unique optimal solution(vertex) or at a convex combination of optimal vertices(i.e. at the optimal face of the polytope).
+	\item There exist interior point methods that run in polynomial time: Khachiyan(1979) developed the first "ellipsoid" method, Karmarkar's projective algorithm followed 1984. The most effective methods are nowadays algorithm based on so-called \emph{barrier} functions, incorporating the boundary of the polyhedron by increasing the function value to infinity.
+	\item Thus LP $\in \poly$
+	\item In practice, a variant of the Simplex algorithm often outperforms interior point methods.
+\end{itemize}
+Many combinatorial optimization problems (both $\in \poly$ and \npoly-complete) can be modelled as \emph{integer} linear programs (ILP): $max\{c^T x:Ax \leq b, x \in \Z_+^n\}$
+
+\begin{xmp+}Matching problem in $G=(V,E)$
+Let $A$ be the $V\times E$ incidence matrix: every row is indexed by a vertex of $G$, every column by an edge of $G$, and for $v \in V$ and $ e \in E$:\\
+\[A_{v,e}:=\begin{cases} 1 & \text{if } v \in e \\
+					0 & \text{otherwise}
+		\end{cases}
+\]
+Then the maximum matching problem equals $max\{\mathbb{1}^x: Ax \leq \mathbb1, x\in \Z_+^n\}$ or stated otherwise
+\begin{align*} 
+	max & \sum\limits_{e \in E} 1\cdot x_e \\
+	s.t. &\sum\limits_{v \in e} x_e \leq 1 \qquad v \in V \\
+	&x_e \geq 0 \qquad e \in E \\
+	&x_e \in \Z \qquad e  \in E
+\end{align*}
+
+In general $max\{c^Tx:Ax \leq b, x \in \Z_+^n\} \leq max \{c^Tx: Ax \leq b, x\geq 0\}$. For $G=K_3$ the matching problem has ILP value 1, whereas LP$=\frac32$.
+\end{xmp+}
+%theorem 21.2
+\begin{thm}(Karp,1972)
+Integer Linear Programming (ILP) is \npoly-complete.
+\end{thm}
+
+\begin{qstn}
+How should $A$ resp. $b$ look like to have equality in 1?
+\end{qstn}
