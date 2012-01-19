@@ -25,7 +25,7 @@ HAPPY NEW YEAR!!
 		\max_{\begin{matrix}\text{subject to s.t.} \\ Ax \leq b \\ x \geq 0\end{matrix}}c^Tx
 		\end{cases}
 	\]
-	\item $P = \condset{x\in \R^n}{Ax \leq b, x\geq 0}$ is the \emph{fesible region} and defines a \emph{polyhedron}(Polyeder)
+	\item $P = \condset{x\in \R^n}{Ax \leq b, x\geq 0}$ is the \emph{feasible region} and defines a \emph{polyhedron}(Polyeder)
 	\item Every non-vertex (nicht-Ecke) $x \in P$ can be written as convex combination of vertices $x^1,\dots,x^k \in P: \\
 	x=\sum\limits_{i=1}^k \lambda^i x^i , \sum\limits_{i=1}^k \lambda^i =1, \qquad \lambda^i \geq 0, \: i=1,\dots,k$ 
 	\item for every objective $c^Tx$, there exists at least one vertex $i$ with $c^Tx^i \geq c^Tx \:\forall \: x \in P$.
@@ -47,7 +47,7 @@ Let $A$ be the $V\times E$ incidence matrix: every row is indexed by a vertex of
 					0 & \text{otherwise}
 		\end{cases}
 \]
-Then the maximum matching problem equals $max\{\mathbb{1}^x: Ax \leq \mathbb1, x\in \Z_+^n\}$ or stated otherwise
+Then the maximum matching problem equals $max\{\mathbf{1}^x: Ax \leq \mathbf{1}, x\in \Z_+^n\}$ or stated otherwise
 \begin{align*} 
 	max & \sum\limits_{e \in E} 1\cdot x_e \\
 	s.t. &\sum\limits_{v \in e} x_e \leq 1 \qquad v \in V \\
