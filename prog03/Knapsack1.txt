@@ -1,0 +1,21 @@
+# 0-1 Knapsack with 15 items
+#number of items
+15
+#Knapsack capacity
+30
+#items weight cost
+1	5	4
+2	4	8
+3	8	6
+4	4	12
+5	3	4
+6	1	3
+7	10	5
+8	9	7
+9	12	15
+10	14	16
+11	13	17
+12	8	9
+13	9	12
+14	6	7
+15	9	8
