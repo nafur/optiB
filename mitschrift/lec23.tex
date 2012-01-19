@@ -79,5 +79,82 @@ The dual problem is
 Hence, $y_1 = 2 c_2 - c_1$, $y_2 = c_1 - c_2$.
 
 If $c_2 > c_1$, the primal problem is unbounded ($x_1 \rightarrow -\infty$,
-$x_2 \rightarrow \infty$).
+$x_2 \rightarrow \infty$). \\
+If $c_1 > 2 c_2$, the primal problem is unbounded ($x_1 \rightarrow \infty$,
+$x_2 \rightarrow -\infty$). \\
+If $c_1 \in [c_2, 2 c_2]$, the primal problem is finite and the optimal dual
+solution is integer. 
+
+$\Rightarrow A x \leq b$ is TDI.
 \end{xmp+}
+
+\begin{thm}\label{thm23.5}
+If $A x \leq b$ TDI and $b$ integer, then $P = \{ x \mid Ax \leq b \}$ is
+integer. (Primal integrality is for free)
+\end{thm}
+\begin{proof}
+If $Ax \leq b$ TDI and $b$ integer, then the dual LP $\min \{ b^Ty \mid A^Ty
+= c, y \geq 0 \}$ has an integer optimal solution value (if it exists) since
+an optimal solution $y^*$ is integer, $b$ is integer, and thus $b^T y^*$ is integer.
+
+LP duality $z_{LP} = \max\{ x^Tc \mid Ax \leq b \} = \min\{ b^Ty \mid
+A^Ty=c, y \geq 0 \}$ implies, that $t_{LP}$ integer for all $c \in \Z^n$ for
+which the maximum exists.
+
+Now, assume that nevertheless $P$ is not integer. Then there exists a vertex
+$\tilde{x}$ of $P$ and $1 \leq j \leq n$ with $\tilde{x}_j$ fractional.
+By polyhedral theory, there exists a $c \in \Z^n$ such that $\tilde{x}$ is
+the unique optimal solution of $\max \{ x^Tx \mid Ax \leq b \}$.
+
+Since $\tilde{x}$ is the unique optimal solution there exists a big value
+$w \in \N$ such that $\tilde{x}$ is also optimal for objective
+$\overline{x} := x + \frac{1}{w} e_j$.
+
+Now, we scale $\overline{c}$ with
+$w$: $\tilde{c} := w \cdot \overline{c} = w \cdot c + e_j \in \Z^n$.
+Scaling does not change the set of optimal solution vectors, and thus
+$\tilde{x}$ remains optimal.
+
+It holds $\underbrace{\tilde{c}^T \tilde{x}}_{\in \Z} - \underbrace{w \cdot c^T
+\tilde{x}}_{\in \Z} = (w \cdot c^T \tilde{x} + e_j^T \tilde{x}) - w \cdot
+c^T \tilde{x} = e_j^T \tilde{x} = \tilde{x}_j \not\in \Z$.
+
+Hence, one of the two values must be fractional: a contradiction.
+\end{proof}
+
+\begin{thm}\label{thm23.6}
+Let $P$ be a rational polyhedron. Then, there exists a rational TDI system
+$A x \leq b$ with $A$ integer and $P = \{ x \mid Ax \leq b \}$. The vector
+$B$ can be chosen integer, if $P$ is integer.
+\end{thm}
+\begin{proof}
+See Cook, Cunningham, Pulleyblank, Schr\"yver 1998, Theorem~6.30
+\end{proof}
+
+Implication:
+for "almost all" combinatorial optimization problems, there exists a system
+$A x \leq b$ TDI. Four step procedure:
+\begin{enumerate}[1)]
+\item Find an appropriate system $A x \leq b$ with $A, b$ integral
+\item Prove $A x \leq b$ TDI
+\item Use Theorem~\ref{thm23.5} to show that $P = \{ x \mid Ax \leq b \}$ is
+integral
+\item Solve the LP $\max \{ c^Tx \mid Ax \leq b \}$.
+\end{enumerate}
+
+The difficulty is step 1 (we often don't know) and the sze of $A$ might
+imply the LP cannot be solve in polynomial time (move in GLO, WS 12/13).
+
+\begin{xmp+}
+Matching can be solved by LP if $G$ is bipartite. If $Q$ is not bipartite
+$\begin{pmatrix} A \\ -I \end{pmatrix} \leq \begin{pmatrix} b \\ 0
+\end{pmatrix}$ with $A$ the node-edge-incidence matrix is not TDI.
+\emph{But} there exists a $\tilde{A}$ and $\tilde{b}$ such that $\tilde{A} x
+\leq \tilde{b}$ TDI and $\max \{ c^T x \mid \tilde{A} x \leq \tilde{b} \} =
+\nu(G, c)$.
+\end{xmp+}
+
+\begin{qstn}
+What can we do if we don't know $\tilde{A}$, $\tilde{b}$?
+\end{qstn}
+% slides: branch and bound
