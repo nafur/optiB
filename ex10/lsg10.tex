@@ -27,7 +27,7 @@
 
 % Kopfzeile
 \lhead{Optimierung B}
-\chead{Übung 9}
+\chead{Übung 10}
 \rhead{Niklas Fischer 298418 \\ Gereon Kremer 288911}
 
 % Fußzeile
@@ -41,12 +41,56 @@
 \begin{document}
 
 \section{Aufgabe 1}
+\subsection{}
+$\max 2x+y$ s.t. $x+y \leq 4$, $x \leq 3$, $x,y \geq 0$.
+
+Duales LP: \\
+$\min 4x+3y$ s.t. $x+y \geq 2$, $x \geq 1$, $x,y \geq 0$.
+
+\subsection{}
+$\max 2x+y-2z$ s.t. $x+y-z \leq 4$, $x-z \leq 3$, $x,y,z \geq 0$.
+
+Duales LP: \\
+$\min 4x+3y$ s.t. $-x-y \geq 2$, $x \geq 1$, $x+y \geq -1$, $x,y \geq 0$.
+
+\subsection{}
+$\max 2x+y$ s.t. $x+y \leq 4$, $-x-y \leq 4$, $x \leq 3$, $x,y \geq 0$.
+
+Duales LP: \\
+$\min 4x+4y+3z$, s.t. $x-y+z \geq 2$, $x-y \geq 1$, $x,y,z \geq 0$.
 
 \section{Aufgabe 2}
 
 \section{Aufgabe 3}
+\subsection{}
+$(s < 0 \Rightarrow r < 0) \wedge (t > 0 \Rightarrow r > 0)$
+\subsection{}
+$(s < 0 \Rightarrow r < 0) \wedge (t < 0 \wedge r \leq 0)$
+\subsection{}
+$(s > 0 \wedge r \geq 0) \wedge (t > 0 \Rightarrow r > 0)$
+\subsection{}
+$(s > 0 \wedge r \geq 0) \wedge (t < 0 \wedge r \leq 0)$
 
 \section{Aufgabe 4}
+$A$ ist nicht vollständig unimodular, denn 
+$\det \begin{pmatrix} 1&1\\-1&1 \end{pmatrix} = 2 \not\in \{ -1,0,1 \}$.
+
+Es gilt $x = (b_3, b_2 + b_3, b_1 - b_2 - 2 b_3)$, somit ist $x \in
+\mathbb{Z}^3$
+falls $b \in \mathbb{Z}^3$.
 
 \section{Aufgabe 5}
+\subsection{}
+\subsection{}
+Sei folgende balancierte $\{0,1\}$-Matrix gegeben.
+
+$\begin{pmatrix}
+1 & 0 & 1 & 0 \\
+1 & 1 & 0 & 0 \\
+0 & 0 & 1 & 1 \\
+1 & 0 & 0 & 1
+\end{pmatrix}$.
+
+Diese Matrix ist vollständig unimodular, denn ihre Determinante ist $2$.
+
 \end{document}
