@@ -1,0 +1,116 @@
+\begin{lec}[2012-01-23]\end{lec}
+\stepcounter{section}
+\tocsection{Approximation of Combinatorial Optimization Problems}
+\begin{qstn}What do we wo, if the problem is \npoly-hard and branch and bound takes too long?\end{qstn}
+Approximate the optimal solution.
+
+\tocsubsection{Minimum spanning Tree heuristic for TSP (Lecture 12)}
+\begin{enumerate}
+	\item Determine a MST $T_1$ in the complete graph $G=(V,E)$ with $c(e) \geq 0$ for all $e \in E$
+	\item Double the edges and choose a directed Euer tour $T_2$
+	\item Follow the Euer tour along the orientation, replace vertices already visited by the shortcut to the next unvisited vertex.
+\end{enumerate}
+\begin{qstn}
+	How good is the solution in comparison to the optimal solution?
+\end{qstn}
+\begin{defn}
+	Let $\Pi$ be a combinatorial optimization problem, and let \[
+		\Pi':=\condset{P \in \Pi}{P \text{ has a feasible solution}}
+	\]
+	be the set of feasible problem instances. For every problem instance $P in \Pi'$, denote with $C_{OPT}(P)$ the optimal solution value of $P$.
+  
+  Further, let $A$ be an algorithm that generates a feasible solution for every problem instance $P \in \Pi'$. The evalue of this solution is denoted by $C_A(P)$. To avoid a time consuming case-by-case analysis, we assume $C_{OPT}(P)>0$ for all $P\in \Pi'$, and set $C_{OPT}(P):=C_A(P):=1$ for all $P \in \Pi \setminus \Pi'$.
+  
+  \begin{enumerate}
+    \item Let $\varepsilon >0$. In case $\Pi$ is a maximization problem, in addition $\varepsilon \leq 1$. If for all problem instances $P \in \Pi$ \[
+      R_A(P):= \frac{|C_A(P)-C_{OPT}(P)|}{C_{OPT}(P)} \leq \varepsilon
+    \] then $A$ is an \new{e-approximation Algorithm}{e-Approximationsalgorithmus} and and the value $\varepsilon$ is the \new{approximation guarantee}{} (since $C_A(P) \geq (1-\varepsilon)C_{OPT}(P)$).
+    
+    If $\Pi$ is a minimization problem, $1 +  \varepsilon$ is the worst-case bound of $A$ (since $C_A(P) \leq (1+\varepsilon)C_{OPT}(P)$).
+  \end{enumerate}
+\end{defn}
+
+\begin{qstn}[reformulated]
+  Does the MST heuristic of TSP have a worst case bound $1+\varepsilon < \infty$?
+\end{qstn}
+
+\begin{defn}
+  The symmetric TSP is \new{metric}{metrisch}, if all distances fulfill the triangle inequality, i. e. for all triples $i$, $j$, $k$ of vertices \[
+    c_{ik}\leq c_{ij}+c_{jk}
+  \] holds.
+\end{defn}
+
+\begin{thm}
+  The MST heuristic for metric TSP has a worst-case bound of $1+\varepsilon=2$
+\end{thm}
+\begin{proof}
+  If we remove an edge from a tour, we obtain a spanning tree. Since the dinstances in a metric TSP are non-negative, it follows that the MST solution value is less than the optimal tour $C_{OPT}(P)$. Thus, \[
+    c(T_2) = 2 \sum_{i,j \in T_1} c_{ij} \leq 2  \cdot C_{OPT}(P).
+  \] The tour constructed from $T_2$ is optained by replace paths between vertices by directed edges. Since the trangle inequality holds, the length of the new edges is at most the length of the path. Hence \[
+    C_{MST}(P) \leq C(T_2) \leq 2 \cdot C_{OPT}(P)
+  \]
+\end{proof}
+\begin{qstn}Can we do better? \end{qstn}
+\tocsubsection{Christofides heuristic for TSP:}
+  \begin{enumerate}
+    \item Determine a MST $T_1$
+    \item Let $W$ be the set of vertices in $(V,T_1)$ with odd degree (note $|W|$ is even)
+    \begin{enumerate}
+      \item Determine a minimum weight perfect matching $M$ in $G[W]$ ($G[W]$ is complete)
+      \item Define $T_2 := T_1 \cup M$ (in $(V,T_2)$ all vertices have even degree). Choose an oriented Euler tour along $T_2$
+      \item See MST heuristic
+    \end{enumerate}
+  \end{enumerate}
+  \begin{thm}
+    The Christofides heuristic is a $\frac12$-approximation for a metric TSP
+  \end{thm}
+  \begin{proof}
+    We have to estimate the value of the  minimum weight perfect matching. Let $\plainset{i_1, i_2, …, i_{2m}}=:W$, where the numbering has ben taken according to the order in $T_{OPT}$ (optimal tour), i.e., \[
+      T_{OPT}=(i_1, \alpha_1, i_2, \alpha_2, ..., I_{2m-1}, \alpha_{2m-1}, i_{2m}, \alpha_{2m})
+    \]where $\alpha_i$ is a (possible empty) sequence of vertices. We consider two matchings
+    \begin{align*}
+      M_1 := \plainset{i_1i_2, i_3i_4, ..., i_{2m-1}i_{2m}} \\
+      M_2 := \plainset{i_2i_3, i_4i_5, ..., i_{2m-2}i_{2m-1}, i_{2m}i_1} \\
+    \end{align*}
+    By the triangle inequality [in particular, $C(i_1, \alpha_1) + c(\alpha_1, i_2) \leq c(i_1,i_2)$] it holds \[
+      C_{OPT}(P) = C(T_{OPT}) \geq C(M_1) + C(M_2)
+    \]
+    Since matching M is optimal, it further holds that 
+    \[
+      C_{OPT}(P) = C(T_{OPT}) \geq C(M_1) + C(M_2) \geq C(M) -2
+    \]
+    and thus $C(M) \leq \frac12 C_{OPT}(P)$. Similar to the MST heuristic \[
+      C_{Christofides}(P) \leq C(T_2) = C(T_1) + C(M) \leq \frac32 C_{OPT}(P)
+    \]
+    The approximation ratio of Christofides heuristic is up to today the best known approximation reatio for metric TSPs.
+    
+    
+  \end{proof}
+  
+  For symmetric TSPs, the situation is different (worse):
+  
+  \begin{thm}
+    If there exists a $\varepsilon > 0$ and a polynomial time algorithm $H$ such that for every symmetric TSP instance $P$ \[
+      C_{OPT}(P) \leq C_H(P)\leq(1+\varepsilon) C_{OPT}(P)
+    \]
+    then $\poly = \npoly$, i.e, the $\varepsilon$-approximation problem of symmetric TSP is \npoly-complete.
+  \end{thm}
+  \begin{proof}
+    UNDIRECTED HAMILTON CYCLE is \npoly-complete. We show that if $H$ is a polynomial $\varepsilon$-approximation algorithm for symmetric TSP, then there exists a polynomial time algorithm for UHC.
+    
+    Let $G = (V,E)$ be a graph with $n = |V|$ and let $M := \varepsilon \cdot n + 2$. We define a symmetric TSP on $n$ cities with the following distances \[
+      c_{ij}:=\begin{cases}1 & \text{if } ij \in E \\ M & \text{otherwise}\end{cases}
+    \]
+    Now, it holds \[
+      G \text{ is Hamiltonian} \Leftrightarrow C_{OPT}(P) = n
+    \]
+    If a tour $T$ does not correspond to a Hamilton cycle, we have \[
+      c(T) \geq n-1 + M=n-1+ n\cdot \varepsilon + 2 > (1+\varepsilon) \cdot n
+    \]
+    Now, let $T_H$ be the tour generated by $H$.
+    If $G$ is Hamiltonian,\[
+      C_{OPT}(P) = n \leq C(T_H)\leq (1+\varepsilon)C_{OPT}(P)=(1+\varepsilon)\cdot n
+    \]Hence, $C(T_H) = n $ and the Hamilton cycle is found in polynomial time.
+  \end{proof}
+  
+  $\Rightarrow$ the symmetric TSP is not approximable, unless $\poly = \npoly$
