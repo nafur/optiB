@@ -1,0 +1,122 @@
+\begin{lec}[2011-01-26]\end{lec}
+\stepcounter{section}
+
+%defintion 25.1
+\begin{defn}
+\begin{enumerate}
+  \item An \new{approximation scheme}{Approximationsschema}(AS) for problem $\Pi$ is an algorithm $A$ taking two inputs a problem instance $P \in \Pi$ an a rational number $\varepsilon > 0$. Algorithm $A$ generates for \emph{every} input $P \in \Pi$ and \emph{every} $\varepsilon > 0$ a solution with $R_A(P) \leq \varepsilon$.
+  \item An AS $A$ for $\Pi$ is a \new{polynomial (time) approx. scheme}{polynomielles Approximationsschema}(PAS/PTAS) if $A$ has running time polynomial in the input length of $P \in \Pi$
+  \item An AS $A$ for $\Pi$ is a fully-polynomial (time) approximation scheme (FPAS/FPTAS) if $A$ has running time polynomial in the input length of $P \in \Pi$ and polynomial in $\frac 1 \varepsilon$
+\end{enumerate}
+\end{defn}
+
+Note that a FPTAS is not polynomial in the total input: to store $\varepsilon=\frac pq$ (resp. $\frac 1 \varepsilon$) we need $<\varepsilon>\approx \log p + \log q$ bits.
+
+\begin{thm}
+Let $\Pi$ be a combinatorial optimization problem. If there exists a FPAS for $\Pi$ which is also polynomial in $<\varepsilon>$, then there exist a polynomial time algorithm to solve all problem instances $P \in \Pi$.
+\end{thm} 
+\begin{proof}
+If $A$ is a FPAS, then the coding length of both values $c_A(P)$ and $c_{opt}(P)$ are polynomial in the input length of $ P \in \Pi$. If $A$ is polynomial in $<\varepsilon>$, we can define a polynomial time algorithm $B$ for $\Pi$ as follows:
+
+%\begin{lstlisting}
+Let $\varepsilon := \frac 12$ and apply $A$ to $P \in \Pi$ yielding the value $C_{A,\varepsilon}(P)$ \\
+In case of maximization problem, define $\rho:=\frac 1 {2 c_{A,\varepsilon}(P)+1}$ \\
+(The case of minimization: Übungsblatt) \\
+Apply $A$ to $P$ with precision $\delta$, yielding $c_{A,\delta}(P)$
+%\end{lstisting}
+
+The running time of $B$ is polynomial in $<P>$, since $\varepsilon=\frac 12$ is a constant and thus $c_{A,\varepsilon}$ and $\delta$ have coding length polynomial in $<P>$ only.
+W.l.o.g. we assume that the objective is integer. Thus, $c_{A,\varepsilon}(P),c_{A,\delta}(P)$ and $c_{opt}(P)$ are integer. We now show $c_{A,\delta}(P)=c_{opt}(P)$.
+
+if $\Pi$ is a maximization problem, it holds 
+\[
+  c_{A,\varepsilon}(P) \geq \frac 12 c_{opt}(P) \Rightarrow 2 c_{A,\varepsilon}(P)+1 > c_{opt}(P)
+\]
+\[
+  c_{A,\delta}(P) \geq (1-\delta)c_{opt}(P)=(1-\frac {1}{2c_{A,\varepsilon}(P)+1} c_{opt}(P) > (1-\frac{1}{c_{opt}(P))c_{opt}(P)}=c_{opt}(P)-1
+\]
+combined with integrality of the objective, we have 
+\[
+  c_{A,\delta}(P)=c_{opt}(P)
+\]
+Similar for minimization problems.
+\end{proof}
+
+\begin{xmp+}
+PAS for SUBSET SUM = Knapsack with $c_i=a_i$
+\begin{align*}
+  &max \sum_{i=1}^n a_i x_i \\
+  &s.t. \sum_{i=1}^n a_i x_i \leq b = \frac A 2
+\end{align*}
+\[
+  x_i \in \{0,1\} \; \forall i  \in \{1,\dots,n\}
+\]
+max $\frac A 2 \Leftrightarrow$ PARTITION exists!
+
+Let $x^*$ be an optimal solution. A PAS for SUBSET SUM takes $a_i \in \Z_+$ and $0 < \varepsilon=\frac pq \leq 1$
+The output is a feasible solution $\overline x$ such that 
+\[
+  \sum_{i=1}^n a_i \overline x _i \geq (1- \varepsilon) \sum_{i=1}^n a_i x_i^*
+\]
+%\begin{lstlisting}
+\begin{enumerate}
+%alle brüche in oberer gaussklammer
+\item[(1)]Set $k:= \lceil \frac pq \rceil = \lceil \frac 1 \varepsilon \rceil$ 
+\item[(2)]Partition the index set $N:=\{1,\dots,n\}$ in "large" (L) and "small" (S) indices:
+  \begin{align*}
+    L:=& \{j \in N: a_j \geq \frac b k\} \\
+    M:=& \{j \in N: a_j < \frac bk\}
+  \end{align*}
+\item[(3)]Solve the SUBSET SUM instance:
+   \begin{align*}
+    &max \sum_{j \in L} a_j x_j \\
+    & s.t. \sum_{j \in L} a_j x_j \leq b \qquad x_j \in \{0,1\}
+  \end{align*}
+  to optimality (eg. by enumeration of all solutions).
+  Let $\overline x _j, j \in L$, be an optimal solution of (SSP) and let
+  \[
+    P:=\{j \in L. \overline x _j =1\}, \qquad b':=\sum_{j \in L} a_j \overline x_j
+  \]
+\item[(4)]In case for all $j \in S, b'+a_j > b$, no small element $j \in S$ can be added anymore. Set $x_j=0 \; \forall j \in S$. STOP \\
+\item[(5)]Otherwise, find $a_j \in S$ such that $b=(b'+a_j) \geq 0$ and this difference is minimized. Set
+  \begin{align*}
+    P&:= P  \cup \{j\} \qquad b':=b'+a_j \\
+    S&:= S\setminus \{j\} \qquad \overline x _j:=1 
+  \end{align*}
+  and go to 4.
+\end{enumerate}
+%\end{lstlisting}
+\end{xmp+}
+
+
+\begin{thm}
+The algorithm is a PAS for SUBSET SUM.
+
+The time to solve (SSP') is $O(n^k)$ by complete enumeration of all subsets of $L$ of at most $k$ elements.
+\end{thm}
+\begin{proof}
+In case $S \subset P$ at the end of the algorithm, i.e., $\overline x_j=1 \forall j \in S$, then $\overline x$ is optimal for (SSP): Assume there exists a better solution $x'$ for (SSP). By optimality of step (3) for (SSP') we have $\sum_{j \in L} a_j \overline x_j \geq a_j x^*_j$. Then
+\[
+  \sum_{j \in L} a_j x^*_j + \sum_{j \in S} a_j x^*_j \overset{x_j^* \leq 1}{\leq} \sum_{j \in L} a_j x^*_j+\sum_{j \in S} a_j \overset{S \subset P}{\leq} \sum_{j \in L} a_j \overline x_j + \sum_{j \in S} a_j \overline x_j
+\]
+Contradiciton.
+
+Now, assume that for at least one $j_0 \in S, \overline x_{j_0}=0$ and let $b^*$ be the optimal solution. We derive
+\[
+  \sum_{j \in N} a_j \overline x_j =b' > b-a_{j_0} >b - \frac bk = b(1-\frac 1k) \geq b^*(1-\frac1k)
+\]
+and hence $b' > (1- \varepsilon)b^*$. So, the solution is an $\varepsilon$-approximation.
+
+Runningtime:
+\begin{itemize}
+\item Step (2) requires $O(n)$ time.
+\item Step (4) and (5) also require $O(n)$ time.
+\item Step (3) requires $O(\begin{pmatrix} n \\ k \end{pmatrix} k)$ time (if we enumerate all subsets of $k$ elements, $k+1$ elements exceed the capacity for sure)
+\[
+  \begin{pmatrix} n \\ k \end{pmatrix} = \frac{n!}{k!(n-k)!}=\frac 1 {k!} n \cdot (n-1) (n-2) \dots (n-k+1) = O(\frac {n^k}k)
+\]
+\end{itemize}
+
+Overall: $O(n)+O(n)+O(\begin{pmatrix} n \\ k \end{pmatrix} k)=O(n^k)$ for fixed $k$, this polynomial in $n$ but not polynomial in $k$.
+
+\end{proof}
