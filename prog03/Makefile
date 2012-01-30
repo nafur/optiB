@@ -41,3 +41,5 @@ sudoku36:
 	zimpl sudokuBonus.zpl
 	./scip -f sudokuBonus.lp
 
+clean:
+	rm -f *.lp *.tbl
