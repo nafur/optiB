@@ -5,10 +5,10 @@
 
 \begin{defn}
 Let $G = (V, E)$ be an undirected graph. A \new{matching}{Paarung} is a
-subset $M \subset E$ such that $e \cap e' = \emptyset \forall e, e' \in M$
+subset $M \subset E$ such that $e \cap e' = \emptyset $ for all $ e, e' \in M$
 with $e \neq e'$.
 
-A matching $M$ is called \emph{perfect} if all vertices are incident to
+A matching $M$ is called a \new{perfect matching}{Perfektes Matching} if all vertices are incident to
 some edge in $M$.
 \end{defn}
 
@@ -33,16 +33,18 @@ $\nu(G) =$ \new{matching number}{Paarungszahl}, size of a maximum matching.
 
 \tocsubsection{Further related graph parameters}
 $\alpha(G) = $ \new{Stable set number / independent set number}{Stabile-Mange-Zahl}, size of a maximum stable set in
-$G$: a subset $S \subseteq V$ such that $\forall_{\{v, w\} \in E} \left|
-\{v, w\} \cap S \right| \leq 1$
+$G$: a subset $S \subseteq V$ such that \[
+  \left|\{v, w\} \cap S \right| \leq 1 \quad \text{for all}\quad\{v, w\} \in E
+\]
 
 $\rho(G) = $ \new{Edge cover number}{Kantenüberdeckungszahl}, minimum size of an
-edge cover of $G$: a subset $F \subseteq E$ such that $\forall v \in V:
-\exists e \in F: e = \{ v, w \}$.
+edge cover of $G$: a subset $F \subseteq E$ such that \[
+\forall v \in V:\exists e \in F: e = \{ v, w \}.
+\]
 
 $\tau(G) = $ Vertex \new{cover number}{Knotenüberdeckungszahl}, minium size of a
-vertex cover of $G$: a subset of $W \subseteq V$ such that $\forall e \in E:
-e \cap W \neq \emptyset$.
+vertex cover of $G$: a subset of $W \subseteq V$ such that \[
+e \cap W \neq \emptyset\quad\text{for all}\quad e \in E:\].
 
 \begin{lem}
 $\rho(G) = \infty$ if and only if $G$ contains isolated vertices.
