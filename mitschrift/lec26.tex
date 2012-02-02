@@ -1,3 +1,142 @@
 \begin{lec}[2011-01-30]\end{lec}
 \stepcounter{section}
 
+\tocsubsection{Dynamic Programming for Knapsack Revisited}
+
+\[
+	\max \sum_{j=1}^n c_j x_j \qquad \text{ s.t. } \sum_{j=1}^n a_j x_j \leq b,
+	x_j \in \{0,1\} \;\forall j \in \{1, \dots, n\}
+\]
+
+Dynamic Programming:
+\[
+	f(r, d) = \max\{ \sum_{j=1}^r c_j x_j \mid \sum_{j=1}^m a_j x_j = d, x_j
+	\in \{0,1\}, j \in \{1, \dots, r\} \}
+\]
+Recursive formula:
+\begin{align*}
+f(r,d) &= \max\{ f(r-1, d), f(r-1, d-a_r) + c_r \} \\
+f(r,0) &= 0 \\
+f(1,d) &= \begin{cases}0 &\text{if } d = 0\\ c_1 &\text{if } d = a_1 \\
+-\infty &\text{otherwise}\end{cases}
+\end{align*}
+
+\begin{thm}\label{thm:thm26.1}
+The computational complexity to compute $\max_{x=0,\dots,b} f(n,d)$ is
+$\landau(n \cdot b)$. The algorithm is polynomial in $n$ and $b$, but
+not polynomial in the input size.
+
+For the latter, the running time must be polynomial in $\langle b \rangle$.
+\end{thm}
+\begin{proof}
+Trivial.
+\end{proof}
+
+\begin{defn}\label{def:defn26.2}
+An algorithm is \new{pseudo-polynomial}{pseudopolynomiell} if it is
+polynomial in the input values (instead of the coding length).
+A \npoly-complete problem $\Pi$ is \new{weakly NP-complete}{schwach
+NP-vollständig} if there exists a pseudo-polynomial algorithm. Otherwise,
+the problem is \new{stronly NP-complete}{stark NP-vollständig}, i.e., even
+if the size of the numbers in the input of the problem is bounded
+polynomially, the problem remains \npoly-complete.
+\end{defn}
+
+\begin{cor}\label{cor:cor26.3}
+Knapsack is weakly \npoly-complete.
+\end{cor}
+
+Sort $\frac{c_1}{a_1} \geq \cdots \geq \frac{c_n}{a_n}$.
+\begin{lstlisting}[caption=Greedy algorithm]
+$b'$ := $b$
+FOR $j$ := $1, \dots, n$ DO
+	IF $b' \geq a_j$ THEN
+		$x_j$ := $1$
+		$b'$ := $b' - a_j$
+	ELSE
+		$x_j$ := $0$
+ENDFOR
+\end{lstlisting}
+
+It holds that $c_{\text{Greedy}}(P) > c_{\text{OPT}}(P) - \max_{i=1, \dots, n} c_i$.
+\begin{proof}
+The LP relaxation is an upper bound for $c_{\text{OPT}}$ and takes the same
+items until $b' \leq a_j$ for the first time. In this case, it takes a
+fraction of the item. So the value up to here plus the next item is an upper
+bound for sure. In the worst case, this item has maximum $c_j$ and no
+further items are added by the Greedy algorithm.
+\end{proof}
+
+\tocsubsection{FPTAS for Knapsack}
+
+\begin{lstlisting}[caption=FPTAS for Knapsack]
+INPUT: $a_j, c_j \in \Z_+$ with $\frac{c_1}{a_1} \geq \cdots \geq
+\frac{a_n}{c_n}, b \in \Z_+$, two parameters $s,t$
+OUTPUT: Approximate solution
+
+1) Estimate the optimal solution value:
+	Let $k$ be the largest index such that $\sum_{j=1}^k a_j \leq b$
+	$c_{est}$ := $\sum_{j=1}^k c_j$
+	It holds: $c_{OPT} \leq c_{est} \leq 2 \cdot c_{OPT}$
+	In case $k = n$, the optimal solution is $x_j = 1 \;\forall j = 1, \dots
+	n$, STOP
+
+2) Decompose the index set:
+	L := $\{ j \in \{1, \dots n\} \mid c_j \geq t\}$ (large)
+	S := $\{ j \in \{1, \dots n\} \mid c_j < t\}$ (small)
+
+3) Solve the special "Equality" Knapsack problems
+	SEKP$_d$: $\min \sum_{j \in L} a_j x_j$, s.t. $\sum_{j \in L} \lfloor \frac{c_j}{s} \rfloor x_j = d$ $x_j \in \{0,1\} \;\forall j \in L$
+   for $d = 0, \dots, \lfloor \frac{c_{est}}{s} \rfloor$
+   	Idea: we try to fill the knapsack with large items with weight as small as possible and value close to the optimal solution.)
+
+4) For $d = 0, \dots, \lfloor \frac{c_{est}}{s} \rfloor$ apply:
+	a) Let $x_j^d, j \in L$, be an optimal solution of SEKP$_d$
+	   If $\sum_{j \in L} a_j x_j^d \leq b$, then apply Greedy to the following KP (SKP$_d$):
+	      $\max \sum_{j \in S} c_j x_j$ s.t. $\sum_{j \in S} a_j x_j \leq b - \sum_{j \in L} a_j x_j^d = b_d$, $x_j \in \{0,1\}\;\forall j \in S$
+	b) Let $x_j^d, j \in S$ be the greedy solution of SKP$_d$, then $x_j^d, j \in \{1, \dots, n\}$ is a solution of KP.
+
+5) Choose the best of the $\lceil \frac{c_{est}}{s} \rceil + 1$ solutions found.
+\end{lstlisting}
+
+\begin{thm}\label{thm:thm26.4}
+Let $c_A$ be the solution value of the described algorithm. Then 
+\[
+c_A \geq c_{\text{OPT}} - \left ( \frac{s}{t} c_{\text{OPT}} + t \right ) = (1 - \frac{s}{t}) c_{\text{OPT}} - t
+\]
+\end{thm}
+\begin{proof}
+Let $x_1^*, \dots, x_n^*$ be an optimal solution of KP.
+Set $d := \sum_{j \in L} \lfloor \frac{c_j}{s} \rfloor x_j^*$.
+Then 
+\[
+	d \leq \lfloor \frac{1}{s} \sum_{j \in L} c_j x_j^* \rfloor = \lfloor \frac{1}{s} c_{\text{OPT}} \rfloor \leq \lfloor \frac{1}{s} c_{est} \rfloor
+\]
+Hence, the value $d$ has been considered in step $3)$.
+Let $\overline{x}_j := x_j^d, j \in L$, be the candidate solution.
+(From the optimal solution, it is clear that SEKP$_d$ is not infeasible, thus $\overline{x}$ exists).
+By definition of $d$, it further holds that $b_d \geq 0$ and thus the solution can be extended in step $4)$.
+It follows:
+\[
+	c_A \geq \sum_{j=1}^n c_j \overline{x}_j = c_{\text{OPT}} - \left (
+	\underbrace{\left ( \sum_{j \in L} c_j x_j^* - \sum_{j \in L} c_j \overline{x}_j \right )}_1 +
+	\underbrace{\left ( \sum_{j \in S} c_j x_j^* - \sum_{j \in S} c_j \overline{x}_j \right )}_2
+	\right )
+\]
+
+$1$ can be bounded by 
+\begin{align*}
+	\sum_{j \in L} c_j x_j^* - \sum_{j \in L} c_j \overline{x}_j &\leq 
+	\underbrace{s \cdot \sum_{j \in L} \left \lfloor \frac{c_j}{s} \right \rfloor x_j^*}_{''d} + \sum \left ( c_j - s \left \lfloor \frac{c_j}{s} \right \rfloor \right )x_j^* - \underbrace{s \cdot \sum \left \lfloor \frac{c_j}{s} \right \rfloor \overline{x}_j}_{''d} \\
+	&= \sum_{j \in L} \underbrace{\left (c_j - s \cdot \left \lfloor \frac{c_j}{s} \right \rfloor \right )}_{\leq s} x_j^* \\
+	&\leq s \cdot \sum_{j \in L} x_j^* +\stackrel{c_j \geq t}{\leq} \frac{s}{t} \sum_{j \in L} c_j x_j^* \\
+	&\leq \frac{s}{t} c_{\text{OPT}}
+\end{align*}
+
+$2$ can be indirectly bounded by
+\begin{align*}
+& c_{\text{Greedy}}^{\text{SKP}_d} = \sum_{j \in S} x_j \overline{x}_j > c_{\text{OPT}}^{\text{SKP}_d} - \max_{j \in S} x_j \geq c_{\text{OPT}}^{\text{SKP}_d} - t \\
+\Rightarrow & t > c_{\text{OPT}}^{\text{SKP}_d} - c_{\text{Greedy}}^{\text{SKP}_d} \geq \sum_{j \in S} c_j x_j^* - \sum_{j \in S} c_j \overline{x}_j
+\end{align*}
+In summary, $c_A \geq c_{\text{OPT}} - \left (\frac{s}{t} c_{\text{OPT}} + t \right )$
+\end{proof}
