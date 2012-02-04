@@ -5,7 +5,8 @@ Dies ist das Repository für Optimierung B im WS 2011/12.
 Neben der Mitschrift sind hier auch unsere Lösungen drin.
 
 Die Aufgabenblätter und (Teile der) Lösungen sind in den Ordnern *exXX/* und die Mitschrift in *mitschrift/*.
-Die Programmieraufgaben sind alle im Ordner *prog/*, wobei jedes Blatt eine eigene Datei *main_XX.cpp*.
+Die ersten beiden Programmieraufgaben sind im Ordner *prog/*, wobei jedes Blatt eine eigene Datei *main_XX.cpp* hat.
+Die dritte Programmieraufgabe ist im Ordner *prog03/*.
 
 Alles in diesem Repository steht unter der (untenstehenden) MIT-Lizenz.
 
