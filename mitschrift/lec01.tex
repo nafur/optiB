@@ -1,0 +1,156 @@
+\begin{lec}[2011-10-10]\end{lec}
+\tocsection{Basic Graph definitions}
+\stepcounter{section}
+
+\begin{defn}
+  An \new{undirected graph}{ungerichteter Graph} (or short \emph{graph}) is a pair $G=(V,E)$ consisting of a set of vertices $V$ and a set of edges $E$, where each edge $e \in E$ is a two-element \emph{unordered} subset of $V$.
+  
+  Instead of $e \in E$ we also write $\plainset{i,j} \in E$ or $ij \in E$ with $i,j \in V$.
+\end{defn}
+
+\begin{defn}
+  A \new{directed graph}{gerichteter Graph} or short \emph{digraph} is a pair $D=(V,A)$ consisting of a set of vertices $V$ and a set of \new{arcs}{Pfeil} $A$, where each arc $a \in A$ is a two-element \emph{ordered} subset of $V$.
+  
+  Insted of $a \in A$, we also write $(i,j) \in A$ or $ij \in A$ with $i,j \in V$.
+\end{defn}
+
+\begin{defn}
+  An \new{adjacency matrix}{Adjazenzmatrix} or \new{node-node incidence matrix}{Knoten-Knoten Inzidenzmatrix} of a graph $G=(V,E)$ with $|V| = n$ nodes is a $n \times n$ matrix $A$ containing only zeros and ones with \[
+  A_{ij}=\begin{cases} 1 & \text{if } \plainset{i,j} \in E \\
+                0 & \text{otherwise} \end{cases}
+  \]
+\end{defn}
+
+\begin{defn}
+  An \new{edge}{Kante} $e = {u,v}$ is an unordered pair of vertices. The vertices $u$ and $v$ are called \new{end nodes}{Endknoten} of $e$.
+\end{defn}
+
+\begin{defn}
+  Two vertices $v$ and $w$ are \new{neighbours}{benachbart (Nachbarknoten)} in $G=(V,E)$ if an edge $e\in E$ exists with end nodes $v$ and $w$.
+\end{defn}
+
+\begin{defn}
+  Two edges $e, f \in E$ with $e \neq f$ are \new{incident}{inzident} in $G = (V,E)$ if there exists a vertex $v \in V$ which is an end node of $e$ as well as $f$.
+\end{defn}
+
+\begin{defn}
+  An edge $e \in E$ is called a \new{loop}{Schlinge} if both of its end nodes are identical.
+\end{defn}
+
+\begin{defn}
+  If both of the end notes of two edges $e, f \in E$ with $e \neq f$ are equal, $e$ and $f$ are \new{parallel}{parallel}. In this case the graph is called a \new{multigraph}{Multigraph}.
+\end{defn}
+
+\begin{defn}
+  A graph is called \new{simple}{einfach} if it has no loops ore parallel edges. If not stated differently, we will consider simple graphs.
+\end{defn}
+
+\begin{defn}
+  The \new{set of adjacent edges}{Menge der anliegenden Kanten} of a vertex $v \in V$ in a graph $G=(V,E)$ is denoted as $\delta_G(v)$ or $\delta(v)$. Where \[
+    \delta(v) = \condset{\plainset{v,w} \in E}{u=v \text{ or } w=v}.
+  \]
+\end{defn}
+
+\begin{defn}
+  The \new{degree}{grad} of a vertex $v$ (denoted $\deg(v)$) is the number of edges incident to $v$. Loops are counted twice.
+  
+  A node $v$ with $\deg(v)=0$ is called \new{isolated}{isoliert}.
+\end{defn}
+
+\begin{defn}
+  A graph $G = (V,E)$ is called \new{$k$-regular}{$k$-regulär} if $\deg(v) = k$ for all vertices $v \in V$.
+\end{defn}
+
+\begin{defn}
+  For graphs $G=(V,E)$ and $H=(W,F)$, $H$ is called a \new{subgraph}{Untergraph / Teilgraph} of $G$ if $W \subseteq V$ and $F \subseteq G$
+\end{defn}
+
+\begin{defn}
+  The \new{induced Graph}{induzierte Graph} $G[W] = (W, E(W))$ of $G=(V,E)$ has the node set $W \subseteq V$ and all edges induced by $W$:
+  \[
+    E(W):=\condset{\plainset{v,w}\in E}{v\in W \text{ and } w \in W}
+  \]
+\end{defn}
+
+\begin{defn}
+  A \new{complete graph}{vollstäniger Graph} is a simple graph $G = (V,E)$ which satisfies \[
+    v\in V, w\in v, v\neq w \Rightarrow \plainset{v,w} \in E.
+  \]
+  
+  The complete graph on $n$ vertices is denoted as $W_n$.
+\end{defn}
+
+\begin{defn}
+  A Cllique $Q$ is a subset of $V$ for which $G[Q]$ is complete.
+\end{defn}
+
+\begin{defn}
+  A \new{walk}{Kette / Kantenzug} in a graph is a finite sequence \[
+    W = (v_0,e_1,v_1,e_2,v_2, \ldots, c_k, v_k) \qquad k \geq 0,
+  \]
+  that starts and ends with a node, with nodes and edges alterating each other so that every edge $e_i$ has end nodes $v_{i-1}$ and $v_i$.
+\end{defn}
+
+\begin{defn}
+  A \new{way}{Weg} is a chain in which all vertices are distinct. 
+\end{defn}
+
+\begin{defn}
+  A \new{path}{Pfad} is a way in which all edges are distinct.
+\end{defn}
+
+\begin{defn}
+  A way is \new{closed}{geschlossen} if $v_0 = v_k$ and $k \geq 1$.
+\end{defn}
+
+\begin{defn}
+  A \new{circle}{Kreis} is a closed way so that all inner nodes are distinct.
+\end{defn}
+
+\begin{defn}
+  A \new{weighted graph}{gewichteter Graph} is a graph $G$ with real numbers assigned to each edge (arc).
+  \[
+    \text{weight matrix } (c_{ij}): \quad c_{ij}:=
+    \begin{cases}
+      \text{weight of arc } [i,j]& \text{if } [i,j] \in E \\
+      \infty & \text{otherwise}
+    \end{cases}
+  \]
+\end{defn}
+
+\begin{defn}
+  A walk in a graph containing all edges exactly once is called an \new{Eulerian path}{Eulerweg}.
+\end{defn}
+
+\begin{defn}
+  A closed Eulerian path (i.e. start and end node is identical) is called an \new{Eulerian circuit}{Eulerkreis}.
+\end{defn}
+
+\begin{thm}
+  A graph hat has an Eulerian circuit must have all vertices of even degree.
+\end{thm}
+
+\begin{proof}
+  To have a closed walk, all vertices have to be entered and left equal number of times.
+  
+  If all edges have to be different, an even number of edges incident to a vertex must be visited. 
+  
+  If all edges must be visited, the degree of every vertex must be even.
+\end{proof}
+
+\begin{thm}
+  A connected graph in which every vertex has even degree has an Eulerian circuit.
+\end{thm}
+
+\begin{proof}
+  Recursive Algorithm Euler[$v_1$]:
+  \begin{lstlisting}
+if $v_1$ has no incident edges, then
+  return $(v_1)$
+else
+  starting from $v_1$ create a circuit never visiting the same edges twice, until $v_1$ is reached again.
+  Let $[v_1, v_2, \ldots, v_n, v_1]$ be this cicuit
+  Delete ${v_1, v_2}, \ldots, {v_n, v_1}$ from the graph
+  return $(Euler(v_1), \ldots, Euler(v_n), v_1)$
+  \end{lstlisting}
+\end{proof}
