@@ -27,7 +27,7 @@ Garantien…
 MIT-Lizenz
 ----------
 
-Copyright (c) 2011 Niklas Fischer, Gereon Kremer
+Copyright (c) 2011,2012 Niklas Fischer, Gereon Kremer
 
 Hiermit wird unentgeltlich, jeder Person, die eine Kopie der Software und der zugehörigen Dokumentationen (die "Software") erhält, die Erlaubnis erteilt, uneingeschränkt zu benutzen, inklusive und ohne Ausnahme, dem Recht, sie zu verwenden, kopieren, ändern, fusionieren, verlegen, verbreiten, unterlizenzieren und/oder zu verkaufen, und Personen, die diese Software erhalten, diese Rechte zu geben, unter den folgenden Bedingungen:
 
