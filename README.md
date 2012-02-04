@@ -9,6 +9,15 @@ Die Programmieraufgaben sind alle im Ordner *prog/*, wobei jedes Blatt eine eige
 
 Alles in diesem Repository steht unter der (untenstehenden) MIT-Lizenz.
 
+Mitarbeit
+---------
+Natürlich freuen wir uns über jeden, der irgendwie Tippfehler oder auch mal größere Malheure beheben möchte (Sies sind selbstredend ebenso willkommen).
+Falls du noch nicht so ganz weißt, was git ist, und was ein commit ist, schlage ich vor, dass du [1] liest. Dort lernst du, was ein commit ist, und wie man diesen Anlegt. Um jetzt Fehler zu korregieren, musst du erstmal unser Projekt branchen, was in [2] erklärt wird. In [3] wird dir gezeigt, wie man einen Pull-Request erstellt, damit wir deine Änderungen in unser Projekt mit einfließen lassen können. Jetzt weißt du quasi alles, was du wissen musst :) vielen, vielen Dank für deine Mitarbeit!
+
+[1] http://gitref.org/basic/
+[2] http://help.github.com/fork-a-repo/
+[3] http://help.github.com/send-pull-requests/
+
 
 MIT-Lizenz
 ----------
