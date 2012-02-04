@@ -3,7 +3,7 @@
 \stepcounter{section}
 
 \begin{cor}[Frobenius theorem]
-	A bipartite graph $G=(V,E)$ has a perfect, if all the vertex covers contain at least $\frac{1}{2} |V|$ nodes.
+	A bipartite graph $G=(V,E)$ has a perfect matching, if and only if all the vertex covers contain at least $\frac{1}{2} |V|$ nodes.
 \end{cor}
 
 \begin{proof}
@@ -53,8 +53,8 @@ For any subset $M$ of $E$ define the weight $\omega(M)$ of $M$ by \[
 	\[
 		l(e) =
 		\begin{cases}
-			w(l), & \text{if } l\in M \\
-			-w(l), & \text{if } l \not \in M
+			w(e), & \text{if } e\in M \\
+			-w(e), & \text{if } e \not \in M
 		\end{cases}
 	\]	
 \end{defn+}
