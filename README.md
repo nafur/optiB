@@ -20,6 +20,10 @@ Falls du noch nicht so ganz weißt, was git ist, und was ein commit ist, schlage
 [3] http://help.github.com/send-pull-requests/
 
 
+Garantien…
+----------
+… für die Richtigkeit von allem, was so in der Mitschrift und den Hausaufgaben steht gibt es natürlich keine. Aber wir geben uns die größte Mühe. Wenn du einen Fehler findest, dann behalte ihn doch bitte nicht für dich, sondern hilf uns diesene zu beheben. Wie das geht findest du unter Mitarbeit (siehe oben).
+
 MIT-Lizenz
 ----------
 
