@@ -13,14 +13,14 @@
 
 %10.2
 \begin{thm}[Tutte-Berge-Formula]
-	For a graph $G=(V,E)$ it holds that $D(G)=\min_{U \subset V} \plainset{\frac{1}{2}(|V|+|U|-o(G-U))}$
+	For a graph $G=(V,E)$ it holds that $\nu(G)=\min_{U \subset V} \plainset{\frac{1}{2}(|V|+|U|-o(G-U))}$
 \end{thm}
 	
 \begin{proof}
 	We first prove $\leq$. For $U \subseteq V$ it holds that 
 	\begin{align*}
-		\nu(F) &\leq |U| + \nu(G-U) \leq |U| + \frac{1}{2} (| V \setminus U| - o(G-U)) \\
-		       &= \frac{1}{2}(|U \setminus V| + 2 |U| - o(G-U)) \\
+		\nu(G) &\leq |U| + \nu(G-U) \leq |U| + \frac{1}{2} (| V \setminus U| - o(G-U)) \\
+		       &= \frac{1}{2}(|V \setminus U| + 2 |U| - o(G-U)) \\
 					 &= \frac{1}{2}(|V| + |U| - o(G-U))
 	\end{align*}
 	Now, we prove $\geq$. We apply inductions on $|V|$. For $|V| = 0$, the statement is trivial.
