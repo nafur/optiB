@@ -4,11 +4,11 @@
 \tocsubsection{Matchings in bipartite graphs}
 
 % theorem 8.1
-\begin{thm}(Berge) Let $G=(V,E)$ be a grpah an $M$ a matching in $G$. Then either $M$ is a maximum matching or there exists an $M$-augmentige path.
+\begin{thm}(Berge) Let $G=(V,E)$ be a graph, $M$ a matching in $G$. Then either $M$ is a maximum matching or there exists an $M$-augmenting path.
 \end{thm}
 \begin{proof}
 If $M$ is a maximum matching, no $M$-augmenting path can exist, since $M'$ would be a larger matching. \\
-Let $\bar{M}$ a matching with $|\bar M | > | M |$. Consider the components (Komponente) of $G'=(V,M \cup \bar M)$. Since the the degree of vertices in $(V,M)$ and $(V,\bar M)$ is at most one, the degree in $G'$ is at most two. Thus, each component of $G'$ is either a path (possibly of length zero) or a cycle. Since $|\bar M| > |M|$, at least one component of $G'$ has to have more edges from $\bar M$ than from $M$. Such a component cannot be a cycle and thus is a path, better an $M$-augmenting path since the end nodes are not matched in $M$.
+Let $\bar{M}$ a matching with $|\bar M | > | M |$. Consider the \new{components}{Komponente} of $G'=(V,M \cup \bar M)$. Since the the degree of vertices in $(V,M)$ and $(V,\bar M)$ is at most one, the degree in $G'$ is at most two. Thus, each component of $G'$ is either a path (possibly of length zero) or a cycle. Since $|\bar M| > |M|$, at least one component of $G'$ has to have more edges from $\bar M$ than from $M$. Such a component cannot be a cycle and thus is a path, better an $M$-augmenting path since the end nodes are not matched in $M$.
 \end{proof}
 
 \begin{defn} 
@@ -27,7 +27,7 @@ For every bipartite graph $G=(V,E): \nu(G)=\tau(G)$
 We therefore only show $\nu(G) \geq \tau(G)$.
 We may assume that $G$ has at least one edge (otherwise $\nu(G)=\tau(G)=0).$ We will show that $G$ has a vertex $v$ that is matched in every maximum matching. Let $\{v,w\}=e$ be an arbitrary edge in $G$ and assume that $M$ and $N$ are two maximal matchings with $u$ not matched in $M$ and $v$ not matched in $N$. Define $P$ as the component of $(V,M \cup N)$ containing $u$.
 Since $u$ is only matched in $N$, $deg_P(u)=1$ and thus $u$ is an end node of the path $P$. Since $M$ is maximum, $P$ is \emph{not} an $M$-augmenting path. Hece, the length of $P$ is even. Consequently, $P$ does not contain $v$ (otherwise $P$ ends at $v$ which contradict the bipartiteness of $G:P\cup \{u,v\}$ would be an odd cycle).
-The path $P \cup \{v,v\}$ is thus odd, starts with vertex $v$ not matched in $N$ and ends with another vertex not matched in $N$. Hence $P \cup e$ is $N$-augmenting path; contracdiction since $N$ is a maximum matching.\\
+The path $P \cup \{u,w\}$ is thus odd, starts with vertex $v$ not matched in $N$ and ends with another vertex not matched in $N$. Hence $P \cup e$ is $N$-augmenting path; contracdiction since $N$ is a maximum matching.\\
 So, either $u$ or $v$ must be contained in all maximum matchings, let's say $v$. Now, consider $G':=G-v$. It holds that $\nu(G)=\nu(G)-1$. By induction on $n=|V|$ we may assume that $G'$ has a vertex cover $W$ with $|W|=\nu(G')$. Then $W \cup \{v\}$ is a vertex cover of $G$ of size $\nu(G')+1=\nu(G)$. It follows $\tau(G)\leq \nu(G)$.
 \end{proof}
 
@@ -44,7 +44,7 @@ Foolows from Thm 7.7(Gallai's Thm) and 8.3 %TODO
 
 \emph{Output}: matching $M'$ with $|M'| > |M|$ (if it exists)
 
-\emph{Description}: Let $U,W$ be the color classes of $G$. Orientate every edge $e=\{v,w\} (u \in U, w \in W)$ as follows: \\
+\emph{Description}: Let $U,W$ be the color classes of $G$. Orientate every edge $e=\{u,w\} (u \in U, w \in W)$ as follows: \\
 if $e \in M$, then orientate from $w$ to $u$ \\
 if $e \notin M$, then orientate from $u$ to $w$ \\
 Let $D$ be the digraph constructed this way. Consider \[ U':=U \setminus \bigcup\limits_{e \in M}e \quad \text{and} \quad W':=W \setminus \bigcup\limits_{e \in M}e \]An $M$-augmenting path exists if and only if a directed path in $D$ exists starting at a vertex $U'$ and ending at a vertex $W'$. Augment $M$ with this path return $M'$.
