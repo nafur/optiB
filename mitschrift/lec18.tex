@@ -35,7 +35,7 @@ For the decision problem "does $G$ have a Hamilton cycle?" it is until today unc
 
 To distinguish between these problems (without knowing wethere they belong to $\poly$) we define a second class of problems: $\npoly$ - \new{nondeterministic polynomial}{nichtdeterministisch polynomiell}
 
-Informally speaking, adecision problem $\Pi$ belongs to $\npoly$ if a \new{certificate(solution)}{Zertifikat(Lösung)} of a "yes" answer for the problem instance $I \in \Pi$ can be verified in polynomial-time. here a certificate means a proof of answering yes.
+Informally speaking, adecision problem $\Pi$ belongs to $\npoly$ if a \new{certificate(solution)}{Zertifikat(Lösung)} of a "yes" answer for the problem instance $I \in \Pi$ can be verified in polynomial-time. Here a certificate means a proof of answering yes.
 
 \begin{xmp+}
 The problem "Hamilton cycle in G" belons to $\npoly$ because its certificate is a sequence of $n$ vertices such that $v_i v_{i+1} \in E (i=1, \dots, n-1)$ and $v_n v_1 \in E$. Verification implies checking the existence of all edges, which can be done in polytime.
