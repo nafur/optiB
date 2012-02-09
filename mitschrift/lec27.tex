@@ -14,15 +14,15 @@ Let $E$ be a finite set. $2^E$ denotes the set of all subsets of $E$.
 \end{qstn}
 
 \begin{defn} % 27.1
-A set $\I \subseteq 2^E$ is an \new{independence
-system}{Unabhängigkeitssystem} (IS) on $E$, if $\I$ satisfies the following
+A set $\mathcal{I}\subseteq 2^E$ is an \new{independence
+system}{Unabhängigkeitssystem} (IS) on $E$, if $\mathcal{I}$ satisfies the following
 conditions:
 \begin{itemize}
-\item[(I.1)] $\emptyset \in \I$
-\item[(I.2)] $F \subseteq G \in \I \Rightarrow F \in \I$
+\item[(I.1)] $\emptyset \in \mathcal{I}$
+\item[(I.2)] $F \subseteq G \in \mathcal{I}\Rightarrow F \in \mathcal{I}$
 \end{itemize}
-Often, we call the pair $(E, \I)$ an IS. The subsets of $E$ contained in
-$\I$ are \new{independent sets}{unabhängige Mengen}; all other subsets of
+Often, we call the pair $(E, \mathcal{I})$ an IS. The subsets of $E$ contained in
+$\mathcal{I}$ are \new{independent sets}{unabhängige Mengen}; all other subsets of
 $E$ are \new{dependent sets}{abhängige Mengen}. The inclusion-wise minimal
 dependent sets of $E$ are the \new{circuits}{} (or \new{cycles}{}), i.e. $C
 \subseteq E$ is a circuit if $C$ is dependent and $C \setminus \{i\}$ is
@@ -33,11 +33,11 @@ $\mathcal{C}$. Given $F \subseteq E$, every independent subset of $F$ which
 is not contained in another independent subset of $F$ is called a
 \new{basis}{Basis} of $F$, i.e.
 \[
-	B \text{ basis of } F \Leftrightarrow (B, B' \in \I, B \subseteq B'
+	B \text{ basis of } F \Leftrightarrow (B, B' \in \mathcal{I}, B \subseteq B'
 	\subseteq F \Rightarrow B = B')
 \]
 The set of all bases of the ground set $E$ is called the \new{basis
-system}{Basissystem} (regarding $\I$) and is denoted by $\mathcal{B}$.
+system}{Basissystem} (regarding $\mathcal{I}$) and is denoted by $\mathcal{B}$.
 
 For every set $F \subseteq E$ is the \new{rank}{Rang} of $F$ defined by
 \[
@@ -46,7 +46,7 @@ For every set $F \subseteq E$ is the \new{rank}{Rang} of $F$ defined by
 \end{defn}
 
 \begin{xmp+}
-Let $\I$ be the set of all forests of $E$.
+Let $\mathcal{I}$ be the set of all forests of $E$.
 \begin{itemize}
 \item Circuits: cycles in $G = (V, E)$
 \item basis of $F = E$: spanning tree (if $G$ is connected)
@@ -87,7 +87,7 @@ No proof.
 \begin{defn}\label{def:defn27.3}
 Let $c : E \rightarrow \R$ be a weight function on $E$. For $F \subseteq E$
 let $c(F) := \sum_{e \in F} c(e)$. The optimization problem on the IS $\I
-\subseteq 2^E$ is $\max \{ c(I) \mid I \in \I \}$.
+\subseteq 2^E$ is $\max \{ c(I) \mid I \in \mathcal{I}\}$.
 \end{defn}
 
 \begin{xmp+}
@@ -101,10 +101,10 @@ optimization problem. Note those two problems are \npoly-complete.
 A \new{matroid}{} $\mathcal{M}$ consists of a ground set $F$ and an IS $\I
 \subseteq 2^E$ witch satisfies the following equivalent conditions:
 \begin{itemize}
-\item[(I.3)] $I,J \in \I, |I| = |J|-1 \Rightarrow \exists j \in J\setminus
-I$ with $I \cup \{j\} \in \I$
-\item[(I.3')] $I,J \in \I, |I| < |J| \Rightarrow \exists K \subseteq J
-\setminus I$ with $|I \cup K| = |J|$ such that $I \cup K \in \I$
+\item[(I.3)] $I,J \in \mathcal{I}, |I| = |J|-1 \Rightarrow \exists j \in J\setminus
+I$ with $I \cup \{j\} \in \mathcal{I}$
+\item[(I.3')] $I,J \in \mathcal{I}, |I| < |J| \Rightarrow \exists K \subseteq J
+\setminus I$ with $|I \cup K| = |J|$ such that $I \cup K \in \mathcal{I}$
 \item[(I.3'')] $F \subseteq E$ and $B, B'$ bases of $F \Rightarrow |B| =
 |B'|$
 \end{itemize}
@@ -135,8 +135,8 @@ Further, let
 be the \new{rank quotient}{Rangquotient}.
 
 \begin{thm}\label{thm:thm27.5}
-Let $\I$ be an IS on $E$. Let $I_g$ be the greedy solution and let $I_{OPT}$
-an optimal solution of $\max \{ c(I) \mid I \in \I \}$. Then $q \leq
+Let $\mathcal{I}$ be an IS on $E$. Let $I_g$ be the greedy solution and let $I_{OPT}$
+an optimal solution of $\max \{ c(I) \mid I \in \mathcal{I}\}$. Then $q \leq
 \frac{c(I_g)}{c(I_{OPT})} \leq 1$ and for every IS there exists weights
 $c(e) \in \{0, 1\} \;\forall e \in E$ such that the left inequality is
 satisfied with equality.
@@ -144,7 +144,7 @@ satisfied with equality.
 No proof.
 
 \begin{cor}\label{cor:cor27.6}
-An IS $\I$ on $E$ is a matroid if and only if for all weight functions $C: E
+An IS $\mathcal{I}$ on $E$ is a matroid if and only if for all weight functions $C: E
 \rightarrow \R$ or $\{0,1\}$ the greedy algorithm provides an optimal
 solution.
 \end{cor}
