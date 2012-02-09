@@ -140,3 +140,30 @@ $2$ can be indirectly bounded by
 \end{align*}
 In summary, $c_A \geq c_{\text{OPT}} - \left (\frac{s}{t} c_{\text{OPT}} + t \right )$
 \end{proof}
+
+\begin{thm} % 26.5
+Let $\varepsilon > 0$, set $s := \left ( \frac{\varepsilon}{3} \right )^2
+c_{est}$ and $t := \frac{\varepsilon}{3} c_{est}$. Then
+\begin{enumerate}[(a)]
+\item $c_a \geq (a - \varepsilon) c_{OPT}$
+\item The running time of $A$ is $\landau(n \log n) + \landau(n \left (
+\frac{1}{\varepsilon} \right )^2 )$, i.e. $A$ is a FPTAS.
+\end{enumerate}
+\end{thm}
+\begin{proof}
+\begin{enumerate}[(a)]
+\item $\frac{\varepsilon}{3} c_{est} \leq \frac{2 \varepsilon}{3} c_{OPT}$.
+Thus
+\[
+	c_A \geq c_{OPT} - \left ( \frac{\varepsilon}{3} c_{OPT \Delta} +
+	\frac{2 \varepsilon}{3} c_{OPT} \right ) = (1 - \varepsilon) c_{OPT}
+\]
+\item To apply the greedy algorithm, the items have to be sorted, requiring
+$\landau(n \log n)$ time. To compute $s$ and $t$, $\landau(\log \varepsilon
++ n)$ operations are needed. The solution of SEKP$_d$ required $\landau( n
+\left \lfloor \frac{c_{est}}{s} \right \rfloor ) = \landau(
+\frac{1}{\varepsilon})$. In step 4, the greedy algorithm is applied
+$\landau(\frac{1}{\varepsilon^2})$ times, each time requiring $\landau(n)$
+operations, hence also $\landau( \frac{n}{\varepsilon^2} )$.
+\end{enumerate}
+\end{proof}

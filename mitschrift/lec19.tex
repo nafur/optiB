@@ -64,26 +64,26 @@ The following rules hold: \begin{align*}
 \begin{defn}
 Let $K \in \Z_+$. Let $B_1$ be the set of boolean expressions involving one variable: $x_1, \neg x_1, x_2, \neg x_2, ...,x_n, \neg x_n$ the \new{literals}{Literale}.
 
-Let $B_2$ be the set of boolean expressionsof the form $(w_1 \vee w_2 \vee ... \vee v_k)$ with $w_i \in B_1$ and $1 \leq k \leq K$, the \new{clauses}{Klauseln}
+Let $B_2$ be the set of boolean expressions of the form $(w_1 \vee w_2 \vee ... \vee v_k)$ with $w_i \in B_1$ and $1 \leq k \leq K$, the \new{clauses}{Klauseln}
 
 Let $B_3$ be the set of boolean expressions of the form $(w_1 \wedge w_2 \wedge ... \wedge v_k)$ with $w_i \in B_2$ and $1 \leq k \leq K$. A boolean expression $f(x_1, x_2, ..., x_n)\in B_3$ is \new{satisfiable}{erfüllbar} if an assignment $x_i:=\alpha_i\in\plainset{0,1}$ exists such that $f(\alpha_1, \alpha_2, ..., \alpha_n) = 1$.
 
 The \new{K-SAT Problem}{K-SAT Problem} is defined as: Given $f \in B_3$, is $f$ satisfiable? (Every clause of $f$ has at most $K$ literals)
 \end{defn}
 
-%19.4
+%19.5
 \begin{cor}
 The 3-SAT Problem is $\npoly$-complete.
 \end{cor}
 \begin{proof}
 	Since SAT $\in \npoly$, also 3-SAT$\in \npoly$. We give a polynomial time transformation from SAT to 3-SAT.
 	
-Define a variable $Y_g$ for every subexpression $g$ of $f$ ($f$ instance of SAT), i.e. every part of $f$ that is a boolean boolean expression again.
+Define a variable $Y_g$ for every subexpression $g$ of $f$ ($f$ instance of SAT), i.e. every part of $f$ that is a boolean expression again.
 Now $f$ is satisfiable if and only if the following system is satisfiable: 
 \begin{align*}
 	Y_g = Y_{g'} \vee Y_{g''} & \text{ if } g = g' \vee g'' \\
-	Y_g = Y_{g'} \vee Y_{g''}& \text{ if } g = g' \vee g'' \\
-	Y_g = \neg Y_{g'}& \text{ if } g = \neg g'
+	Y_g = Y_{g'} \wedge Y_{g''}& \text{ if } g = g' \wedge g'' \\
+	Y_g = \neg Y_{g'}& \text{ if } g = \neg g' \\
 	Y_f = 1 &
 \end{align*}
 The equality $Y_g = Y_{g'} \vee Y_{g''}$ can also be written as 
@@ -94,7 +94,7 @@ The equality $Y_g = Y_{g'} \vee Y_{g''}$ can also be written as
 The expression $Y_G = \neg Y_{g'}$ equals \[
 	(Y_g \vee Y_{g'}) \wedge (\neg Y_g \vee \neg Y_{g'}) = 1
 \]
-All expressions above has at most $K=3$ literals and thus belong to $B_2$. They all have to be satisfied simultaneously. Thus, $f$ is satisfied if and only if this 3-SAT instance is satisfied.
+All expressions above have at most $K=3$ literals and thus belong to $B_2$. They all have to be satisfied simultaneously. Thus, $f$ is satisfied if and only if this 3-SAT instance is satisfied.
 
 The transformation is polynomial since only $O(n^2)$ subexpressions exist, where $n$ is the number of literals in $f$.
 \end{proof}
