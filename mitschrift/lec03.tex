@@ -76,9 +76,12 @@ Let $D(i)$ be the distance from $i$ to $n$ and $NEXT(i)$ be the next vertex on t
 
 \tocsubsection{Bellman's Algorithm}
 \begin{lstlisting}
-$	D(i) = \{ \infty: i<n and NEXT(i) = NIL, 0: i = n \}$
+$D(i) = \begin{cases}
+	\infty & i<n \text{ and } NEXT(i) = NIL \\
+	0 & i = n 
+\end{cases}$
 FOR $i = n-1$ DOWNTO $1$ DO
-	$D(i) = \min_{j=j+1, ..., n} \{ D(j) + c(i, j) \}$ with $c(i, j) = \infty$ if $(i, j) \not\in A$
+	$D(i) = \min_{j=i+1, ..., n} \{ D(j) + c(i, j) \}$ ($c(i, j) = \infty$ if $(i, j) \not\in A$)
 	$NEXT(i) = \argmin_{j=i+1, ..., n} \{ D(j) + c(i, j) \}$
 \end{lstlisting}
 
