@@ -37,7 +37,7 @@ The \new{indegree}{Eingangsgrad} of $v$ is $\deg^-_D(v) = | \delta^-(v)|$
 \stepcounter{section}
 
 \begin{defn}
-	The \new{shortest path}{} problem in a acyclic digraph is, given an acyclic digraph $D=(V,A)$, a length function $C: A\rightarrow \R$ and two vertices $s,t\in V$, find a $[s,t]$-path of minimal length.
+	The \new{shortest path}{kürzester Pfad} problem in a acyclic digraph is, given an acyclic digraph $D=(V,A)$, a length function $C: A\rightarrow \R$ and two vertices $s,t\in V$, find a $[s,t]$-path of minimal length.
 \end{defn}
 
 \begin{qstn}
@@ -76,7 +76,7 @@ Let $D(i)$ be the distance from $i$ to $n$ and $NEXT(i)$ be the next vertex on t
 
 \tocsubsection{Bellman's Algorithm}
 \begin{lstlisting}
-$	D(i) = \{ \infty: i<n and NEXT(i) = NIL, 0: i = n \}$
+$	D(i) = \{ \infty: i<n$ and $NEXT(i) = NIL, 0: i = n \}$
 FOR $i = n-1$ DOWNTO $1$ DO
 	$D(i) = \min_{j=j+1, ..., n} \{ D(j) + c(i, j) \}$ with $c(i, j) = \infty$ if $(i, j) \not\in A$
 	$NEXT(i) = \argmin_{j=i+1, ..., n} \{ D(j) + c(i, j) \}$
