@@ -35,12 +35,12 @@ The Moore-Bellman-Algorithm returns the shortest paths from $1$ to $i = 1,
 ..., n$ provided $D$ does not contain negative-weighted directed cycles.
 \end{thm}
 \begin{proof}
-We call an arc $(i, j) \in A$ an \emph{upgoing} arc (Aufwärtsbogen) if $i < j$ and a
-\emph{downgoing} arc (Abwärtsbogen) if $i > j$.
+We call an arc $(i, j) \in A$ an \new{upgoing arc}{Aufwärtsbogen} if $i < j$ and a
+\new{downgoing arc}{Abwärtsbogen} if $i > j$.
 
 A shortest path from $1$ to $i$ contains at most $n-1$ arcs. If an upgoing
-arc is followed by a downgoing arc (or vice versa), we have a \emph{change
-of direction} (Richtungswechsel). With at most $n-1$ arcs, at most $n-2$
+arc is followed by a downgoing arc (or vice versa), we have a \new{change
+of direction} {Richtungswechsel}. With at most $n-1$ arcs, at most $n-2$
 changes of direction are possible.
 
 Let $D(i, m)$ be the value of $D(i)$ at the end of the $m$-th iteration.
@@ -105,7 +105,7 @@ Dijkstra returns the shortest paths from $1$ to $i, i= 1 ... n$, provided all we
 \end{thm}
 
 \begin{proof}
-Each step, one vetex is moved from $T$ to $S$. At the end of a step, $D(j)$ is the shortest path from $1$ to $j$ via vertices in $S$. 
+Each step, one vertex is moved from $T$ to $S$. At the end of a step, $D(j)$ is the shortest path from $1$ to $j$ via vertices in $S$. 
 
 If $S=V (T= \emptyset), D(i)$ is thus the shortiest $[1,i]$-path
 \end{proof}
